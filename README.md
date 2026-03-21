@@ -1,12 +1,10 @@
-# Mathematical Nexus (Python Notebooks)
+# Mathematical Nexus
 
-This repository progressively ports legacy MATLAB demos from [`matlab/`](matlab/) into polished, standalone Python notebooks under [`python/`](python/).
-
-Each notebook is designed to be educational: clear narrative, equations, visualizations, and interactive controls when useful.
+This repository is a visual and computational atlas of mathematical ideas, where each notebook combines intuition, rigorous formulas, numerical experiments, and interactive exploration to make concepts concrete and reproducible.
 
 ## Notebook Gallery
 
-| Topic | Visual snippet | Links |
+|  |  |  |
 |---|---|---|
 | **AdaBoost**<br>Builds a strong nonlinear classifier by iteratively combining weak separators. | [<img src="python/ada-boost/snippet.png" width="140" alt="AdaBoost snippet"/>](python/ada-boost/ada-boost.ipynb) | Notebook: [`python/ada-boost/ada-boost.ipynb`](python/ada-boost/ada-boost.ipynb)<br>[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/gpeyre/mathematical-nexus/blob/main/python/ada-boost/ada-boost.ipynb) |
 | **Advection**<br>Simulates transport of a scalar field by a smooth velocity flow on a periodic grid. | [<img src="python/advection/snippet.png" width="140" alt="Advection snippet"/>](python/advection/advection.ipynb) | Notebook: [`python/advection/advection.ipynb`](python/advection/advection.ipynb)<br>[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/gpeyre/mathematical-nexus/blob/main/python/advection/advection.ipynb) |
@@ -57,8 +55,3 @@ Each notebook is designed to be educational: clear narrative, equations, visuali
 | **Geodesic Heat**<br>Computes weighted geodesic distances via the Cole–Hopf transformation, handling obstacles and smooth terrain. | [<img src="python/geodesic-heat/snippet.png" width="140" alt="Geodesic Heat snippet"/>](python/geodesic-heat/geodesic-heat.ipynb) | Notebook: [`python/geodesic-heat/geodesic-heat.ipynb`](python/geodesic-heat/geodesic-heat.ipynb)<br>[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/gpeyre/mathematical-nexus/blob/main/python/geodesic-heat/geodesic-heat.ipynb) |
 | **Gershgorin Circles**<br>Localizes matrix eigenvalues inside Gershgorin disks and illustrates tightness under diagonal dominance. | [<img src="python/gershgorin/snippet.png" width="140" alt="Gershgorin snippet"/>](python/gershgorin/gershgorin.ipynb) | Notebook: [`python/gershgorin/gershgorin.ipynb`](python/gershgorin/gershgorin.ipynb)<br>[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/gpeyre/mathematical-nexus/blob/main/python/gershgorin/gershgorin.ipynb) |
 | **Gibbs Phenomenon**<br>Shows the persistent ~9% overshoot of Fourier partial sums at jump discontinuities and compares Fejér and Lanczos remedies. | [<img src="python/gibbs-oscillations/snippet.png" width="140" alt="Gibbs snippet"/>](python/gibbs-oscillations/gibbs-oscillations.ipynb) | Notebook: [`python/gibbs-oscillations/gibbs-oscillations.ipynb`](python/gibbs-oscillations/gibbs-oscillations.ipynb)<br>[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/gpeyre/mathematical-nexus/blob/main/python/gibbs-oscillations/gibbs-oscillations.ipynb) |
-
-## Notes
-
-- Notebooks are standalone and do not depend on `matlab/toolbox/`.
-- Main Python dependencies: `numpy`, `matplotlib`, `scipy`, and `ipywidgets`.
