@@ -2,6 +2,15 @@
 
 This repository is a visual and computational atlas of mathematical ideas, where each notebook combines intuition, rigorous formulas, numerical experiments, and interactive exploration to make concepts concrete and reproducible.
 
+## Unified Search Browser
+
+Browse the full collection (notebooks + vignettes) from the root catalog page: [`index.html`](index.html).
+The catalog data is generated from [`database.xlsx`](database.xlsx) using:
+
+```bash
+python3 scripts/build_catalog_database.py
+```
+
 ## Notebook Gallery
 
 |  |  |  |

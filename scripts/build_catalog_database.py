@@ -31,10 +31,68 @@ class Row:
 
 def clean_text(s: str) -> str:
     s = re.sub(r"`([^`]*)`", r"\1", s)
+    # Preserve URLs when markdown links are present: [label](url) -> "label url"
+    s = re.sub(r"\[([^\]]+)\]\((https?://[^)]+)\)", r"\1 \2", s)
     s = re.sub(r"\[([^\]]+)\]\([^)]+\)", r"\1", s)
-    s = re.sub(r"[*_#>$]", " ", s)
+    # Remove only heavy markdown markers, keep URL-critical characters like "_" and "#"
+    s = re.sub(r"[*>$]", " ", s)
     s = re.sub(r"\s+", " ", s).strip()
     return s
+
+
+def polish_description(text: str) -> str:
+    """Light editorial polish while staying semantically close to source text."""
+    s = clean_text(text)
+
+    def _polish_chunk(chunk: str) -> str:
+        c = chunk
+        # Gentle style cleanup
+        c = re.sub(r"oldies but goldies\s*:", "Classic reference:", c, flags=re.I)
+        c = re.sub(r"\baka\b", "also known as", c, flags=re.I)
+
+        # Frequent typo / naming fixes found in source collection
+        replacements = {
+            "dikstra": "Dijkstra",
+            "vornoi": "Voronoi",
+            "krigging": "kriging",
+            "subdivision shemes": "subdivision schemes",
+            "dicrepancies": "discrepancies",
+            "varyin": "varying",
+        }
+        for bad, good in replacements.items():
+            c = re.sub(re.escape(bad), good, c, flags=re.I)
+
+        # Normalize spacing around punctuation (text chunks only, no URLs)
+        c = re.sub(r"\s+([,;:.!?])", r"\1", c)
+        c = re.sub(r"([,;!?])([^\s])", r"\1 \2", c)
+        c = re.sub(r"\s+", " ", c).strip()
+        return c
+
+    url_re = re.compile(r"https?://\S+")
+    out_parts: List[str] = []
+    last = 0
+    for m in url_re.finditer(s):
+        left = s[last : m.start()]
+        if left:
+            out_parts.append(_polish_chunk(left))
+        out_parts.append(m.group(0))  # keep URLs untouched
+        last = m.end()
+    tail = s[last:]
+    if tail:
+        out_parts.append(_polish_chunk(tail))
+
+    s2 = " ".join(p for p in out_parts if p).strip()
+    s2 = re.sub(r"\s+", " ", s2).strip()
+
+    # Capitalize first letter when possible
+    if s2 and s2[0].isalpha():
+        s2 = s2[0].upper() + s2[1:]
+
+    # Ensure terminal punctuation for readability (unless ending with URL)
+    if s2 and not re.search(r"(https?://\S+)$", s2) and s2[-1] not in ".!?":
+        s2 += "."
+
+    return s2
 
 
 def title_from_path(path: str) -> str:
@@ -52,7 +110,7 @@ def parse_readme_notebook_blurbs() -> Dict[str, Row]:
         nb = m.group("nb").strip()
         rows[nb] = Row(
             title=clean_text(m.group("title").strip()),
-            content=clean_text(m.group("desc").strip()),
+            content=polish_description(m.group("desc").strip()),
             filename=nb,
             type="notebook",
         )
@@ -90,6 +148,7 @@ def parse_notebook_fallback(nb_path: Path) -> Row:
         title = title_from_path(rel)
     if not content:
         content = "Standalone educational notebook with mathematical exposition and visual experiments."
+    content = polish_description(content)
     if len(content) > 260:
         content = content[:257].rstrip() + "..."
     return Row(title=title, content=content, filename=rel, type="notebook")
@@ -110,7 +169,7 @@ def parse_vignettes() -> List[Row]:
             continue
         date = lines[0]
         name = lines[1]
-        desc = clean_text(" ".join(lines[2:])) if len(lines) > 2 else ""
+        desc = polish_description(" ".join(lines[2:])) if len(lines) > 2 else ""
         stem = re.sub(r"^\d+[-_]*", "", Path(name).stem)
         stem = stem.replace(".", " ")
         title = clean_text(stem.replace("-", " ").replace("_", " ").title())
@@ -143,7 +202,15 @@ def main() -> None:
 
     rows.extend(parse_vignettes())
 
-    df = pd.DataFrame([r.__dict__ for r in rows], columns=["title", "content", "filename", "type"])
+    existing_rows: List[Row] = []
+    dropped: List[str] = []
+    for r in rows:
+        if (ROOT / r.filename).exists():
+            existing_rows.append(r)
+        else:
+            dropped.append(r.filename)
+
+    df = pd.DataFrame([r.__dict__ for r in existing_rows], columns=["title", "content", "filename", "type"])
     df.to_excel(DB_XLSX, index=False)
     DB_JSON.write_text(df.to_json(orient="records", force_ascii=False, indent=2), encoding="utf-8")
     DB_JS.write_text(
@@ -155,8 +222,11 @@ def main() -> None:
     print(f" - {DB_XLSX.relative_to(ROOT)}")
     print(f" - {DB_JSON.relative_to(ROOT)}")
     print(f" - {DB_JS.relative_to(ROOT)}")
+    if dropped:
+        print(f"Dropped {len(dropped)} missing-file entries.")
+        for name in dropped[:20]:
+            print(f"   - {name}")
 
 
 if __name__ == "__main__":
     main()
-

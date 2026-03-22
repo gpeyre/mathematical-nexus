@@ -97,11 +97,22 @@
         align-items: center;
         justify-content: center;
         background: #fafafa;
+        overflow: hidden;
+      }
+      .media a {
+        width: 100%;
+        height: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        overflow: hidden;
       }
       .media img,
       .media video {
         width: 100%;
         height: 100%;
+        max-width: 100%;
+        max-height: 100%;
         object-fit: contain;
         object-position: center;
         display: block;
@@ -137,6 +148,21 @@
         font-size: 12px;
         color: var(--muted);
         word-break: break-all;
+      }
+      .nb-links {
+        margin-top: 8px;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        flex-wrap: wrap;
+      }
+      .nb-links a {
+        font-size: 13px;
+      }
+      .nb-links img {
+        display: block;
+        height: 20px;
+        width: auto;
       }
       .empty {
         margin-top: 24px;
@@ -241,6 +267,21 @@
         )}" loading="lazy" alt="${esc(item.title)}" /></a>`;
       }
 
+      function notebookLinks(item) {
+        if (item.type !== "notebook") return "";
+        const file = item.filename || "";
+        const ghFile = `https://github.com/gpeyre/mathematical-nexus/blob/main/${file}`;
+        const colab = `https://colab.research.google.com/github/gpeyre/mathematical-nexus/blob/main/${file}`;
+        return `
+          <div class="nb-links">
+            <a href="${esc(ghFile)}" target="_blank" rel="noopener">GitHub file</a>
+            <a href="${esc(colab)}" target="_blank" rel="noopener">
+              <img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab" />
+            </a>
+          </div>
+        `;
+      }
+
       const allData = Array.isArray(window.CATALOG_DATA) ? window.CATALOG_DATA : [];
       let query = "";
       let kind = "all";
@@ -291,6 +332,7 @@
                 <div class="title">${esc(item.title || "(untitled)")}</div>
                 <p class="desc">${linkify(esc(item.content || ""))}</p>
                 <div class="filename">${esc(item.filename || "")}</div>
+                ${notebookLinks(item)}
               </div>
             </article>`
             )
