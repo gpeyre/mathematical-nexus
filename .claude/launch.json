@@ -1,0 +1,17 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "Jupyter Lab",
+      "runtimeExecutable": "jupyter",
+      "runtimeArgs": ["lab", "--no-browser", "--notebook-dir=python"],
+      "port": 8888
+    },
+    {
+      "name": "Jupyter Notebook",
+      "runtimeExecutable": "/Users/gpeyre/miniconda3/bin/jupyter",
+      "runtimeArgs": ["notebook", "--no-browser", "--notebook-dir=python"],
+      "port": 8888
+    }
+  ]
+}
