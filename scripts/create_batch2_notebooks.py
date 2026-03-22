@@ -63,56 +63,114 @@ TOPICS = [
         "intro": r"""
 # Hamiltonian Dynamics and Symplectic Integrators
 
-For a Hamiltonian $H(q,p)=\frac12 p^2 + V(q)$, equations of motion are
+For a state $(q,p)$, Hamiltonian dynamics follows
 $$
-\dot q = \partial_p H,\qquad \dot p = -\partial_q H.
+\dot q = \nabla_p H(q,p),\qquad \dot p = -\nabla_q H(q,p).
 $$
-Symplectic schemes (like Störmer–Verlet) preserve geometric structure and usually control long-time energy drift better than explicit Euler.
+We illustrate this on a periodic 2D $N$-body system and compare explicit Euler against velocity-Verlet (leapfrog).
+Symplectic methods preserve geometric structure and better control long-time energy drift.
 """,
         "code": r"""
-q0, p0 = 1.2, 0.0
-dt = 0.08
-n_steps = 550
+rng = np.random.default_rng(4)
+N = 36
+L = 1.0
+mass = 1.0
+eps = 0.012
+sigma = 0.11
+dt = 0.006
+T = 4.8
+n_steps = int(T / dt)
 
-def V(q):
-    return 0.5*q**2 + 0.1*q**4
+q0 = rng.uniform(0.0, L, size=(N, 2))
+v0 = rng.normal(0.0, 1.0, size=(N, 2))
+v0 -= v0.mean(axis=0, keepdims=True)
+speed_scale = 0.22 / np.sqrt((v0**2).sum(axis=1).mean())
+v0 *= speed_scale
 
-def dV(q):
-    return q + 0.4*q**3
+def minimum_image(dq, box_size):
+    return dq - box_size * np.round(dq / box_size)
 
-def energy(q, p):
-    return 0.5*p**2 + V(q)
+def accel_and_potential(q):
+    a = np.zeros_like(q)
+    U = 0.0
+    for i in range(N - 1):
+        dq = q[i] - q[i + 1 :]
+        dq = minimum_image(dq, L)
+        r2 = np.sum(dq * dq, axis=1)
+        w = np.exp(-0.5 * r2 / (sigma**2))
+        U += np.sum(eps * w)
+        f = (eps / (sigma**2)) * w[:, None] * dq
+        a[i] += np.sum(f, axis=0) / mass
+        a[i + 1 :] -= f / mass
+    return a, U
 
-# explicit Euler
-qe = np.zeros(n_steps+1); pe = np.zeros(n_steps+1)
-qe[0], pe[0] = q0, p0
-for k in range(n_steps):
-    qe[k+1] = qe[k] + dt*pe[k]
-    pe[k+1] = pe[k] - dt*dV(qe[k])
+def total_energy(q, v):
+    _, U = accel_and_potential(q)
+    K = 0.5 * mass * np.sum(v * v)
+    return K + U
 
-# Stormer-Verlet
-qs = np.zeros(n_steps+1); ps = np.zeros(n_steps+1)
-qs[0], ps[0] = q0, p0
-for k in range(n_steps):
-    p_half = ps[k] - 0.5*dt*dV(qs[k])
-    qs[k+1] = qs[k] + dt*p_half
-    ps[k+1] = p_half - 0.5*dt*dV(qs[k+1])
+def integrate_euler(q_init, v_init):
+    q = q_init.copy()
+    v = v_init.copy()
+    traj = np.zeros((n_steps + 1, N, 2))
+    E = np.zeros(n_steps + 1)
+    traj[0] = q
+    E[0] = total_energy(q, v)
+    for k in range(n_steps):
+        a, _ = accel_and_potential(q)
+        v = v + dt * a
+        q = (q + dt * v) % L
+        traj[k + 1] = q
+        E[k + 1] = total_energy(q, v)
+    return traj, E
 
-t = np.arange(n_steps+1)*dt
-Ee = energy(qe, pe); Es = energy(qs, ps)
-E0 = energy(q0, p0)
+def integrate_verlet(q_init, v_init):
+    q = q_init.copy()
+    v = v_init.copy()
+    a, _ = accel_and_potential(q)
+    traj = np.zeros((n_steps + 1, N, 2))
+    E = np.zeros(n_steps + 1)
+    traj[0] = q
+    E[0] = total_energy(q, v)
+    for k in range(n_steps):
+        v_half = v + 0.5 * dt * a
+        q = (q + dt * v_half) % L
+        a_new, _ = accel_and_potential(q)
+        v = v_half + 0.5 * dt * a_new
+        a = a_new
+        traj[k + 1] = q
+        E[k + 1] = total_energy(q, v)
+    return traj, E
 
-fig, axes = plt.subplots(1, 2, figsize=(11, 4.5))
-axes[0].plot(qe, pe, lw=1.2, label="Euler")
-axes[0].plot(qs, ps, lw=1.2, label="Verlet")
-axes[0].set_title("Phase portrait")
-axes[0].set_xlabel("q"); axes[0].set_ylabel("p"); axes[0].legend()
+traj_e, E_e = integrate_euler(q0, v0)
+traj_v, E_v = integrate_verlet(q0, v0)
+t = dt * np.arange(n_steps + 1)
+rel_e = (E_e - E_e[0]) / (abs(E_e[0]) + 1e-12)
+rel_v = (E_v - E_v[0]) / (abs(E_v[0]) + 1e-12)
 
-axes[1].plot(t, Ee-E0, label="Euler")
-axes[1].plot(t, Es-E0, label="Verlet")
-axes[1].set_title("Energy drift")
-axes[1].set_xlabel("time"); axes[1].set_ylabel(r"$H(q,p)-H_0$"); axes[1].legend()
+fig, axes = plt.subplots(1, 2, figsize=(11.5, 4.8))
+for i in range(min(10, N)):
+    axes[0].plot(traj_e[:, i, 0], traj_e[:, i, 1], lw=0.8, alpha=0.85)
+axes[0].set_title("Explicit Euler trajectories")
+axes[0].set_xlim(0, L); axes[0].set_ylim(0, L); axes[0].set_aspect("equal")
+axes[0].set_xlabel("x"); axes[0].set_ylabel("y")
 
+for i in range(min(10, N)):
+    axes[1].plot(traj_v[:, i, 0], traj_v[:, i, 1], lw=0.8, alpha=0.85)
+axes[1].set_title("Velocity-Verlet trajectories")
+axes[1].set_xlim(0, L); axes[1].set_ylim(0, L); axes[1].set_aspect("equal")
+axes[1].set_xlabel("x"); axes[1].set_ylabel("y")
+
+plt.tight_layout()
+plt.show()
+
+fig, ax = plt.subplots(figsize=(8.0, 4.2))
+ax.plot(t, rel_e, lw=1.4, label="Euler")
+ax.plot(t, rel_v, lw=1.6, label="Velocity-Verlet")
+ax.set_title("Relative energy drift")
+ax.set_xlabel("time")
+ax.set_ylabel(r"$(H(t)-H(0))/(|H(0)|+10^{-12})$")
+ax.legend()
 plt.tight_layout()
 fig.savefig(OUTPUT_DIR / "snippet.png", bbox_inches="tight")
 plt.show()
@@ -671,4 +729,3 @@ def main() -> None:
 
 if __name__ == "__main__":
     main()
-

@@ -128,7 +128,7 @@ Current sync (2026-03-22): 149 notebooks tracked, 149 validated, 0 pending.
 | `python/allen-cahn-cahn-hilliard/allen-cahn-cahn-hilliard.ipynb` | Validated (30s rule) | 2026-03-22 | Add side-by-side phase-field evolution snapshots for parameter changes. |
 | `python/reaction-diffusion-turing/reaction-diffusion-turing.ipynb` | Validated (30s rule) | 2026-03-22 | Add parameter-map thumbnails to classify stripe/spot regimes. |
 | `python/wave-equation-dispersion/wave-equation-dispersion.ipynb` | Validated (30s rule) | 2026-03-22 | Add dispersion-relation overlays for multiple discretization choices. |
-| `python/hamiltonian-symplectic/hamiltonian-symplectic.ipynb` | Validated (30s rule) | 2026-03-22 | Add long-horizon energy drift plots comparing explicit, implicit, and symplectic schemes. |
+| `python/hamiltonian-symplectic/hamiltonian-symplectic.ipynb` | Validated (30s rule) | 2026-03-22 | Reworked to a periodic 2D N-body Hamiltonian simulation with Euler vs velocity-Verlet comparison; optional next step: add interactive slider for dt and particle count. |
 | `python/fem-1d-2d/fem-1d-2d.ipynb` | Validated (30s rule) | 2026-03-22 | Add mesh-refinement convergence rates and boundary-condition variants. |
 | `python/poisson-meshes/poisson-meshes.ipynb` | Validated (30s rule) | 2026-03-22 | Add boundary-data perturbation examples and residual/error field visualizations. |
 | `python/level-set-methods/level-set-methods.ipynb` | Validated (30s rule) | 2026-03-22 | Add reinitialization-frequency sweep to quantify interface distortion effects. |

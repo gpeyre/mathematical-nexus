@@ -1,5 +1,22 @@
 # Suggested New Notebook Topics (40)
 
+## to correct:
+
+Orthogonal Matching Pursuit
+- biblographical refs are not correct (should be Mallat et al, and also ref in signal processing and related methods in stats)
+- use a gaussian bump dictionary, show the function approximated
+
+Unbalanced OT:
+- Refs 
+  J. D. Murray, Mathematical Biology (for pattern-forming PDEs).
+  R. J. LeVeque, Finite Difference Methods for ODEs and PDEs.
+are not correct, add ref to Chizat et al (scaling algorithm), remove villani 
+
+Mean Curvature Flow 
+- run for much longer time, star by a slighly less regular ininitial curve
+- put more equation, explain how to define kappa, how this is discretized
+- Bibliographical Resources are not correct
+
 ## Done (Batch 1)
 
 1. **Sinkhorn Distance and Entropic OT** — [`python/sinkhorn-distance/sinkhorn-distance.ipynb`](python/sinkhorn-distance/sinkhorn-distance.ipynb)
