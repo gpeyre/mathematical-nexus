@@ -11,6 +11,20 @@ The catalog data is generated from [`database.xlsx`](database.xlsx) using:
 python3 scripts/build_catalog_database.py
 ```
 
+### GitHub Pages (Simple Branch Deployment)
+
+This repository is intended to be published without GitHub Actions:
+- `Settings → Pages`
+- `Source: Deploy from a branch`
+- `Branch: main`
+- `Folder: /(root)`
+
+Before pushing updates, regenerate the catalog:
+
+```bash
+python3 scripts/build_catalog_database.py
+```
+
 ## Notebook Gallery
 
 |  |  |  |

@@ -6,9 +6,21 @@
     "type":"notebook"
   },
   {
+    "title":"ADMM from First Principles (LASSO Example)",
+    "content":"For \\min_x \\tfrac12\\|Ax-y\\|_2^2 + \\lambda\\|x\\|_1, split x=z and apply ADMM updates: x^{k+1}=\\arg\\min_x \\tfrac12\\|Ax-y\\|_2^2+\\frac{\\rho}{2}\\|x-z^k+u^k\\|_2^2, z^{k+1}=\\operatorname{soft}(x^{k+1}+u^k, \\lambda\/\\rho), \\quad u^{k+1}=u^k+x^{k+1}-z^{k+1}.",
+    "filename":"python\/admm-first-principles\/admm-first-principles.ipynb",
+    "type":"notebook"
+  },
+  {
     "title":"Advection",
     "content":"Simulates transport of a scalar field by a smooth velocity flow on a periodic grid.",
     "filename":"python\/advection\/advection.ipynb",
+    "type":"notebook"
+  },
+  {
+    "title":"Allen–Cahn vs Cahn–Hilliard Dynamics",
+    "content":"Two classic phase-field PDEs use the same double-well potential but different conservation laws: \\partial_t u = \\varepsilon^2 \\Delta u - (u^3-u) \\quad \\text{(Allen–Cahn)}, \\partial_t u = \\Delta\\! \\left(-\\varepsilon^2 \\Delta u + (u^3-u)\\right) \\quad \\text{(C...",
+    "filename":"python\/allen-cahn-cahn-hilliard\/allen-cahn-cahn-hilliard.ipynb",
     "type":"notebook"
   },
   {
@@ -60,6 +72,12 @@
     "type":"notebook"
   },
   {
+    "title":"BFGS vs Gradient Descent",
+    "content":"BFGS builds curvature information through rank-two Hessian-inverse updates: H_{k+1}=(I-\\rho s y^\\top)H_k(I-\\rho y s^\\top)+\\rho ss^\\top, \\quad \\rho=\\frac1{y^\\top s}. This often accelerates convergence on ill-conditioned smooth objectives.",
+    "filename":"python\/bfgs-lbfgs\/bfgs-lbfgs.ipynb",
+    "type":"notebook"
+  },
+  {
     "title":"Bifurcation",
     "content":"Explores period-doubling and chaos in iterated logistic dynamics.",
     "filename":"python\/bifurcation\/bifurcation.ipynb",
@@ -108,6 +126,12 @@
     "type":"notebook"
   },
   {
+    "title":"Compressed Sensing and Basis Pursuit",
+    "content":"Recover sparse x^\\star from underdetermined measurements y=Ax^\\star by solving \\min_x \\|x\\|_1 \\quad \\text{s.t.}\\quad Ax=y or its penalized version (LASSO): \\min_x \\tfrac12\\|Ax-y\\|_2^2+\\lambda\\|x\\|_1.",
+    "filename":"python\/compressed-sensing-basis-pursuit\/compressed-sensing-basis-pursuit.ipynb",
+    "type":"notebook"
+  },
+  {
     "title":"Conjugate Gradient",
     "content":"Visualizes Krylov subspace search paths and the effect of condition number on convergence speed.",
     "filename":"python\/conjugate-gradient\/conjugate-gradient.ipynb",
@@ -144,6 +168,12 @@
     "type":"notebook"
   },
   {
+    "title":"Eikonal Distance with Dijkstra\/Fast-Marching Intuition",
+    "content":"The eikonal equation \\|\\nabla T(x)\\| = \\frac{1}{f(x)} describes travel time in a medium with speed f(x). On grids, Dijkstra\/Fast-Marching style updates propagate a monotone front.",
+    "filename":"python\/eikonal-fast-marching\/eikonal-fast-marching.ipynb",
+    "type":"notebook"
+  },
+  {
     "title":"Error Diffusion",
     "content":"Halftones continuous-tone images using Floyd–Steinberg error diffusion and contrasts Bayer and random dithering.",
     "filename":"python\/error-diffusion\/error-diffusion.ipynb",
@@ -159,6 +189,12 @@
     "title":"Farthest-Point Sampling",
     "content":"Builds well-spread point sets via a greedy covering algorithm and visualizes the evolving Voronoi diagram.",
     "filename":"python\/farthest-point\/farthest-point.ipynb",
+    "type":"notebook"
+  },
+  {
+    "title":"Finite Elements in 1D (Didactic Core)",
+    "content":"We solve -u''(x)=f(x) on (0, 1) with Dirichlet boundary conditions using piecewise-linear finite elements. The weak form reads \\int_0^1 u'(x)v'(x)\\, dx = \\int_0^1 f(x)v(x)\\, dx \\quad \\forall v\\in H_0^1.",
+    "filename":"python\/fem-1d-2d\/fem-1d-2d.ipynb",
     "type":"notebook"
   },
   {
@@ -369,6 +405,12 @@
     "title":"Haar & Walsh Transforms",
     "content":"Implements fast Haar transform and Hadamard–Walsh transform; visualises multiresolution decomposition and hard-thresholding denoising.",
     "filename":"python\/haar-walsh\/haar-walsh.ipynb",
+    "type":"notebook"
+  },
+  {
+    "title":"Hamiltonian Dynamics and Symplectic Integrators",
+    "content":"For a Hamiltonian H(q, p)=\\frac12 p^2 + V(q), equations of motion are \\dot q = \\partial_p H, \\qquad \\dot p = -\\partial_q H. Symplectic schemes (like Störmer–Verlet) preserve geometric structure and usually control long-time energy drift better than explicit...",
+    "filename":"python\/hamiltonian-symplectic\/hamiltonian-symplectic.ipynb",
     "type":"notebook"
   },
   {
@@ -651,6 +693,84 @@
     "title":"Legendre-Fenchel Transform",
     "content":"Computes convex conjugates via the Legendre-Fenchel transform; illustrates subdifferentials, the bidual theorem, and inf-convolution as a Minkowski sum.",
     "filename":"python\/legendre\/legendre.ipynb",
+    "type":"notebook"
+  },
+  {
+    "title":"Level Set Advection and Reinitialization",
+    "content":"A moving interface \\Gamma_t can be represented as \\{\\phi(\\cdot, t)=0\\}. Under advection velocity v, the level-set PDE is \\partial_t \\phi + v\\cdot\\nabla\\phi = 0. We illustrate transport of an implicit curve and periodic reinitialization to signed-distance sh...",
+    "filename":"python\/level-set-methods\/level-set-methods.ipynb",
+    "type":"notebook"
+  },
+  {
+    "title":"Mean Curvature Flow of Planar Curves",
+    "content":"For a curve \\Gamma_t, mean-curvature flow evolves normal velocity as: V_n = -\\kappa, which smooths and shrinks shapes. In discrete form, Laplacian smoothing of polygon vertices provides a didactic approximation.",
+    "filename":"python\/mean-curvature-flow\/mean-curvature-flow.ipynb",
+    "type":"notebook"
+  },
+  {
+    "title":"Orthogonal Matching Pursuit",
+    "content":"OMP greedily builds sparse approximations by repeatedly selecting the atom most correlated with the residual and refitting coefficients by least squares. At step k: j_k=\\arg\\max_j |\\langle a_j, r_{k-1}\\rangle|, \\qquad x_{S_k}=\\arg\\min_z\\|A_{S_k}z-y\\|_2^2.",
+    "filename":"python\/orthogonal-matching-pursuit\/orthogonal-matching-pursuit.ipynb",
+    "type":"notebook"
+  },
+  {
+    "title":"Primal-Dual Hybrid Gradient (Chambolle–Pock)",
+    "content":"For problems \\min_x f(Kx)+g(x), PDHG updates y^{k+1}=\\operatorname{prox}_{\\sigma f^\\ }(y^k+\\sigma K\\bar x^k), \\quad x^{k+1}=\\operatorname{prox}_{\\tau g}(x^k-\\tau K^\\top y^{k+1}), with extrapolation \\bar x^{k+1}=x^{k+1}+\\theta(x^{k+1}-x^k). We demonstrate de...",
+    "filename":"python\/pdhg-chambolle-pock\/pdhg-chambolle-pock.ipynb",
+    "type":"notebook"
+  },
+  {
+    "title":"Poisson Equation on Triangulated Meshes",
+    "content":"On a graph\/mesh discretization, a Poisson problem can be written as L u = f, with fixed boundary values. This notebook demonstrates harmonic\/Poisson solves on a 2D triangulated square.",
+    "filename":"python\/poisson-meshes\/poisson-meshes.ipynb",
+    "type":"notebook"
+  },
+  {
+    "title":"Reaction-Diffusion Turing Patterns (Gray–Scott)",
+    "content":"Reaction-diffusion systems couple local nonlinear chemistry and diffusion: \\partial_t U = D_u \\Delta U - UV^2 + F(1-U), \\qquad \\partial_t V = D_v \\Delta V + UV^2 - (F+k)V. Different (F, k) regimes yield spots, stripes, and labyrinths.",
+    "filename":"python\/reaction-diffusion-turing\/reaction-diffusion-turing.ipynb",
+    "type":"notebook"
+  },
+  {
+    "title":"Schrödinger Bridge Interpolation (Entropic OT View)",
+    "content":"The Schrödinger bridge builds the most likely stochastic evolution between fixed marginals under a diffusion prior. In discrete settings, it is tightly connected to entropic OT couplings: \\gamma^\\star = \\arg\\min_{\\gamma \\in \\Pi(a, b)} \\langle C, \\gamma\\rang...",
+    "filename":"python\/schrodinger-bridge\/schrodinger-bridge.ipynb",
+    "type":"notebook"
+  },
+  {
+    "title":"Sinkhorn Distance and Entropic Optimal Transport",
+    "content":"Optimal transport compares probability measures by minimizing the cost of moving mass: \\min_{\\gamma \\in \\Pi(a, b)} \\langle C, \\gamma \\rangle, where \\Pi(a, b) is the set of couplings with prescribed marginals a and b.",
+    "filename":"python\/sinkhorn-distance\/sinkhorn-distance.ipynb",
+    "type":"notebook"
+  },
+  {
+    "title":"Sliced Wasserstein Geometry",
+    "content":"Sliced Wasserstein distances project high-dimensional measures onto 1D lines, where OT is cheap: \\mathrm{SW}_2^2(\\mu, \\nu)=\\int_{\\theta \\in \\mathbb{S}^{d-1}} W_2^2(P_\\theta\\#\\mu, \\ P_\\theta\\#\\nu)\\, d\\theta. Monte Carlo over random directions gives scalable...",
+    "filename":"python\/sliced-wasserstein\/sliced-wasserstein.ipynb",
+    "type":"notebook"
+  },
+  {
+    "title":"Trust-Region Methods on Nonconvex Objectives",
+    "content":"Trust-region methods solve local quadratic models \\min_{\\|p\\|\\le \\Delta_k}\\ m_k(p)=f(x_k)+g_k^\\top p+\\tfrac12 p^\\top B_k p, and adapt radius \\Delta_k using agreement ratio between actual and predicted decrease.",
+    "filename":"python\/trust-region-methods\/trust-region-methods.ipynb",
+    "type":"notebook"
+  },
+  {
+    "title":"Unbalanced Optimal Transport",
+    "content":"Classical transport enforces exact mass conservation. Unbalanced OT relaxes this by penalizing marginal mismatch, which is essential when sources and targets have different total mass.",
+    "filename":"python\/unbalanced-ot\/unbalanced-ot.ipynb",
+    "type":"notebook"
+  },
+  {
+    "title":"Wasserstein Barycenters in 1D",
+    "content":"Given distributions (\\mu_i) and weights (\\lambda_i), a Wasserstein barycenter minimizes \\nu^\\star = \\arg\\min_\\nu \\sum_i \\lambda_i W_2^2(\\nu, \\mu_i). In one dimension, this has a simple quantile formula: Q_{\\nu^\\star}(t) = \\sum_i \\lambda_i Q_{\\mu_i}(t). This...",
+    "filename":"python\/wasserstein-barycenters\/wasserstein-barycenters.ipynb",
+    "type":"notebook"
+  },
+  {
+    "title":"Wave Equation and Numerical Dispersion",
+    "content":"For u_{tt}=c^2u_{xx}, the exact phase speed is frequency-independent ( \\omega=ck ). Discrete schemes introduce modified dispersion: \\sin^2\\! \\left(\\frac{\\omega\\Delta t}{2}\\right) = r^2\\sin^2\\! \\left(\\frac{k\\Delta x}{2}\\right), \\quad r=\\frac{c\\Delta t}{\\Delt...",
+    "filename":"python\/wave-equation-dispersion\/wave-equation-dispersion.ipynb",
     "type":"notebook"
   },
   {

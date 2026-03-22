@@ -5,7 +5,7 @@ It is a live snapshot and should be updated whenever notebooks are added or modi
 
 Validation rule used: execute with a 30-second max per code cell, skipping cells tagged `interactive`.
 
-Current sync (2026-03-22): 109 notebooks tracked, 109 validated, 0 pending.
+Current sync (2026-03-22): 129 notebooks tracked, 129 validated, 0 pending.
 
 | Notebook | Status | Last verification | Improvement TODO |
 |---|---|---|---|
@@ -118,3 +118,23 @@ Current sync (2026-03-22): 109 notebooks tracked, 109 validated, 0 pending.
 | `python/laplacian-weighted/laplacian-weighted.ipynb` | Validated (30s rule) | 2026-03-22 | Add a side-by-side weight-kernel parameter sweep with consistent color scales. |
 | `python/lda-qda/lda-qda.ipynb` | Validated (30s rule) | 2026-03-22 | Add covariance-regularization sensitivity and decision-boundary comparison. |
 | `python/legendre/legendre.ipynb` | Validated (30s rule) | 2026-03-22 | Add degree-growth stability plots and orthogonality numerical error diagnostics. |
+| `python/sinkhorn-distance/sinkhorn-distance.ipynb` | Validated (30s rule) | 2026-03-22 | Add an epsilon-scaling panel showing plan sharpness vs numerical stability. |
+| `python/unbalanced-ot/unbalanced-ot.ipynb` | Validated (30s rule) | 2026-03-22 | Add a mass-penalty sweep to clarify balanced/unbalanced behavior transition. |
+| `python/wasserstein-barycenters/wasserstein-barycenters.ipynb` | Validated (30s rule) | 2026-03-22 | Add a weights-interpolation grid to better expose barycenter geometry changes. |
+| `python/sliced-wasserstein/sliced-wasserstein.ipynb` | Validated (30s rule) | 2026-03-22 | Add projection-count sensitivity with error/runtime tradeoff curves. |
+| `python/schrodinger-bridge/schrodinger-bridge.ipynb` | Validated (30s rule) | 2026-03-22 | Add diffusion-strength comparison to separate stochastic vs deterministic transport effects. |
+| `python/mean-curvature-flow/mean-curvature-flow.ipynb` | Validated (30s rule) | 2026-03-22 | Add timestep sensitivity and area-decay diagnostics for numerical consistency. |
+| `python/eikonal-fast-marching/eikonal-fast-marching.ipynb` | Validated (30s rule) | 2026-03-22 | Add obstacle/metric variation examples to compare travel-time geometry. |
+| `python/allen-cahn-cahn-hilliard/allen-cahn-cahn-hilliard.ipynb` | Validated (30s rule) | 2026-03-22 | Add side-by-side phase-field evolution snapshots for parameter changes. |
+| `python/reaction-diffusion-turing/reaction-diffusion-turing.ipynb` | Validated (30s rule) | 2026-03-22 | Add parameter-map thumbnails to classify stripe/spot regimes. |
+| `python/wave-equation-dispersion/wave-equation-dispersion.ipynb` | Validated (30s rule) | 2026-03-22 | Add dispersion-relation overlays for multiple discretization choices. |
+| `python/hamiltonian-symplectic/hamiltonian-symplectic.ipynb` | Validated (30s rule) | 2026-03-22 | Add long-horizon energy drift plots comparing explicit, implicit, and symplectic schemes. |
+| `python/fem-1d-2d/fem-1d-2d.ipynb` | Validated (30s rule) | 2026-03-22 | Add mesh-refinement convergence rates and boundary-condition variants. |
+| `python/poisson-meshes/poisson-meshes.ipynb` | Validated (30s rule) | 2026-03-22 | Add boundary-data perturbation examples and residual/error field visualizations. |
+| `python/level-set-methods/level-set-methods.ipynb` | Validated (30s rule) | 2026-03-22 | Add reinitialization-frequency sweep to quantify interface distortion effects. |
+| `python/compressed-sensing-basis-pursuit/compressed-sensing-basis-pursuit.ipynb` | Validated (30s rule) | 2026-03-22 | Add phase-transition heatmaps over sparsity and sampling ratios. |
+| `python/orthogonal-matching-pursuit/orthogonal-matching-pursuit.ipynb` | Validated (30s rule) | 2026-03-22 | Add support-recovery precision/recall diagnostics under noise. |
+| `python/admm-first-principles/admm-first-principles.ipynb` | Validated (30s rule) | 2026-03-22 | Add rho-parameter sweep with primal/dual residual balance visualization. |
+| `python/pdhg-chambolle-pock/pdhg-chambolle-pock.ipynb` | Validated (30s rule) | 2026-03-22 | Add step-size condition stress tests and objective-gap trajectories. |
+| `python/bfgs-lbfgs/bfgs-lbfgs.ipynb` | Validated (30s rule) | 2026-03-22 | Add memory-size sweep for L-BFGS with convergence/runtime comparison. |
+| `python/trust-region-methods/trust-region-methods.ipynb` | Validated (30s rule) | 2026-03-22 | Add trust-radius adaptation diagnostics and acceptance-ratio histograms. |
