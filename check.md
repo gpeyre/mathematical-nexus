@@ -37,7 +37,7 @@ Validation rule used: execute with a 30-second max per code cell, skipping cells
 | `python/fixed-point/fixed-point.ipynb` | Validated (30s rule) | 2026-03-22 | Add contraction-vs-divergence scenario panel with theoretical condition checks. |
 | `python/flocking/flocking.ipynb` | Validated (30s rule) | 2026-03-22 | Add an order-parameter time series to quantify alignment over time. |
 | `python/floyd-warshall/floyd-warshall.ipynb` | Validated (30s rule) | 2026-03-22 | Add path-reconstruction visual examples on weighted random graphs. |
-| `python/fluids/fluids.ipynb` | Validated (30s rule) | 2026-03-22 | Improve snapshot-step scheduling so all displayed frames map to intended times. |
+| `python/fluids/fluids.ipynb` | Validated (30s rule) | 2026-03-22 | Snapshot scheduling fixed; next pass can add Reynolds-number parameter sweep panel. |
 | `python/fourier-atoms/fourier-atoms.ipynb` | Validated (30s rule) | 2026-03-22 | Add basis-size comparative reconstruction panel and error curves. |
 | `python/fourier-cristal/fourier-cristal.ipynb` | Validated (30s rule) | 2026-03-22 | Add parameter sweep over minimum-distance values for blue-noise structure. |
 | `python/fourier-curves/fourier-curves.ipynb` | Validated (30s rule) | 2026-03-22 | Add harmonics-count animation/static sequence with approximation error. |
@@ -69,7 +69,7 @@ Validation rule used: execute with a 30-second max per code cell, skipping cells
 | `python/gravitation/gravitation.ipynb` | Validated (30s rule) | 2026-03-22 | Tag any future animation widgets and keep static fallback snapshots. |
 | `python/gromov-wasserstein/gromov-wasserstein.ipynb` | Validated (30s rule) | 2026-03-22 | Add transport-cost scaling notes and heavier-case profiling. |
 | `python/haar-walsh/haar-walsh.ipynb` | Validated (30s rule) | 2026-03-22 | Add basis truncation quality comparisons with compression ratios. |
-| `python/harmonic-coords/harmonic-coords.ipynb` | Validated (30s rule) | 2026-03-22 | Add mesh/boundary-condition sensitivity examples; keep explicit triplot style kwargs. |
+| `python/harmonic-coords/harmonic-coords.ipynb` | Validated (30s rule) | 2026-03-22 | Intro now matches uniform Laplacian implementation; add cotangent-Laplacian comparison panel. |
 | `python/harmonic/harmonic.ipynb` | Validated (30s rule) | 2026-03-22 | Add comparative boundary-value test cases and residual diagnostics. |
 | `python/heat-1d/heat-1d.ipynb` | Validated (30s rule) | 2026-03-22 | Add stability/accuracy curves over timesteps and grid refinements. |
 | `python/heat-polynomials/heat-polynomials.ipynb` | Validated (30s rule) | 2026-03-22 | Add degree-vs-approximation error panel with log-scale residuals. |
@@ -80,15 +80,15 @@ Validation rule used: execute with a 30-second max per code cell, skipping cells
 | `python/hist-eq/hist-eq.ipynb` | Validated (30s rule) | 2026-03-22 | Add before/after metric panel (contrast, entropy, local variance). |
 | `python/holder-inequality/holder-inequality.ipynb` | Validated (30s rule) | 2026-03-22 | Add numerical tightness examples with controlled equality cases. |
 | `python/hopfield-network/hopfield-network.ipynb` | Validated (30s rule) | 2026-03-22 | Add energy-landscape diagnostics and basin-size empirical estimates. |
+| `python/hump-algebra/hump-algebra.ipynb` | Validated (30s rule) | 2026-03-22 | Add parameter-sweep panels showing hump morphology transitions. |
 | `python/ica/ica.ipynb` | Validated (30s rule) | 2026-03-22 | Add source-separation quality metrics and initialization sensitivity tests. |
 | `python/icp/icp.ipynb` | Validated (30s rule) | 2026-03-22 | Add robustness tests under initialization noise and outlier contamination. |
 | `python/integral-lines/integral-lines.ipynb` | Validated (30s rule) | 2026-03-22 | Add seed-density effect visual comparison and streamline-length statistics. |
-| `python/interpolation-rkhs/interpolation-rkhs.ipynb` | Validated (30s rule) | 2026-03-22 | Add kernel-parameter sensitivity curves and regularization-path effects. |
-| `python/interpolation-shepard/interpolation-shepard.ipynb` | Validated (30s rule) | 2026-03-22 | Add exponent-parameter interpolation comparisons with error heatmaps. |
-| `python/hump-algebra/hump-algebra.ipynb` | Validated (30s rule) | 2026-03-22 | Add parameter-sweep panels showing hump morphology transitions. |
 | `python/interior-points/interior-points.ipynb` | Validated (30s rule) | 2026-03-22 | Add barrier-parameter schedule diagnostics and KKT residual plots. |
 | `python/interpol-vizu/interpol-vizu.ipynb` | Validated (30s rule) | 2026-03-22 | Add side-by-side interpolation-method comparisons on common datasets. |
 | `python/interpolation-natural/interpolation-natural.ipynb` | Validated (30s rule) | 2026-03-22 | Add boundary-condition sensitivity and overshoot metrics. |
+| `python/interpolation-rkhs/interpolation-rkhs.ipynb` | Validated (30s rule) | 2026-03-22 | Add kernel-parameter sensitivity curves and regularization-path effects. |
+| `python/interpolation-shepard/interpolation-shepard.ipynb` | Validated (30s rule) | 2026-03-22 | Add exponent-parameter interpolation comparisons with error heatmaps. |
 | `python/inverse-kinematics/inverse-kinematics.ipynb` | Validated (30s rule) | 2026-03-22 | Add convergence-vs-initialization study and joint-limit scenarios. |
 | `python/ising-model/ising-model.ipynb` | Validated (30s rule) | 2026-03-22 | Add temperature sweep near criticality with magnetization/energy statistics. |
 | `python/ista/ista.ipynb` | Validated (30s rule) | 2026-03-22 | Keep portable colormaps (`viridis`) and add sparsity-vs-error trajectory plots. |
@@ -96,3 +96,23 @@ Validation rule used: execute with a 30-second max per code cell, skipping cells
 | `python/jko-flow/jko-flow.ipynb` | Validated (30s rule) | 2026-03-22 | Add timestep sensitivity and Wasserstein-distance decay diagnostics. |
 | `python/joukowski/joukowski.ipynb` | Validated (30s rule) | 2026-03-22 | Add parameter variation over airfoil shapes with flow-field snapshots. |
 | `python/julia-sets/julia-sets.ipynb` | Validated (30s rule) | 2026-03-22 | Add complex-parameter sweep panel and convergence-iteration histogram. |
+| `python/k-nn/k-nn.ipynb` | Validated (30s rule) | 2026-03-22 | Execute with 30s-per-cell rule and embed outputs. |
+| `python/kaczmarz/kaczmarz.ipynb` | Validated (30s rule) | 2026-03-22 | Execute with 30s-per-cell rule and embed outputs. |
+| `python/kalman/kalman.ipynb` | Validated (30s rule) | 2026-03-22 | Execute with 30s-per-cell rule and embed outputs. |
+| `python/kernel-approx-1d/kernel-approx-1d.ipynb` | Validated (30s rule) | 2026-03-22 | Execute with 30s-per-cell rule and embed outputs. |
+| `python/kernel-pca/kernel-pca.ipynb` | Validated (30s rule) | 2026-03-22 | Execute with 30s-per-cell rule and embed outputs. |
+| `python/kernel-svm/kernel-svm.ipynb` | Validated (30s rule) | 2026-03-22 | Execute with 30s-per-cell rule and embed outputs. |
+| `python/kinetics-evolution/kinetics-evolution.ipynb` | Validated (30s rule) | 2026-03-22 | Execute with 30s-per-cell rule and embed outputs. |
+| `python/kmean++/kmeanpp.ipynb` | Validated (30s rule) | 2026-03-22 | Convergence-mean aggregation fixed for variable-length Lloyd curves; add seed-sensitivity boxplot. |
+| `python/kmeans/kmeans.ipynb` | Validated (30s rule) | 2026-03-22 | Execute with 30s-per-cell rule and embed outputs. |
+| `python/kriging/kriging.ipynb` | Validated (30s rule) | 2026-03-22 | Execute with 30s-per-cell rule and embed outputs. |
+| `python/kubo-matrix-mean/kubo-matrix-mean.ipynb` | Validated (30s rule) | 2026-03-22 | Mathtext labels fixed (`\sharp`); add 3x3 SPD example to broaden intuition. |
+| `python/lagrange-hermite/lagrange-hermite.ipynb` | Validated (30s rule) | 2026-03-22 | Execute with 30s-per-cell rule and embed outputs. |
+| `python/lagrangian-flows/lagrangian-flows.ipynb` | Validated (30s rule) | 2026-03-22 | Execute with 30s-per-cell rule and embed outputs. |
+| `python/lagrangian-vs-eulerian/lagrangian-vs-eulerian.ipynb` | Validated (30s rule) | 2026-03-22 | Matplotlib compatibility fix applied (`streamplot` alpha removed); add side-by-side time-parameter sweep snapshots. |
+| `python/laplacian-eigenmaps/laplacian-eigenmaps.ipynb` | Validated (30s rule) | 2026-03-22 | Execute with 30s-per-cell rule and embed outputs. |
+| `python/laplacian-pyramid/laplacian-pyramid.ipynb` | Validated (30s rule) | 2026-03-22 | Execute with 30s-per-cell rule and embed outputs. |
+| `python/laplacian-spectrum/laplacian-spectrum.ipynb` | Validated (30s rule) | 2026-03-22 | Add eigenvalue-gap diagnostics across multiple graph families. |
+| `python/laplacian-weighted/laplacian-weighted.ipynb` | Validated (30s rule) | 2026-03-22 | Add a side-by-side weight-kernel parameter sweep with consistent color scales. |
+| `python/lda-qda/lda-qda.ipynb` | Validated (30s rule) | 2026-03-22 | Add covariance-regularization sensitivity and decision-boundary comparison. |
+| `python/legendre/legendre.ipynb` | Validated (30s rule) | 2026-03-22 | Add degree-growth stability plots and orthogonality numerical error diagnostics. |

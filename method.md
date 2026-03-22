@@ -70,6 +70,21 @@ The notebook should teach the idea clearly, not merely reproduce code.
   - extracted from representative notebook rendering
   - chosen to be the most illustrative view of the topic
 
+## Figure Output Hygiene (No Root Artifacts)
+
+- Never write generated figures to repository root (e.g. `./figure.png` from top-level execution).
+- Figure outputs must use one of these locations:
+  - notebook-local folder: `python/<topic>/` (for persistent assets such as `snippet.png`)
+  - notebook-local temp/output subfolder: `python/<topic>/_tmp/` or `python/<topic>/outputs/`
+  - system temporary directory for transient validation artifacts (for example via `tempfile`)
+- During batch execution from repository root, all `savefig` paths must still resolve away from `./`.
+- If a figure is only diagnostic/intermediate:
+  - prefer temporary output (`_tmp/` or system temp)
+  - do not leave it in repository root
+- If a figure is intended for README/gallery:
+  - save it explicitly as `python/<topic>/snippet.png`
+  - keep it square and representative
+
 ## Execution Validation Protocol (30s Rule)
 
 - Every notebook must be execution-tested before being considered valid.
@@ -87,6 +102,9 @@ The notebook should teach the idea clearly, not merely reproduce code.
   - reduce computational load (grid size, number of particles/samples, iteration count, frame count)
   - prefer vectorization or lighter diagnostic subsets for default execution
   - keep an optional “high-resolution” parameter path only for manual exploration
+- After execution validation:
+  - verify no new `*.png` (or other figure dumps) were created in repository root
+  - if root artifacts exist, move/remove them and fix notebook save paths before marking validation complete
 - A notebook passes only if:
   - no non-interactive cell exceeds 30s in validation
   - no execution error occurs
@@ -107,6 +125,7 @@ The notebook should teach the idea clearly, not merely reproduce code.
 - [ ] README entry + Colab badge + square snippet present.
 - [ ] README snippet/description/gallery constraints are respected.
 - [ ] Notebook parses correctly as valid `.ipynb`.
+- [ ] Figure outputs are stored in notebook-local or temp directories (never repository root).
 
 ## Tone and Style Expectations
 
