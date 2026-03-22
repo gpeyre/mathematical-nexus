@@ -26,25 +26,29 @@
 9. **BFGS and L-BFGS** — [`python/bfgs-lbfgs/bfgs-lbfgs.ipynb`](python/bfgs-lbfgs/bfgs-lbfgs.ipynb)
 10. **Trust-Region Methods** — [`python/trust-region-methods/trust-region-methods.ipynb`](python/trust-region-methods/trust-region-methods.ipynb)
 
+## Done (Batch 3)
+
+1. **Newton Fractals in the Complex Plane** — [`python/newton-fractals-complex/newton-fractals-complex.ipynb`](python/newton-fractals-complex/newton-fractals-complex.ipynb)
+2. **Chebyshev Approximation and Minimax Polynomials** — [`python/chebyshev-minimax/chebyshev-minimax.ipynb`](python/chebyshev-minimax/chebyshev-minimax.ipynb)
+3. **Runge-Kutta Methods and Stability Regions** — [`python/runge-kutta-stability/runge-kutta-stability.ipynb`](python/runge-kutta-stability/runge-kutta-stability.ipynb)
+4. **Markov Chains and Mixing Times** — [`python/markov-chains-mixing/markov-chains-mixing.ipynb`](python/markov-chains-mixing/markov-chains-mixing.ipynb)
+5. **Hidden Markov Models (Forward-Backward)** — [`python/hmm-forward-backward/hmm-forward-backward.ipynb`](python/hmm-forward-backward/hmm-forward-backward.ipynb)
+6. **Particle Filters (Sequential Monte Carlo)** — [`python/particle-filters-smc/particle-filters-smc.ipynb`](python/particle-filters-smc/particle-filters-smc.ipynb)
+7. **Variational Inference for Gaussian Mixtures** — [`python/variational-inference-gmm/variational-inference-gmm.ipynb`](python/variational-inference-gmm/variational-inference-gmm.ipynb)
+8. **Gaussian Processes in Higher Dimension** — [`python/gaussian-processes-2d/gaussian-processes-2d.ipynb`](python/gaussian-processes-2d/gaussian-processes-2d.ipynb)
+9. **Normalizing Flows (2D Didactic)** — [`python/normalizing-flows-2d/normalizing-flows-2d.ipynb`](python/normalizing-flows-2d/normalizing-flows-2d.ipynb)
+10. **Diffusion Models (Toy 1D/2D)** — [`python/diffusion-models-toy/diffusion-models-toy.ipynb`](python/diffusion-models-toy/diffusion-models-toy.ipynb)
+11. **t-SNE and UMAP Comparison** — [`python/tsne-umap-comparison/tsne-umap-comparison.ipynb`](python/tsne-umap-comparison/tsne-umap-comparison.ipynb)
+12. **Spectral Graph Wavelets** — [`python/spectral-graph-wavelets/spectral-graph-wavelets.ipynb`](python/spectral-graph-wavelets/spectral-graph-wavelets.ipynb)
+13. **PageRank and Random Walks on Graphs** — [`python/pagerank-random-walks/pagerank-random-walks.ipynb`](python/pagerank-random-walks/pagerank-random-walks.ipynb)
+14. **Graph Neural Networks (Message Passing Toy)** — [`python/gnn-message-passing-toy/gnn-message-passing-toy.ipynb`](python/gnn-message-passing-toy/gnn-message-passing-toy.ipynb)
+15. **Riemannian Optimization on Stiefel/Grassmann** — [`python/riemannian-optimization-stiefel/riemannian-optimization-stiefel.ipynb`](python/riemannian-optimization-stiefel/riemannian-optimization-stiefel.ipynb)
+16. **Matrix Completion via Nuclear Norm** — [`python/matrix-completion-nuclear-norm/matrix-completion-nuclear-norm.ipynb`](python/matrix-completion-nuclear-norm/matrix-completion-nuclear-norm.ipynb)
+17. **Robust PCA (Low-Rank + Sparse)** — [`python/robust-pca-lowrank-sparse/robust-pca-lowrank-sparse.ipynb`](python/robust-pca-lowrank-sparse/robust-pca-lowrank-sparse.ipynb)
+18. **Persistent Homology and Topological Signatures** — [`python/persistent-homology-topology/persistent-homology-topology.ipynb`](python/persistent-homology-topology/persistent-homology-topology.ipynb)
+19. **Spherical Harmonics and Signal Processing on the Sphere** — [`python/spherical-harmonics-signals/spherical-harmonics-signals.ipynb`](python/spherical-harmonics-signals/spherical-harmonics-signals.ipynb)
+20. **Finite Group Representations and FFT on Cyclic Groups** — [`python/finite-groups-fft-cyclic/finite-groups-fft-cyclic.ipynb`](python/finite-groups-fft-cyclic/finite-groups-fft-cyclic.ipynb)
+
 ## Remaining Suggestions
 
-1. **Newton Fractals in the Complex Plane** — Visualize basins of attraction and convergence order for polynomial root finding.
-2. **Chebyshev Approximation and Minimax Polynomials** — Explain alternation theorem, Remez algorithm, and uniform approximation quality.
-3. **Runge–Kutta Methods and Stability Regions** — Compare RK families via absolute-stability domains and stiff/non-stiff test equations.
-4. **Markov Chains and Mixing Times** — Simulate finite chains, spectral gaps, coupling intuition, and convergence diagnostics.
-5. **Hidden Markov Models (Forward-Backward)** — Infer latent states with filtering/smoothing and compare Viterbi decoding.
-6. **Particle Filters (Sequential Monte Carlo)** — Demonstrate weight degeneracy, resampling schemes, and tracking under nonlinear dynamics.
-7. **Variational Inference for Gaussian Mixtures** — Derive ELBO updates and compare VI with EM on clustering uncertainty.
-8. **Gaussian Processes in Higher Dimension** — Kernel design, posterior uncertainty, and scalability tricks (inducing points, random features).
-9. **Normalizing Flows (2D Didactic)** — Build invertible transforms, log-Jacobian computation, and density fitting with clear visuals.
-10. **Diffusion Models (Toy 1D/2D)** — Explain forward-noise and reverse-denoise processes on simple distributions.
-11. **t-SNE and UMAP Comparison** — Compare manifold embeddings, perplexity/neighborhood effects, and trustworthiness metrics.
-12. **Spectral Graph Wavelets** — Construct graph filters from Laplacian spectra and study localization vs smoothness.
-13. **PageRank and Random Walks on Graphs** — Derive PageRank as stationary distribution and analyze teleportation effects.
-14. **Graph Neural Networks (Message Passing Toy)** — Implement a minimal GCN-style layer and interpret learned representations.
-15. **Riemannian Optimization on Stiefel/Grassmann** — Optimize with orthogonality constraints using retractions and tangent projections.
-16. **Matrix Completion via Nuclear Norm** — Recover low-rank matrices with proximal methods and sampling-ratio phase behavior.
-17. **Robust PCA (Low-Rank + Sparse)** — Separate background/foreground components via principal component pursuit and ADMM.
-18. **Persistent Homology and Topological Signatures** — Compute barcodes on point clouds/images and relate features to scale.
-19. **Spherical Harmonics and Signal Processing on the Sphere** — Expand functions on S², visualize modes, and reconstruct bandlimited signals.
-20. **Finite Group Representations and FFT on Cyclic Groups** — Connect characters, convolution diagonalization, and fast transforms.
+None.

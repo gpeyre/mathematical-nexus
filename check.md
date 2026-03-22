@@ -5,7 +5,7 @@ It is a live snapshot and should be updated whenever notebooks are added or modi
 
 Validation rule used: execute with a 30-second max per code cell, skipping cells tagged `interactive`.
 
-Current sync (2026-03-22): 129 notebooks tracked, 129 validated, 0 pending.
+Current sync (2026-03-22): 149 notebooks tracked, 149 validated, 0 pending.
 
 | Notebook | Status | Last verification | Improvement TODO |
 |---|---|---|---|
@@ -138,3 +138,23 @@ Current sync (2026-03-22): 129 notebooks tracked, 129 validated, 0 pending.
 | `python/pdhg-chambolle-pock/pdhg-chambolle-pock.ipynb` | Validated (30s rule) | 2026-03-22 | Add step-size condition stress tests and objective-gap trajectories. |
 | `python/bfgs-lbfgs/bfgs-lbfgs.ipynb` | Validated (30s rule) | 2026-03-22 | Add memory-size sweep for L-BFGS with convergence/runtime comparison. |
 | `python/trust-region-methods/trust-region-methods.ipynb` | Validated (30s rule) | 2026-03-22 | Add trust-radius adaptation diagnostics and acceptance-ratio histograms. |
+| `python/newton-fractals-complex/newton-fractals-complex.ipynb` | Validated (30s rule) | 2026-03-22 | Add polynomial-family comparisons (root multiplicity, clustered roots) for basin sensitivity. |
+| `python/chebyshev-minimax/chebyshev-minimax.ipynb` | Validated (30s rule) | 2026-03-22 | Add explicit equioscillation diagnostics and a lightweight Remez comparison. |
+| `python/runge-kutta-stability/runge-kutta-stability.ipynb` | Validated (30s rule) | 2026-03-22 | Add stiff test-equation trajectories to connect regions with time-domain behavior. |
+| `python/markov-chains-mixing/markov-chains-mixing.ipynb` | Validated (30s rule) | 2026-03-22 | Add spectral-gap vs empirical mixing-rate overlay for multiple chain families. |
+| `python/hmm-forward-backward/hmm-forward-backward.ipynb` | Validated (30s rule) | 2026-03-22 | Add backward-smoothing curves to complement filtering and Viterbi paths. |
+| `python/particle-filters-smc/particle-filters-smc.ipynb` | Validated (30s rule) | 2026-03-22 | Add particle-count sweep showing ESS and tracking RMSE tradeoffs. |
+| `python/variational-inference-gmm/variational-inference-gmm.ipynb` | Validated (30s rule) | 2026-03-22 | Add uncertainty ellipses and EM-side baseline for tighter pedagogical contrast. |
+| `python/gaussian-processes-2d/gaussian-processes-2d.ipynb` | Validated (30s rule) | 2026-03-22 | Add length-scale and noise sweeps with calibrated uncertainty interpretation. |
+| `python/normalizing-flows-2d/normalizing-flows-2d.ipynb` | Validated (30s rule) | 2026-03-22 | Add log-density contour reconstruction to accompany sample visualization. |
+| `python/diffusion-models-toy/diffusion-models-toy.ipynb` | Validated (30s rule) | 2026-03-22 | Add multi-step reverse chain snapshots rather than single-step denoise proxy. |
+| `python/tsne-umap-comparison/tsne-umap-comparison.ipynb` | Validated (30s rule) | 2026-03-22 | Add neighborhood-preservation metrics (trustworthiness/continuity) per embedding. |
+| `python/spectral-graph-wavelets/spectral-graph-wavelets.ipynb` | Validated (30s rule) | 2026-03-22 | Add localization-width diagnostics across scales and graph topologies. |
+| `python/pagerank-random-walks/pagerank-random-walks.ipynb` | Validated (30s rule) | 2026-03-22 | Add power-iteration convergence curves and teleportation personalization variants. |
+| `python/gnn-message-passing-toy/gnn-message-passing-toy.ipynb` | Validated (30s rule) | 2026-03-22 | Add oversmoothing depth study with separation metrics by layer count. |
+| `python/riemannian-optimization-stiefel/riemannian-optimization-stiefel.ipynb` | Validated (30s rule) | 2026-03-22 | Add stepsize sweep and tangent-norm decay plots for optimization diagnostics. |
+| `python/matrix-completion-nuclear-norm/matrix-completion-nuclear-norm.ipynb` | Validated (30s rule) | 2026-03-22 | Add sampling-ratio phase plot for recovery probability. |
+| `python/robust-pca-lowrank-sparse/robust-pca-lowrank-sparse.ipynb` | Validated (30s rule) | 2026-03-22 | Add corruption-level sensitivity and singular-value spectrum comparisons. |
+| `python/persistent-homology-topology/persistent-homology-topology.ipynb` | Validated (30s rule) | 2026-03-22 | Add explicit barcode rendering and a one-cycle ($H_1$) toy example. |
+| `python/spherical-harmonics-signals/spherical-harmonics-signals.ipynb` | Validated (30s rule) | 2026-03-22 | Add coefficient-energy spectrum and reconstruction truncation study. |
+| `python/finite-groups-fft-cyclic/finite-groups-fft-cyclic.ipynb` | Validated (30s rule) | 2026-03-22 | Add character orthogonality verification and convolution theorem residual plots. |
