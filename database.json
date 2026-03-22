@@ -7,7 +7,7 @@
   },
   {
     "title":"ADMM from First Principles (LASSO Example)",
-    "content":"For \\min_x \\tfrac12\\|Ax-y\\|_2^2 + \\lambda\\|x\\|_1, split x=z and apply ADMM updates: x^{k+1}=\\arg\\min_x \\tfrac12\\|Ax-y\\|_2^2+\\frac{\\rho}{2}\\|x-z^k+u^k\\|_2^2, z^{k+1}=\\operatorname{soft}(x^{k+1}+u^k, \\lambda\/\\rho), \\quad u^{k+1}=u^k+x^{k+1}-z^{k+1}.",
+    "content":"For split and apply ADMM updates:.",
     "filename":"python\/admm-first-principles\/admm-first-principles.ipynb",
     "type":"notebook"
   },
@@ -19,7 +19,7 @@
   },
   {
     "title":"Allen–Cahn vs Cahn–Hilliard Dynamics",
-    "content":"Two classic phase-field PDEs use the same double-well potential but different conservation laws: \\partial_t u = \\varepsilon^2 \\Delta u - (u^3-u) \\quad \\text{(Allen–Cahn)}, \\partial_t u = \\Delta\\! \\left(-\\varepsilon^2 \\Delta u + (u^3-u)\\right) \\quad \\text{(C...",
+    "content":"Two classic phase-field PDEs use the same double-well potential but different conservation laws: Allen–Cahn is non-conservative; Cahn–Hilliard conserves mass.",
     "filename":"python\/allen-cahn-cahn-hilliard\/allen-cahn-cahn-hilliard.ipynb",
     "type":"notebook"
   },
@@ -73,7 +73,7 @@
   },
   {
     "title":"BFGS vs Gradient Descent",
-    "content":"BFGS builds curvature information through rank-two Hessian-inverse updates: H_{k+1}=(I-\\rho s y^\\top)H_k(I-\\rho y s^\\top)+\\rho ss^\\top, \\quad \\rho=\\frac1{y^\\top s}. This often accelerates convergence on ill-conditioned smooth objectives.",
+    "content":"BFGS builds curvature information through rank-two Hessian-inverse updates: This often accelerates convergence on ill-conditioned smooth objectives.",
     "filename":"python\/bfgs-lbfgs\/bfgs-lbfgs.ipynb",
     "type":"notebook"
   },
@@ -127,13 +127,13 @@
   },
   {
     "title":"Chebyshev Approximation and Minimax Polynomials",
-    "content":"Uniform approximation seeks p_n minimizing \\|f-p_n\\|_{\\infty, [-1, 1]}. Chebyshev interpolation is near-minimax in many practical settings and avoids Runge oscillations. We compare Taylor and Chebyshev polynomial approximations.",
+    "content":"Uniform approximation seeks minimizing Chebyshev interpolation is near-minimax in many practical settings and avoids Runge oscillations. We compare Taylor and Chebyshev polynomial approximations.",
     "filename":"python\/chebyshev-minimax\/chebyshev-minimax.ipynb",
     "type":"notebook"
   },
   {
     "title":"Compressed Sensing and Basis Pursuit",
-    "content":"Recover sparse x^\\star from underdetermined measurements y=Ax^\\star by solving \\min_x \\|x\\|_1 \\quad \\text{s.t.}\\quad Ax=y or its penalized version (LASSO): \\min_x \\tfrac12\\|Ax-y\\|_2^2+\\lambda\\|x\\|_1.",
+    "content":"Recover sparse from underdetermined measurements by solving or its penalized version (LASSO):.",
     "filename":"python\/compressed-sensing-basis-pursuit\/compressed-sensing-basis-pursuit.ipynb",
     "type":"notebook"
   },
@@ -150,8 +150,8 @@
     "type":"notebook"
   },
   {
-    "title":"Diffusion Models on Toy Distributions",
-    "content":"In discrete-time diffusion, x_t = \\sqrt{\\bar\\alpha_t}\\, x_0 + \\sqrt{1-\\bar\\alpha_t}\\, \\epsilon, \\qquad \\epsilon\\sim\\mathcal N(0, I). We illustrate forward noising and a simple denoising proxy on a 2D ring distribution.",
+    "title":"Diffusion Models on Three Dirac Atoms",
+    "content":"We start from a distribution with Dirac atoms: Under Gaussian forward noising, each atom becomes a Gaussian component, so which gives a closed-form score.",
     "filename":"python\/diffusion-models-toy\/diffusion-models-toy.ipynb",
     "type":"notebook"
   },
@@ -180,8 +180,8 @@
     "type":"notebook"
   },
   {
-    "title":"Eikonal Distance with Dijkstra\/Fast-Marching Intuition",
-    "content":"The eikonal equation \\|\\nabla T(x)\\| = \\frac{1}{f(x)} describes travel time in a medium with speed f(x). On grids, Dijkstra\/Fast-Marching style updates propagate a monotone front.",
+    "title":"Eikonal Distance and Fast-Marching Intuition",
+    "content":"For speed, the arrival time solves We design as a smooth mixture of two bumps so geodesics avoid the center, and visualize front propagation snapshots.",
     "filename":"python\/eikonal-fast-marching\/eikonal-fast-marching.ipynb",
     "type":"notebook"
   },
@@ -204,14 +204,14 @@
     "type":"notebook"
   },
   {
-    "title":"Finite Elements in 1D (Didactic Core)",
-    "content":"We solve -u''(x)=f(x) on (0, 1) with Dirichlet boundary conditions using piecewise-linear finite elements. The weak form reads \\int_0^1 u'(x)v'(x)\\, dx = \\int_0^1 f(x)v(x)\\, dx \\quad \\forall v\\in H_0^1.",
+    "title":"Finite Element Method in 1D\/2D",
+    "content":"We solve on with homogeneous Dirichlet boundaries and compare six mesh resolutions to show convergence.",
     "filename":"python\/fem-1d-2d\/fem-1d-2d.ipynb",
     "type":"notebook"
   },
   {
     "title":"Finite Group Representations and FFT on Cyclic Groups",
-    "content":"On the cyclic group \\mathbb Z_n, irreducible characters are \\chi_k(t)=e^{-2\\pi i kt\/n}. The DFT diagonalizes circular convolution, which is the group algebra product.",
+    "content":"On the cyclic group, irreducible characters are The DFT diagonalizes circular convolution, which is the group algebra product.",
     "filename":"python\/finite-groups-fft-cyclic\/finite-groups-fft-cyclic.ipynb",
     "type":"notebook"
   },
@@ -247,7 +247,7 @@
   },
   {
     "title":"Fourier Cristal",
-    "content":"Generates crystallographic and quasicrystalline interference patterns from K -fold symmetric plane waves.",
+    "content":"Generates crystallographic and quasicrystalline interference patterns from -fold symmetric plane waves.",
     "filename":"python\/fourier-cristal\/fourier-cristal.ipynb",
     "type":"notebook"
   },
@@ -277,7 +277,7 @@
   },
   {
     "title":"Fractional Derivatives",
-    "content":"Applies the Fourier definition of fractional derivatives to a Gaussian and sweeps the order \\alpha \\in [0, 4].",
+    "content":"Applies the Fourier definition of fractional derivatives to a Gaussian and sweeps the order.",
     "filename":"python\/frac-der-gaussian\/frac-der-gaussian.ipynb",
     "type":"notebook"
   },
@@ -289,7 +289,7 @@
   },
   {
     "title":"Fractional Laplacian",
-    "content":"Explores the nonlocal operator (-\\Delta)^s via its Fourier multiplier, anomalous diffusion, and Lévy-flight tails.",
+    "content":"Explores the nonlocal operator via its Fourier multiplier, anomalous diffusion, and Lévy-flight tails.",
     "filename":"python\/fractional-laplacian\/fractional-laplacian.ipynb",
     "type":"notebook"
   },
@@ -319,7 +319,7 @@
   },
   {
     "title":"Gaussian Processes in Higher Dimension",
-    "content":"A Gaussian process prior is f \\sim \\mathcal{GP}(0, k_\\theta(\\cdot, \\cdot)). Posterior mean and variance are computed with kernel matrices. We illustrate 2D regression with uncertainty maps.",
+    "content":"A Gaussian process prior is Posterior mean and variance are computed with kernel matrices. We illustrate 2D regression with uncertainty maps.",
     "filename":"python\/gaussian-processes-2d\/gaussian-processes-2d.ipynb",
     "type":"notebook"
   },
@@ -361,7 +361,7 @@
   },
   {
     "title":"Graph Neural Networks: Message Passing Toy Model",
-    "content":"A basic message passing layer reads H^{(\\ell+1)} = \\sigma(\\tilde D^{-1\/2}\\tilde A\\tilde D^{-1\/2} H^{(\\ell)} W^{(\\ell)}). We run a small two-layer GCN-style propagation and inspect feature separation.",
+    "content":"A basic message passing layer reads We run a small two-layer GCN-style propagation and inspect feature separation.",
     "filename":"python\/gnn-message-passing-toy\/gnn-message-passing-toy.ipynb",
     "type":"notebook"
   },
@@ -439,7 +439,7 @@
   },
   {
     "title":"Hamiltonian Dynamics and Symplectic Integrators",
-    "content":"For a Hamiltonian H(q, p)=\\frac12 p^2 + V(q), equations of motion are \\dot q = \\partial_p H, \\qquad \\dot p = -\\partial_q H. Symplectic schemes (like Störmer–Verlet) preserve geometric structure and usually control long-time energy drift better than explicit...",
+    "content":"Hamiltonian particle systems are a core model for mechanics, molecular dynamics, and statistical physics. For a state with position and momentum, the dynamics is The key numerical question is not only short-term accuracy, but also long-term geometric fideli...",
     "filename":"python\/hamiltonian-symplectic\/hamiltonian-symplectic.ipynb",
     "type":"notebook"
   },
@@ -499,7 +499,7 @@
   },
   {
     "title":"Hidden Markov Models: Forward-Backward and Viterbi",
-    "content":"An HMM has latent states x_t and observations y_t with p(x_{1:T}, y_{1:T}) = p(x_1)\\prod_{t=2}^{T}p(x_t|x_{t-1})\\prod_{t=1}^{T}p(y_t|x_t). We compute filtering probabilities and the most likely latent path.",
+    "content":"An HMM has latent states and observations with We compute filtering probabilities and the most likely latent path.",
     "filename":"python\/hmm-forward-backward\/hmm-forward-backward.ipynb",
     "type":"notebook"
   },
@@ -733,133 +733,133 @@
   },
   {
     "title":"Level Set Advection and Reinitialization",
-    "content":"A moving interface \\Gamma_t can be represented as \\{\\phi(\\cdot, t)=0\\}. Under advection velocity v, the level-set PDE is \\partial_t \\phi + v\\cdot\\nabla\\phi = 0. We illustrate transport of an implicit curve and periodic reinitialization to signed-distance sh...",
+    "content":"A moving interface can be represented as. Under advection velocity, the level-set PDE is We illustrate transport of an implicit curve and periodic reinitialization to signed-distance shape.",
     "filename":"python\/level-set-methods\/level-set-methods.ipynb",
     "type":"notebook"
   },
   {
     "title":"Markov Chains and Mixing Times",
-    "content":"For a stochastic matrix P, the distribution evolves as \\pi_{t+1} = \\pi_t P. Mixing speed is linked to the spectral gap 1-|\\lambda_2|. We compare total variation decay from different starts.",
+    "content":"For a stochastic matrix, the distribution evolves as Mixing speed is linked to the spectral gap. We compare total variation decay from different starts.",
     "filename":"python\/markov-chains-mixing\/markov-chains-mixing.ipynb",
     "type":"notebook"
   },
   {
     "title":"Matrix Completion via Nuclear Norm",
-    "content":"Matrix completion solves \\min_X \\frac12\\|P_\\Omega(X-M)\\|_F^2 + \\lambda \\|X\\|_. The proximal step of \\|\\cdot\\|_ is singular-value soft-thresholding. We recover a low-rank matrix from random missing entries.",
+    "content":"Matrix completion solves The proximal step of is singular-value soft-thresholding. We recover a low-rank matrix from random missing entries.",
     "filename":"python\/matrix-completion-nuclear-norm\/matrix-completion-nuclear-norm.ipynb",
     "type":"notebook"
   },
   {
-    "title":"Mean Curvature Flow of Planar Curves",
-    "content":"For a curve \\Gamma_t, mean-curvature flow evolves normal velocity as: V_n = -\\kappa, which smooths and shrinks shapes. In discrete form, Laplacian smoothing of polygon vertices provides a didactic approximation.",
+    "title":"Mean Curvature Flow of a Planar Curve",
+    "content":"For a planar curve parametrized by arc length, mean-curvature flow obeys where is scalar curvature and is the inward normal. Using a periodic polygonal discretization, we approximate and evolve for a longer horizon from a less regular initial curve.",
     "filename":"python\/mean-curvature-flow\/mean-curvature-flow.ipynb",
     "type":"notebook"
   },
   {
     "title":"Newton Fractals in the Complex Plane",
-    "content":"For a polynomial p(z), Newton's method iterates z_{k+1} = z_k - \\frac{p(z_k)}{p'(z_k)}. Each initial point converges to a root (when it converges), and the basin partition creates a fractal boundary. This notebook visualizes both the attraction basins and c...",
+    "content":"For a polynomial, Newton's method iterates Each initial point converges to a root (when it converges), and the basin partition creates a fractal boundary. This notebook visualizes both the attraction basins and convergence speed.",
     "filename":"python\/newton-fractals-complex\/newton-fractals-complex.ipynb",
     "type":"notebook"
   },
   {
     "title":"Normalizing Flows in 2D",
-    "content":"A normalizing flow composes invertible maps z_{k+1} = T_k(z_k), \\qquad \\log p_X(x)=\\log p_Z(z)-\\sum_k \\log|\\det J_{T_k}(z_k)|. We build a didactic affine-coupling flow and visualize transformed samples.",
+    "content":"A normalizing flow composes invertible maps We build a didactic affine-coupling flow and visualize transformed samples.",
     "filename":"python\/normalizing-flows-2d\/normalizing-flows-2d.ipynb",
     "type":"notebook"
   },
   {
-    "title":"Orthogonal Matching Pursuit",
-    "content":"OMP greedily builds sparse approximations by repeatedly selecting the atom most correlated with the residual and refitting coefficients by least squares. At step k: j_k=\\arg\\max_j |\\langle a_j, r_{k-1}\\rangle|, \\qquad x_{S_k}=\\arg\\min_z\\|A_{S_k}z-y\\|_2^2.",
+    "title":"Orthogonal Matching Pursuit with Gaussian Bump Dictionary",
+    "content":"Given a dictionary and a signal, OMP iteratively selects atoms maximizing correlation with residuals: We use a Gaussian bump dictionary and reconstruct a sparse smooth signal.",
     "filename":"python\/orthogonal-matching-pursuit\/orthogonal-matching-pursuit.ipynb",
     "type":"notebook"
   },
   {
     "title":"PageRank and Random Walks on Graphs",
-    "content":"PageRank is the stationary distribution of \\pi = \\alpha P^\\top \\pi + (1-\\alpha) v, where teleportation vector v guarantees ergodicity. We study ranking changes with \\alpha.",
+    "content":"PageRank is the stationary distribution of where teleportation vector guarantees ergodicity. We study ranking changes with.",
     "filename":"python\/pagerank-random-walks\/pagerank-random-walks.ipynb",
     "type":"notebook"
   },
   {
     "title":"Particle Filters and Sequential Monte Carlo",
-    "content":"Particle filters approximate p(x_t|y_{1:t}) by weighted particles \\sum_{i=1}^N w_t^{(i)} \\delta(x_t-x_t^{(i)}). We illustrate importance weighting, effective sample size, and systematic resampling.",
+    "content":"Particle filters approximate by weighted particles We illustrate importance weighting, effective sample size, and systematic resampling.",
     "filename":"python\/particle-filters-smc\/particle-filters-smc.ipynb",
     "type":"notebook"
   },
   {
     "title":"Primal-Dual Hybrid Gradient (Chambolle–Pock)",
-    "content":"For problems \\min_x f(Kx)+g(x), PDHG updates y^{k+1}=\\operatorname{prox}_{\\sigma f^\\ }(y^k+\\sigma K\\bar x^k), \\quad x^{k+1}=\\operatorname{prox}_{\\tau g}(x^k-\\tau K^\\top y^{k+1}), with extrapolation \\bar x^{k+1}=x^{k+1}+\\theta(x^{k+1}-x^k). We demonstrate de...",
+    "content":"For problems, PDHG updates with extrapolation. We demonstrate denoising with TV-like finite differences.",
     "filename":"python\/pdhg-chambolle-pock\/pdhg-chambolle-pock.ipynb",
     "type":"notebook"
   },
   {
     "title":"Persistent Homology and Topological Signatures",
-    "content":"Persistent homology tracks birth\/death of topological features across scales. For connected components ( H_0 ), bar lengths are related to MST edge lengths. We illustrate H_0 persistence on point clouds with two clusters.",
+    "content":"Persistent homology tracks birth\/death of topological features across scales. For connected components ( ), bar lengths are related to MST edge lengths. We illustrate persistence on point clouds with two clusters.",
     "filename":"python\/persistent-homology-topology\/persistent-homology-topology.ipynb",
     "type":"notebook"
   },
   {
     "title":"Poisson Equation on Triangulated Meshes",
-    "content":"On a graph\/mesh discretization, a Poisson problem can be written as L u = f, with fixed boundary values. This notebook demonstrates harmonic\/Poisson solves on a 2D triangulated square.",
+    "content":"On a graph\/mesh discretization, a Poisson problem can be written as with fixed boundary values. This notebook demonstrates harmonic\/Poisson solves on a 2D triangulated square.",
     "filename":"python\/poisson-meshes\/poisson-meshes.ipynb",
     "type":"notebook"
   },
   {
     "title":"Reaction-Diffusion Turing Patterns (Gray–Scott)",
-    "content":"Reaction-diffusion systems couple local nonlinear chemistry and diffusion: \\partial_t U = D_u \\Delta U - UV^2 + F(1-U), \\qquad \\partial_t V = D_v \\Delta V + UV^2 - (F+k)V. Different (F, k) regimes yield spots, stripes, and labyrinths.",
+    "content":"Reaction-diffusion systems couple local nonlinear chemistry and diffusion: Different regimes yield spots, stripes, and labyrinths.",
     "filename":"python\/reaction-diffusion-turing\/reaction-diffusion-turing.ipynb",
     "type":"notebook"
   },
   {
     "title":"Riemannian Optimization on Stiefel and Grassmann",
-    "content":"On the Stiefel manifold St(p, n)=\\{X\\in\\mathbb R^{n\\times p}:X^\\top X=I\\}, we optimize with tangent projection and retraction: X_{k+1} = \\mathrm{qf}(X_k - \\eta \\, \\mathrm{grad} f(X_k)). We solve a PCA-style objective under orthogonality constraints.",
+    "content":"On the Stiefel manifold, we optimize with tangent projection and retraction: We solve a PCA-style objective under orthogonality constraints.",
     "filename":"python\/riemannian-optimization-stiefel\/riemannian-optimization-stiefel.ipynb",
     "type":"notebook"
   },
   {
     "title":"Robust PCA: Low-Rank + Sparse Decomposition",
-    "content":"Principal component pursuit solves \\min_{L, S}\\ \\|L\\|_ + \\lambda\\|S\\|_1 \\quad \\text{s.t.} \\quad M=L+S. We use an inexact augmented Lagrangian style iteration to separate structured and sparse components.",
+    "content":"Principal component pursuit solves We use an inexact augmented Lagrangian style iteration to separate structured and sparse components.",
     "filename":"python\/robust-pca-lowrank-sparse\/robust-pca-lowrank-sparse.ipynb",
     "type":"notebook"
   },
   {
     "title":"Runge-Kutta Methods and Stability Regions",
-    "content":"For the test equation \\dot y=\\lambda y, a one-step method induces y_{n+1}=R(z) y_n, \\qquad z=h\\lambda. Absolute stability requires |R(z)|\\leq 1. We compare Euler, RK2, and RK4 stability regions.",
+    "content":"For the test equation, a one-step method induces Absolute stability requires. We compare Euler, RK2, and RK4 stability regions.",
     "filename":"python\/runge-kutta-stability\/runge-kutta-stability.ipynb",
     "type":"notebook"
   },
   {
     "title":"Schrödinger Bridge Interpolation (Entropic OT View)",
-    "content":"The Schrödinger bridge builds the most likely stochastic evolution between fixed marginals under a diffusion prior. In discrete settings, it is tightly connected to entropic OT couplings: \\gamma^\\star = \\arg\\min_{\\gamma \\in \\Pi(a, b)} \\langle C, \\gamma\\rang...",
+    "content":"The Schrödinger bridge builds the most likely stochastic evolution between fixed marginals under a diffusion prior. In discrete settings, it is tightly connected to entropic OT couplings: This notebook visualizes entropic interpolation between 1D marginals.",
     "filename":"python\/schrodinger-bridge\/schrodinger-bridge.ipynb",
     "type":"notebook"
   },
   {
     "title":"Sinkhorn Distance and Entropic Optimal Transport",
-    "content":"Optimal transport compares probability measures by minimizing the cost of moving mass: \\min_{\\gamma \\in \\Pi(a, b)} \\langle C, \\gamma \\rangle, where \\Pi(a, b) is the set of couplings with prescribed marginals a and b.",
+    "content":"Optimal transport compares probability measures by minimizing the cost of moving mass: where is the set of couplings with prescribed marginals and.",
     "filename":"python\/sinkhorn-distance\/sinkhorn-distance.ipynb",
     "type":"notebook"
   },
   {
-    "title":"Sliced Wasserstein Geometry",
-    "content":"Sliced Wasserstein distances project high-dimensional measures onto 1D lines, where OT is cheap: \\mathrm{SW}_2^2(\\mu, \\nu)=\\int_{\\theta \\in \\mathbb{S}^{d-1}} W_2^2(P_\\theta\\#\\mu, \\ P_\\theta\\#\\nu)\\, d\\theta. Monte Carlo over random directions gives scalable...",
+    "title":"Sliced Wasserstein Gradient Descent to a Target",
+    "content":"The sliced Wasserstein distance between empirical measures is We optimize source particles by gradient descent to match a target distribution, and ensure good final alignment.",
     "filename":"python\/sliced-wasserstein\/sliced-wasserstein.ipynb",
     "type":"notebook"
   },
   {
     "title":"Spectral Graph Wavelets",
-    "content":"For graph Laplacian L=U\\Lambda U^\\top, spectral filtering applies g(L) = U g(\\Lambda) U^\\top. Wavelets localize by choosing band-pass kernels at multiple scales. We show scale effects on a ring graph signal.",
+    "content":"For graph Laplacian, spectral filtering applies Wavelets localize by choosing band-pass kernels at multiple scales. We show scale effects on a ring graph signal.",
     "filename":"python\/spectral-graph-wavelets\/spectral-graph-wavelets.ipynb",
     "type":"notebook"
   },
   {
     "title":"Spherical Harmonics and Signals on the Sphere",
-    "content":"Spherical harmonics form an orthonormal basis on \\mathbb S^2: f(\\theta, \\phi)=\\sum_{\\ell=0}^{\\infty}\\sum_{m=-\\ell}^{\\ell} c_{\\ell m}Y_\\ell^m(\\theta, \\phi). We use low-order real harmonics to synthesize and visualize a band-limited signal.",
+    "content":"Spherical harmonics form an orthonormal basis on: We use low-order real harmonics to synthesize and visualize a band-limited signal.",
     "filename":"python\/spherical-harmonics-signals\/spherical-harmonics-signals.ipynb",
     "type":"notebook"
   },
   {
     "title":"Trust-Region Methods on Nonconvex Objectives",
-    "content":"Trust-region methods solve local quadratic models \\min_{\\|p\\|\\le \\Delta_k}\\ m_k(p)=f(x_k)+g_k^\\top p+\\tfrac12 p^\\top B_k p, and adapt radius \\Delta_k using agreement ratio between actual and predicted decrease.",
+    "content":"Trust-region methods solve local quadratic models and adapt radius using agreement ratio between actual and predicted decrease.",
     "filename":"python\/trust-region-methods\/trust-region-methods.ipynb",
     "type":"notebook"
   },
@@ -877,19 +877,19 @@
   },
   {
     "title":"Variational Inference for Gaussian Mixtures",
-    "content":"Mean-field VI maximizes an ELBO \\mathcal{L}(q)=\\mathbb{E}_q[\\log p(X, Z, \\Theta)]-\\mathbb{E}_q[\\log q(Z, \\Theta)]. For didactic clarity we run soft-EM style coordinate updates and monitor the objective.",
+    "content":"Mean-field VI maximizes an ELBO For didactic clarity we run soft-EM style coordinate updates and monitor the objective.",
     "filename":"python\/variational-inference-gmm\/variational-inference-gmm.ipynb",
     "type":"notebook"
   },
   {
     "title":"Wasserstein Barycenters in 1D",
-    "content":"Given distributions (\\mu_i) and weights (\\lambda_i), a Wasserstein barycenter minimizes \\nu^\\star = \\arg\\min_\\nu \\sum_i \\lambda_i W_2^2(\\nu, \\mu_i). In one dimension, this has a simple quantile formula: Q_{\\nu^\\star}(t) = \\sum_i \\lambda_i Q_{\\mu_i}(t). This...",
+    "content":"Given distributions and weights, a Wasserstein barycenter minimizes In one dimension, this has a simple quantile formula: This notebook illustrates barycenter shape interpolation in 1D.",
     "filename":"python\/wasserstein-barycenters\/wasserstein-barycenters.ipynb",
     "type":"notebook"
   },
   {
     "title":"Wave Equation and Numerical Dispersion",
-    "content":"For u_{tt}=c^2u_{xx}, the exact phase speed is frequency-independent ( \\omega=ck ). Discrete schemes introduce modified dispersion: \\sin^2\\! \\left(\\frac{\\omega\\Delta t}{2}\\right) = r^2\\sin^2\\! \\left(\\frac{k\\Delta x}{2}\\right), \\quad r=\\frac{c\\Delta t}{\\Delt...",
+    "content":"For, the exact phase speed is frequency-independent ( ). Discrete schemes introduce modified dispersion: This notebook compares analytical and numerical behavior.",
     "filename":"python\/wave-equation-dispersion\/wave-equation-dispersion.ipynb",
     "type":"notebook"
   },

@@ -1,21 +1,23 @@
 # Suggested New Notebook Topics (40)
 
-## to correct:
+## Correction Status
 
-Orthogonal Matching Pursuit
-- biblographical refs are not correct (should be Mallat et al, and also ref in signal processing and related methods in stats)
-- use a gaussian bump dictionary, show the function approximated
+All items from the previous correction list have been implemented:
 
-Unbalanced OT:
-- Refs 
-  J. D. Murray, Mathematical Biology (for pattern-forming PDEs).
-  R. J. LeVeque, Finite Difference Methods for ODEs and PDEs.
-are not correct, add ref to Chizat et al (scaling algorithm), remove villani 
-
-Mean Curvature Flow 
-- run for much longer time, star by a slighly less regular ininitial curve
-- put more equation, explain how to define kappa, how this is discretized
-- Bibliographical Resources are not correct
+- Website card descriptions now strip LaTeX-like equation markup for clean display.
+- `jko-flow`: longer-time evolution with visible motion.
+- `orthogonal-matching-pursuit`: Gaussian bump dictionary, approximation plot, and corrected bibliography (Mallat/Tropp/Pati + stats reference).
+- `unbalanced-ot`: bibliography replaced with Chizat et al. and related OT references.
+- `mean-curvature-flow`: longer run, less regular initial curve, explicit curvature-discretization equations, corrected bibliography.
+- `sliced-wasserstein`: explicit gradient-descent matching to target with clear final alignment.
+- `autoregressive`: trajectory count reduced to about 25.
+- `diffusion-models-toy`: three-Dirac setup, closed-form Gaussian-mixture score, forward and backward trajectories.
+- `dijkstra`: added progressive front-propagation snapshots.
+- `fem-1d-2d`: title cleaned and six discretization levels shown.
+- `farthest-point`: weighted sampling inverted to favor white regions.
+- `foveation`: natural image foveation at multiple fixation points/radii, new snippet.
+- `frank-wolfe`: optimization path in black, target outside square and pentagon.
+- `eikonal-fast-marching`: smooth two-bump cost field and multi-step front-propagation snapshots.
 
 ## Done (Batch 1)
 

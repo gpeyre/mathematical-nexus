@@ -30,6 +30,12 @@ class Row:
 
 
 def clean_text(s: str) -> str:
+    # Remove inline/display LaTeX fragments so website card descriptions stay readable plain text.
+    s = re.sub(r"\$\$.*?\$\$", " ", s, flags=re.S)
+    s = re.sub(r"\$[^$]*\$", " ", s)
+    s = re.sub(r"\\\((.*?)\\\)", r" \1 ", s)
+    s = re.sub(r"\\\[(.*?)\\\]", r" \1 ", s, flags=re.S)
+    s = s.replace("\\", " ")
     s = re.sub(r"`([^`]*)`", r"\1", s)
     # Preserve URLs when markdown links are present: [label](url) -> "label url"
     s = re.sub(r"\[([^\]]+)\]\((https?://[^)]+)\)", r"\1 \2", s)
