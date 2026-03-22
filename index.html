@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Mathematical Nexus Collection</title>
+    <style>
+      :root {
+        --bg: #f6f7fb;
+        --card: #ffffff;
+        --line: #e5e7eb;
+        --text: #111827;
+        --muted: #6b7280;
+        --accent: #1d4ed8;
+      }
+      * {
+        box-sizing: border-box;
+      }
+      body {
+        margin: 0;
+        padding: 20px;
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+        background: var(--bg);
+        color: var(--text);
+      }
+      .hero {
+        text-align: center;
+        margin: 6px 0 16px;
+      }
+      h1 {
+        margin: 0 0 8px;
+        font-size: clamp(1.8rem, 4vw, 2.4rem);
+        letter-spacing: 0.2px;
+      }
+      .subtitle {
+        margin: 0 auto;
+        max-width: 760px;
+        color: var(--muted);
+        font-size: 0.98rem;
+        line-height: 1.4;
+      }
+      .toolbar {
+        position: sticky;
+        top: 0;
+        z-index: 10;
+        border: 1px solid var(--line);
+        background: rgba(246, 247, 251, 0.94);
+        backdrop-filter: blur(3px);
+        border-radius: 12px;
+        padding: 12px;
+        margin-bottom: 16px;
+      }
+      .controls {
+        display: grid;
+        grid-template-columns: minmax(220px, 1fr) auto auto auto auto;
+        gap: 8px;
+        align-items: center;
+      }
+      input,
+      select,
+      button {
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        padding: 8px 10px;
+        font-size: 14px;
+        background: #fff;
+        color: var(--text);
+      }
+      button {
+        cursor: pointer;
+      }
+      button:disabled {
+        opacity: 0.45;
+        cursor: not-allowed;
+      }
+      .meta {
+        margin-top: 8px;
+        font-size: 13px;
+        color: var(--muted);
+      }
+      .grid {
+        display: grid;
+        gap: 12px;
+        grid-template-columns: repeat(auto-fill, minmax(310px, 1fr));
+      }
+      .card {
+        border: 1px solid var(--line);
+        border-radius: 12px;
+        overflow: hidden;
+        background: var(--card);
+        box-shadow: 0 2px 7px rgba(0, 0, 0, 0.05);
+      }
+      .media {
+        height: 220px;
+        border-bottom: 1px solid var(--line);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: #fafafa;
+      }
+      .media img,
+      .media video {
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+        object-position: center;
+        display: block;
+      }
+      .notebook-media {
+        text-align: center;
+        color: var(--muted);
+        padding: 14px;
+      }
+      .content {
+        padding: 10px 12px 12px;
+      }
+      .chip {
+        display: inline-block;
+        font-size: 12px;
+        border: 1px solid #bfdbfe;
+        color: var(--accent);
+        background: #eff6ff;
+        border-radius: 999px;
+        padding: 1px 8px;
+        margin-bottom: 6px;
+      }
+      .title {
+        font-weight: 600;
+        margin: 2px 0 6px;
+      }
+      .desc {
+        margin: 0 0 7px;
+        line-height: 1.36;
+        font-size: 14px;
+      }
+      .filename {
+        font-size: 12px;
+        color: var(--muted);
+        word-break: break-all;
+      }
+      .empty {
+        margin-top: 24px;
+        text-align: center;
+        color: var(--muted);
+      }
+      .pages {
+        margin: 16px 0 10px;
+        text-align: center;
+        color: var(--muted);
+        user-select: none;
+      }
+      .pages button {
+        border: 0;
+        background: transparent;
+        color: var(--accent);
+        padding: 2px 4px;
+        margin: 0 2px;
+        cursor: pointer;
+        font-size: 14px;
+      }
+      .pages button.current {
+        font-weight: 700;
+        color: var(--text);
+        cursor: default;
+      }
+      .pages .sep {
+        margin: 0 3px;
+      }
+      @media (max-width: 900px) {
+        .controls {
+          grid-template-columns: 1fr 1fr;
+        }
+      }
+    </style>
+    <script src="database.js"></script>
+  </head>
+  <body>
+    <header class="hero">
+      <h1>Mathematical Nexus Collection</h1>
+      <p class="subtitle">
+        Explore a unified searchable catalog of mathematical content: interactive <strong>notebooks</strong> and visual
+        <strong>vignettes</strong> (images/videos), gathered in one browser.
+      </p>
+    </header>
+    <div class="toolbar">
+      <div class="controls">
+        <input id="search" type="text" placeholder="Search title, description, filename..." />
+        <select id="kind">
+          <option value="all">All types</option>
+          <option value="notebook">Notebook</option>
+          <option value="vignette">Vignette</option>
+        </select>
+        <select id="perPage">
+          <option value="20">20 per page</option>
+          <option value="50" selected>50 per page</option>
+          <option value="100">100 per page</option>
+          <option value="200">200 per page</option>
+        </select>
+        <button id="prev">Previous</button>
+        <button id="next">Next</button>
+      </div>
+      <div id="meta" class="meta"></div>
+    </div>
+    <div id="grid" class="grid"></div>
+    <div id="empty" class="empty" hidden>No matching entries.</div>
+    <div id="pages" class="pages"></div>
+
+    <script>
+      function esc(s) {
+        return String(s)
+          .replaceAll("&", "&amp;")
+          .replaceAll("<", "&lt;")
+          .replaceAll(">", "&gt;")
+          .replaceAll('"', "&quot;")
+          .replaceAll("'", "&#39;");
+      }
+      function linkify(text) {
+        return String(text).replace(
+          /(https?:\/\/[^\s]+)/g,
+          '<a href="$1" target="_blank" rel="noopener">link</a>'
+        );
+      }
+      function mediaFor(item) {
+        const file = item.filename || "";
+        const ext = file.split(".").pop().toLowerCase();
+        if (item.type === "notebook") {
+          const snippet = file.replace(/[^/]+\.ipynb$/i, "snippet.png");
+          return `<a href="${esc(file)}" target="_blank" rel="noopener">
+            <img src="${esc(snippet)}" loading="lazy" alt="${esc(
+            item.title
+          )}" onerror="this.onerror=null;this.closest('.media').innerHTML='<div class=&quot;notebook-media&quot;><div style=&quot;font-size:44px;&quot;>📓</div><div><a href=&quot;${esc(
+            file
+          )}&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;>Open notebook</a></div></div>';" />
+          </a>`;
+        }
+        if (["m4v", "mp4", "webm", "mov"].includes(ext)) {
+          return `<video controls preload="metadata"><source src="${esc(file)}" type="video/mp4" /></video>`;
+        }
+        return `<a href="${esc(file)}" target="_blank" rel="noopener"><img src="${esc(
+          file
+        )}" loading="lazy" alt="${esc(item.title)}" /></a>`;
+      }
+
+      const allData = Array.isArray(window.CATALOG_DATA) ? window.CATALOG_DATA : [];
+      let query = "";
+      let kind = "all";
+      let perPage = 50;
+      let page = 1;
+
+      const searchEl = document.getElementById("search");
+      const kindEl = document.getElementById("kind");
+      const perEl = document.getElementById("perPage");
+      const prevEl = document.getElementById("prev");
+      const nextEl = document.getElementById("next");
+      const metaEl = document.getElementById("meta");
+      const gridEl = document.getElementById("grid");
+      const emptyEl = document.getElementById("empty");
+      const pagesEl = document.getElementById("pages");
+
+      function filtered() {
+        const q = query.toLowerCase();
+        return allData.filter((d) => {
+          if (kind !== "all" && d.type !== kind) return false;
+          if (!q) return true;
+          const hay = `${d.title} ${d.content} ${d.filename} ${d.type}`.toLowerCase();
+          return hay.includes(q);
+        });
+      }
+
+      function render() {
+        const data = filtered();
+        const total = data.length;
+        const pages = Math.max(1, Math.ceil(total / perPage));
+        if (page > pages) page = pages;
+        const start = (page - 1) * perPage;
+        const end = Math.min(start + perPage, total);
+        const items = data.slice(start, end);
+
+        if (items.length === 0) {
+          gridEl.innerHTML = "";
+          emptyEl.hidden = false;
+        } else {
+          emptyEl.hidden = true;
+          gridEl.innerHTML = items
+            .map(
+              (item) => `
+            <article class="card">
+              <div class="media">${mediaFor(item)}</div>
+              <div class="content">
+                <span class="chip">${esc(item.type)}</span>
+                <div class="title">${esc(item.title || "(untitled)")}</div>
+                <p class="desc">${linkify(esc(item.content || ""))}</p>
+                <div class="filename">${esc(item.filename || "")}</div>
+              </div>
+            </article>`
+            )
+            .join("");
+        }
+        metaEl.textContent = `${total} matches • showing ${total ? start + 1 : 0}-${end} • page ${page}/${pages}`;
+        prevEl.disabled = page <= 1;
+        nextEl.disabled = page >= pages;
+
+        if (pages <= 1) {
+          pagesEl.innerHTML = "";
+        } else {
+          const pageLinks = [];
+          for (let p = 1; p <= pages; p += 1) {
+            if (p === page) {
+              pageLinks.push(`<button type="button" class="current" disabled>${p}</button>`);
+            } else {
+              pageLinks.push(`<button type="button" data-page="${p}">${p}</button>`);
+            }
+          }
+          pagesEl.innerHTML = pageLinks.join('<span class="sep">-</span>');
+        }
+      }
+
+      searchEl.addEventListener("input", (e) => {
+        query = e.target.value.trim();
+        page = 1;
+        render();
+      });
+      kindEl.addEventListener("change", (e) => {
+        kind = e.target.value;
+        page = 1;
+        render();
+      });
+      perEl.addEventListener("change", (e) => {
+        perPage = Number(e.target.value) || 50;
+        page = 1;
+        render();
+      });
+      prevEl.addEventListener("click", () => {
+        if (page > 1) page -= 1;
+        render();
+      });
+      nextEl.addEventListener("click", () => {
+        page += 1;
+        render();
+      });
+      pagesEl.addEventListener("click", (e) => {
+        const target = e.target;
+        if (!(target instanceof HTMLElement)) return;
+        const p = Number(target.getAttribute("data-page"));
+        if (!Number.isFinite(p) || p < 1) return;
+        page = p;
+        render();
+      });
+
+      render();
+    </script>
+  </body>
+</html>

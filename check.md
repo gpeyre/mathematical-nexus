@@ -5,6 +5,8 @@ It is a live snapshot and should be updated whenever notebooks are added or modi
 
 Validation rule used: execute with a 30-second max per code cell, skipping cells tagged `interactive`.
 
+Current sync (2026-03-22): 109 notebooks tracked, 109 validated, 0 pending.
+
 | Notebook | Status | Last verification | Improvement TODO |
 |---|---|---|---|
 | `python/ada-boost/ada-boost.ipynb` | Validated (30s rule) | 2026-03-22 | Pedagogical polish pass: verify equation rendering and bibliography completeness. |

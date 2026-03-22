@@ -70,6 +70,58 @@ The notebook should teach the idea clearly, not merely reproduce code.
   - extracted from representative notebook rendering
   - chosen to be the most illustrative view of the topic
 
+## Unified Catalog Presentation (Root `index.html`)
+
+The repository now exposes a **single searchable catalog** at root:
+- entry point: `index.html`
+- content sources:
+  - notebooks under `python/` (type = `notebook`)
+  - media entries under `vignettes/` (type = `vignette`)
+
+### Naming and Structure
+
+- Use `vignettes/` as the canonical folder name for rendered media collection.
+- Do not re-introduce a parallel `rendered/` folder.
+- Keep legacy source list for vignettes in `vignettes/mydata.js` (unless a future migration replaces it globally).
+
+### Catalog Database Requirements
+
+- Maintain a root catalog file: `database.xlsx` with exactly these columns:
+  - `title`
+  - `content`
+  - `filename`
+  - `type`
+- One row = one searchable entry.
+- Include both notebooks and vignettes in the same table.
+- `type` values must be normalized and constrained to:
+  - `notebook`
+  - `vignette`
+
+### Generation Workflow
+
+- Regenerate catalog data programmatically (single source of truth), using:
+  - `scripts/build_catalog_database.py`
+- Generated artifacts at root:
+  - `database.xlsx` (human-editable table view)
+  - `database.json` (structured export)
+  - `database.js` (browser-ready payload for `index.html`)
+- When notebooks or vignettes are added/renamed/removed, re-run generation so catalog stays in sync.
+
+### Root Search Browser Requirements
+
+- `index.html` must:
+  - load catalog entries from generated database payload
+  - provide a text search box across title/content/filename
+  - provide page-size selector (`20`, `50`, `100`; default `50`)
+  - provide a type filter toggle:
+    - all types
+    - notebook only
+    - vignette only
+  - paginate results with previous/next navigation
+  - display media previews for vignettes and direct links for notebooks
+- The UI must remain responsive for large catalogs (hundreds of entries).
+- If search/filter returns no result, display a clear empty-state message.
+
 ## Figure Output Hygiene (No Root Artifacts)
 
 - Never write generated figures to repository root (e.g. `./figure.png` from top-level execution).
@@ -126,6 +178,9 @@ The notebook should teach the idea clearly, not merely reproduce code.
 - [ ] README snippet/description/gallery constraints are respected.
 - [ ] Notebook parses correctly as valid `.ipynb`.
 - [ ] Figure outputs are stored in notebook-local or temp directories (never repository root).
+- [ ] Root unified catalog (`index.html`) correctly lists and searches notebooks + vignettes.
+- [ ] `database.xlsx` schema (`title`, `content`, `filename`, `type`) is respected.
+- [ ] Catalog artifacts regenerated after content updates (`database.xlsx/json/js`).
 
 ## Tone and Style Expectations
 
