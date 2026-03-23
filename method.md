@@ -26,6 +26,10 @@ The notebook should teach the idea clearly, not merely reproduce code.
 - Use equations generously (LaTeX in markdown).
 - Avoid section numbering in notebook headings.
 - Do not mention the legacy source or “reimplementation from MATLAB” inside notebooks.
+- Split long implementations into multiple short code cells with clear substeps:
+  - one substep = one conceptual action (data/model setup, solver step, diagnostics, plotting)
+  - each substep cell must be preceded by a markdown cell explaining the math and intent
+  - avoid large monolithic cells that mix model definition, optimization loop, and final visualization in one block
 
 ## Notebook Content Requirements
 
@@ -139,6 +143,31 @@ The repository now exposes a **single searchable catalog** at root:
 
 ## Execution Validation Protocol (30s Rule)
 
+### How to run notebooks so figures are embedded in the `.ipynb`
+
+- Use in-place execution with nbconvert:
+  - `python3 -m jupyter nbconvert --to notebook --execute --inplace --ExecutePreprocessor.timeout=30 python/<topic>/<topic>.ipynb`
+- Why this embeds figures:
+  - `--execute` runs cells and captures outputs
+  - `--to notebook --inplace` writes captured outputs back into the same notebook file
+  - matplotlib figures shown by the cell (for example with `plt.show()`) are stored as notebook outputs
+- Validation after execution:
+  - open notebook JSON or view in Jupyter and confirm code cells contain `display_data` / `image/png` outputs
+  - confirm `python/<topic>/snippet.png` exists when snippet generation is part of the notebook
+
+### How to tag interactive cells to avoid blocking automated runs
+
+- Any widget/event-loop/playback cell must be tagged `interactive` in notebook cell metadata.
+- Recommended metadata format:
+  - `{"tags": ["interactive"]}`
+- In JupyterLab:
+  - select cell -> Property Inspector -> Tags -> add `interactive`
+- In batch validation, skip these cells with:
+  - `--TagRemovePreprocessor.enabled=True --TagRemovePreprocessor.remove_cell_tags='["interactive"]'`
+- Interactive design rule:
+  - keep a separate static fallback cell (not tagged) that renders representative figures for stored outputs
+  - interactive cell should enrich exploration, never be required for core computation correctness
+
 - Every notebook must be execution-tested before being considered valid.
 - Validation command/process:
   - execute notebook with `nbclient`/`nbconvert` and enforce a **30-second max runtime per code cell**
@@ -167,6 +196,7 @@ The repository now exposes a **single searchable catalog** at root:
 - [ ] Notebook has an in-depth opening exposition.
 - [ ] No mention of legacy/original source inside notebook.
 - [ ] Every code cell has preceding explanatory markdown with equations where relevant.
+- [ ] Long implementations are split into clear substep cells (no monolithic all-in-one code blocks).
 - [ ] No numbered section headings.
 - [ ] Notebook is standalone (no MATLAB/toolbox dependency).
 - [ ] Visualizations are clear and pedagogically useful.
@@ -177,6 +207,7 @@ The repository now exposes a **single searchable catalog** at root:
 - [ ] README entry + Colab badge + square snippet present.
 - [ ] README snippet/description/gallery constraints are respected.
 - [ ] Notebook parses correctly as valid `.ipynb`.
+- [ ] In-place execution (`nbconvert --execute --inplace`) stores rendered figure outputs in the notebook.
 - [ ] Figure outputs are stored in notebook-local or temp directories (never repository root).
 - [ ] Root unified catalog (`index.html`) correctly lists and searches notebooks + vignettes.
 - [ ] `database.xlsx` schema (`title`, `content`, `filename`, `type`) is respected.

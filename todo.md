@@ -1,8 +1,14 @@
 # Notebook status
 
-Full list of all notebooks. Entries with a `- done:` bullet indicate corrections made in this session.
 
----
+# general update to be done
+
+
+# Notebook to be updated 
+
+When "ok" is written, it means the notebook is finalized."
+"done" keyword indicate a task that has been completed
+"todo" keyword indicate something to be done.
 
 - ada-boost
 - admm-first-principles
@@ -16,10 +22,9 @@ Full list of all notebooks. Entries with a `- done:` bullet indicate corrections
   - done: fixed relative savefig path `python/autoregressive/snippet.png` → `snippet.png` (notebooks run from their own directory)
 - backprojection-radon
 - bayesian
-  - done: replaced deprecated `np.trapz` → `np.trapezoid` (removed in NumPy 2.x)
 - bernouilli-tcl
 - bfgs-lbfgs
-- bifurcation
+- bifurcation: ok
 - bilateral-filtering
 - boltzmann
 - brachistochrone
@@ -32,6 +37,7 @@ Full list of all notebooks. Entries with a `- done:` bullet indicate corrections
 - conjugate-gradient
 - de-casteljau
 - diffusion-models-toy
+  - todo: run/check the notebook 
   - done: agent rewrote — backward trajectory now runs full T=150 steps; fwd and bwd shown in separate cells; point cloud evolution + per-particle trajectory curves displayed
 - dijkstra
   - done: agent rewrote — added simple hand-crafted graph example, geodesic extraction via gradient descent on T, maze example with recursive subdivision
@@ -50,21 +56,24 @@ Full list of all notebooks. Entries with a `- done:` bullet indicate corrections
 - fixed-point
 - flocking
 - floyd-warshall
+  - for the second part, create a planar graph by seeding random point and creating a graph with the edge of the delaunay triangulation. Show the shortest path tree as route along these edges. Use this as well for the "Interactive: trace a shortest path"
+  - remove the numerics of the section "Min-plus algebra and tropical semiring" and just put this mathematical remark in the main body as comment
 - fluids
-- fourier-atoms
+  - the original vector field looks rectilinear, maybe it is too smoothed, use a gaussian smoothing with std of ~ 0.05 (for a square display on [0,1]^2) 
+- fourier-atoms: ok
 - fourier-cristal
 - fourier-curves
 - fourier-matrix
 - fourier-signal
 - foveation
   - done: agent rewrote — replaced image with `scipy.datasets.face()` (raccoon); foveation centre marked with red `+` and dashed circle overlay; interactive slider for centre x/y and radius added
-- frac-der-gaussian
+- frac-der-gaussian: ok
 - fraction-continued
-- fractional-laplacian
+- fractional-laplacian: ok 
 - frank-wolfe
   - done: fixed wrong OUT path `Path("python/frank-wolfe")` → `Path(".")` ; trajectory recoloured red with directional arrowheads (8 evenly-spaced arrows) so it is clearly visible over the blue polytope boundary; start/end points marked distinctly
-- game-theory
-- gauss-luca
+- game-theory: ok 
+- gauss-luca: ok 
 - gaussian-fisher
 - gaussian-processes-2d
 - gaussian-prod-convol
