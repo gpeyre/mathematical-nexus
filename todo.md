@@ -1,73 +1,181 @@
-# Suggested New Notebook Topics (40)
+# Notebook status
 
-## Correction Status
+Full list of all notebooks. Entries with a `- done:` bullet indicate corrections made in this session.
 
-All items from the previous correction list have been implemented:
+---
 
-- Website card descriptions now strip LaTeX-like equation markup for clean display.
-- `jko-flow`: longer-time evolution with visible motion.
-- `orthogonal-matching-pursuit`: Gaussian bump dictionary, approximation plot, and corrected bibliography (Mallat/Tropp/Pati + stats reference).
-- `unbalanced-ot`: bibliography replaced with Chizat et al. and related OT references.
-- `mean-curvature-flow`: longer run, less regular initial curve, explicit curvature-discretization equations, corrected bibliography.
-- `sliced-wasserstein`: explicit gradient-descent matching to target with clear final alignment.
-- `autoregressive`: trajectory count reduced to about 25.
-- `diffusion-models-toy`: three-Dirac setup, closed-form Gaussian-mixture score, forward and backward trajectories.
-- `dijkstra`: added progressive front-propagation snapshots.
-- `fem-1d-2d`: title cleaned and six discretization levels shown.
-- `farthest-point`: weighted sampling inverted to favor white regions.
-- `foveation`: natural image foveation at multiple fixation points/radii, new snippet.
-- `frank-wolfe`: optimization path in black, target outside square and pentagon.
-- `eikonal-fast-marching`: smooth two-bump cost field and multi-step front-propagation snapshots.
+- ada-boost
+- admm-first-principles
+- advection
+- allen-cahn-cahn-hilliard
+- alpha-shapes
+- apolonian
+- approximation
+- arithmetico-geometric
+- autoregressive
+  - done: fixed relative savefig path `python/autoregressive/snippet.png` → `snippet.png` (notebooks run from their own directory)
+- backprojection-radon
+- bayesian
+  - done: replaced deprecated `np.trapz` → `np.trapezoid` (removed in NumPy 2.x)
+- bernouilli-tcl
+- bfgs-lbfgs
+- bifurcation
+- bilateral-filtering
+- boltzmann
+- brachistochrone
+- bregman-flow
+- brownian
+- burgers
+- cellular
+- chebyshev-minimax
+- compressed-sensing-basis-pursuit
+- conjugate-gradient
+- de-casteljau
+- diffusion-models-toy
+  - done: agent rewrote — backward trajectory now runs full T=150 steps; fwd and bwd shown in separate cells; point cloud evolution + per-particle trajectory curves displayed
+- dijkstra
+  - done: agent rewrote — added simple hand-crafted graph example, geodesic extraction via gradient descent on T, maze example with recursive subdivision
+- dtw
+- dykstra
+- edge-detection
+- eikonal-fast-marching
+  - done: fixed wrong OUT path `Path("python/eikonal-fast-marching")` → `Path(".")` (caused snippet to be saved to wrong subdirectory); cleaned up stale `python/` subdir
+- error-diffusion
+- extreme-values
+- farthest-point
+  - done: fixed wrong OUT path `Path("python/farthest-point")` → `Path(".")` ; cleaned up stale `python/` subdir
+- fem-1d-2d
+  - done: agent rewrote — title changed from "1D/2D" to "1D only"; RHS changed to two-frequency $f(x)=\pi^2\sin(\pi x)+4\pi^2\sin(2\pi x)$ with known exact solution, sharper convergence study
+- finite-groups-fft-cyclic
+- fixed-point
+- flocking
+- floyd-warshall
+- fluids
+- fourier-atoms
+- fourier-cristal
+- fourier-curves
+- fourier-matrix
+- fourier-signal
+- foveation
+  - done: agent rewrote — replaced image with `scipy.datasets.face()` (raccoon); foveation centre marked with red `+` and dashed circle overlay; interactive slider for centre x/y and radius added
+- frac-der-gaussian
+- fraction-continued
+- fractional-laplacian
+- frank-wolfe
+  - done: fixed wrong OUT path `Path("python/frank-wolfe")` → `Path(".")` ; trajectory recoloured red with directional arrowheads (8 evenly-spaced arrows) so it is clearly visible over the blue polytope boundary; start/end points marked distinctly
+- game-theory
+- gauss-luca
+- gaussian-fisher
+- gaussian-processes-2d
+- gaussian-prod-convol
+- gears-non-circ
+- geodesic-heat
+- gershgorin
+- gibbs-oscillations
+- gibbs-sampling
+- gnn-message-passing-toy
+- grad-desc
+- grad-desc-mirror
+- grad-desc-momentum
+- grad-desc-ode
+- grad-desc-quad
+- gradflow-metric
+- graph-coloring
+- graph-laplacian
+  - done: installed scikit-learn 1.8.0 in p312 env so `sklearn.neighbors.kneighbors_graph` and `sklearn.cluster.KMeans` run correctly
+- graphical-lasso
+  - done: installed scikit-learn 1.8.0 in p312 env so `sklearn.covariance.GraphicalLasso` runs correctly
+- gravitation
+- gromov-wasserstein
+- haar-walsh
+- hamiltonian-symplectic
+- harmonic
+- harmonic-coords
+- heat-1d
+- heat-polynomials
+- heat-vs-tv
+- heavy-ball
+- hermite-function
+  - done: replaced deprecated `np.trapz` → `np.trapezoid` (removed in NumPy 2.x)
+- hilbert-curve
+- hist-eq
+- hmm-forward-backward
+- holder-inequality
+- hopfield-network
+- hump-algebra
+- ica
+- icp
+- integral-lines
+- interior-points
+- interpol-vizu
+- interpolation-natural
+- interpolation-rkhs
+- interpolation-shepard
+- inverse-kinematics
+- ising-model
+- ista
+- iterated-polygons
+- jko-flow
+  - done: fixed wrong OUT path `Path("python/jko-flow")` → `Path(".")` ; cleaned up stale `python/` subdir
+- joukowski
+- julia-sets
+- k-nn
+- kaczmarz
+- kalman
+- kernel-approx-1d
+- kernel-pca
+  - done: installed scikit-learn 1.8.0 in p312 env (sklearn used in snippet cell only)
+- kernel-svm
+  - done: installed scikit-learn 1.8.0 in p312 env so `sklearn.svm.SVC` etc. run correctly
+- kinetics-evolution
+- kmean++
+- kmeans
+- kriging
+- kubo-matrix-mean
+- lagrange-hermite
+- lagrangian-flows
+- lagrangian-vs-eulerian
+  - done: fixed `float(dvx_dx + dvy_dy)` → `float((dvx_dx + dvy_dy)[0])` — NumPy 2.x forbids converting a 1-D array to scalar via `float()`
+- laplacian-eigenmaps
+- laplacian-pyramid
+- laplacian-spectrum
+- laplacian-weighted
+- lda-qda
+  - done: installed scikit-learn 1.8.0 in p312 env so `LinearDiscriminantAnalysis` / `QuadraticDiscriminantAnalysis` run correctly
+- legendre
+- level-set-methods
+- markov-chains-mixing
+- matrix-completion-nuclear-norm
+- mean-curvature-flow
+  - done: agent rewrote — removed `np.sign` discontinuity (replaced with pure-cosine initial curve); replaced arc-length-normalised step (which caused overflow) with uniform-angle formula; smaller dt, more steps
+- newton-fractals-complex
+- normalizing-flows-2d
+- orthogonal-matching-pursuit
+  - done: agent rewrote — dictionary atom panel (16 atoms, 3 scales, colour-coded); 7-sparse signal spanning all scales; 8-panel step-by-step approximation progression (k=1,2,3,4,6,8,12,20); residual decay semilog + atom selection order
+- pagerank-random-walks
+- particle-filters-smc
+- pdhg-chambolle-pock
+- persistent-homology-topology
+- poisson-meshes
+- reaction-diffusion-turing
+- riemannian-optimization-stiefel
+- robust-pca-lowrank-sparse
+- runge-kutta-stability
+- schrodinger-bridge
+- sinkhorn-distance
+- sliced-wasserstein
+  - done: agent rewrote — red/blue colour convention for source/target throughout; 6-panel optimization progression (iterations 0,20,50,100,200,500); interactive slider over snapshot index; separate trajectory plot for 25 subsampled particles (colour-faded polylines blue→red)
+- spectral-graph-wavelets
+- spherical-harmonics-signals
+- trust-region-methods
+- tsne-umap-comparison
+- unbalanced-ot
+- variational-inference-gmm
+- wasserstein-barycenters
+- wave-equation-dispersion
 
-## Done (Batch 1)
+---
 
-1. **Sinkhorn Distance and Entropic OT** — [`python/sinkhorn-distance/sinkhorn-distance.ipynb`](python/sinkhorn-distance/sinkhorn-distance.ipynb)
-2. **Unbalanced Optimal Transport** — [`python/unbalanced-ot/unbalanced-ot.ipynb`](python/unbalanced-ot/unbalanced-ot.ipynb)
-3. **Wasserstein Barycenters** — [`python/wasserstein-barycenters/wasserstein-barycenters.ipynb`](python/wasserstein-barycenters/wasserstein-barycenters.ipynb)
-4. **Sliced Wasserstein Geometry** — [`python/sliced-wasserstein/sliced-wasserstein.ipynb`](python/sliced-wasserstein/sliced-wasserstein.ipynb)
-5. **Schrödinger Bridge Interpolation** — [`python/schrodinger-bridge/schrodinger-bridge.ipynb`](python/schrodinger-bridge/schrodinger-bridge.ipynb)
-6. **Mean Curvature Flow** — [`python/mean-curvature-flow/mean-curvature-flow.ipynb`](python/mean-curvature-flow/mean-curvature-flow.ipynb)
-7. **Eikonal Equation & Fast Marching** — [`python/eikonal-fast-marching/eikonal-fast-marching.ipynb`](python/eikonal-fast-marching/eikonal-fast-marching.ipynb)
-8. **Allen–Cahn and Cahn–Hilliard PDEs** — [`python/allen-cahn-cahn-hilliard/allen-cahn-cahn-hilliard.ipynb`](python/allen-cahn-cahn-hilliard/allen-cahn-cahn-hilliard.ipynb)
-9. **Reaction-Diffusion Patterns (Turing)** — [`python/reaction-diffusion-turing/reaction-diffusion-turing.ipynb`](python/reaction-diffusion-turing/reaction-diffusion-turing.ipynb)
-10. **Wave Equation and Dispersion** — [`python/wave-equation-dispersion/wave-equation-dispersion.ipynb`](python/wave-equation-dispersion/wave-equation-dispersion.ipynb)
+## Global fixes (README)
 
-## Done (Batch 2)
-
-1. **Hamiltonian Dynamics & Symplectic Integrators** — [`python/hamiltonian-symplectic/hamiltonian-symplectic.ipynb`](python/hamiltonian-symplectic/hamiltonian-symplectic.ipynb)
-2. **Finite Element Method in 1D/2D** — [`python/fem-1d-2d/fem-1d-2d.ipynb`](python/fem-1d-2d/fem-1d-2d.ipynb)
-3. **Poisson Equation on Meshes** — [`python/poisson-meshes/poisson-meshes.ipynb`](python/poisson-meshes/poisson-meshes.ipynb)
-4. **Level Set Methods** — [`python/level-set-methods/level-set-methods.ipynb`](python/level-set-methods/level-set-methods.ipynb)
-5. **Compressed Sensing with Basis Pursuit** — [`python/compressed-sensing-basis-pursuit/compressed-sensing-basis-pursuit.ipynb`](python/compressed-sensing-basis-pursuit/compressed-sensing-basis-pursuit.ipynb)
-6. **Orthogonal Matching Pursuit** — [`python/orthogonal-matching-pursuit/orthogonal-matching-pursuit.ipynb`](python/orthogonal-matching-pursuit/orthogonal-matching-pursuit.ipynb)
-7. **ADMM from First Principles** — [`python/admm-first-principles/admm-first-principles.ipynb`](python/admm-first-principles/admm-first-principles.ipynb)
-8. **Primal-Dual Hybrid Gradient (Chambolle–Pock)** — [`python/pdhg-chambolle-pock/pdhg-chambolle-pock.ipynb`](python/pdhg-chambolle-pock/pdhg-chambolle-pock.ipynb)
-9. **BFGS and L-BFGS** — [`python/bfgs-lbfgs/bfgs-lbfgs.ipynb`](python/bfgs-lbfgs/bfgs-lbfgs.ipynb)
-10. **Trust-Region Methods** — [`python/trust-region-methods/trust-region-methods.ipynb`](python/trust-region-methods/trust-region-methods.ipynb)
-
-## Done (Batch 3)
-
-1. **Newton Fractals in the Complex Plane** — [`python/newton-fractals-complex/newton-fractals-complex.ipynb`](python/newton-fractals-complex/newton-fractals-complex.ipynb)
-2. **Chebyshev Approximation and Minimax Polynomials** — [`python/chebyshev-minimax/chebyshev-minimax.ipynb`](python/chebyshev-minimax/chebyshev-minimax.ipynb)
-3. **Runge-Kutta Methods and Stability Regions** — [`python/runge-kutta-stability/runge-kutta-stability.ipynb`](python/runge-kutta-stability/runge-kutta-stability.ipynb)
-4. **Markov Chains and Mixing Times** — [`python/markov-chains-mixing/markov-chains-mixing.ipynb`](python/markov-chains-mixing/markov-chains-mixing.ipynb)
-5. **Hidden Markov Models (Forward-Backward)** — [`python/hmm-forward-backward/hmm-forward-backward.ipynb`](python/hmm-forward-backward/hmm-forward-backward.ipynb)
-6. **Particle Filters (Sequential Monte Carlo)** — [`python/particle-filters-smc/particle-filters-smc.ipynb`](python/particle-filters-smc/particle-filters-smc.ipynb)
-7. **Variational Inference for Gaussian Mixtures** — [`python/variational-inference-gmm/variational-inference-gmm.ipynb`](python/variational-inference-gmm/variational-inference-gmm.ipynb)
-8. **Gaussian Processes in Higher Dimension** — [`python/gaussian-processes-2d/gaussian-processes-2d.ipynb`](python/gaussian-processes-2d/gaussian-processes-2d.ipynb)
-9. **Normalizing Flows (2D Didactic)** — [`python/normalizing-flows-2d/normalizing-flows-2d.ipynb`](python/normalizing-flows-2d/normalizing-flows-2d.ipynb)
-10. **Diffusion Models (Toy 1D/2D)** — [`python/diffusion-models-toy/diffusion-models-toy.ipynb`](python/diffusion-models-toy/diffusion-models-toy.ipynb)
-11. **t-SNE and UMAP Comparison** — [`python/tsne-umap-comparison/tsne-umap-comparison.ipynb`](python/tsne-umap-comparison/tsne-umap-comparison.ipynb)
-12. **Spectral Graph Wavelets** — [`python/spectral-graph-wavelets/spectral-graph-wavelets.ipynb`](python/spectral-graph-wavelets/spectral-graph-wavelets.ipynb)
-13. **PageRank and Random Walks on Graphs** — [`python/pagerank-random-walks/pagerank-random-walks.ipynb`](python/pagerank-random-walks/pagerank-random-walks.ipynb)
-14. **Graph Neural Networks (Message Passing Toy)** — [`python/gnn-message-passing-toy/gnn-message-passing-toy.ipynb`](python/gnn-message-passing-toy/gnn-message-passing-toy.ipynb)
-15. **Riemannian Optimization on Stiefel/Grassmann** — [`python/riemannian-optimization-stiefel/riemannian-optimization-stiefel.ipynb`](python/riemannian-optimization-stiefel/riemannian-optimization-stiefel.ipynb)
-16. **Matrix Completion via Nuclear Norm** — [`python/matrix-completion-nuclear-norm/matrix-completion-nuclear-norm.ipynb`](python/matrix-completion-nuclear-norm/matrix-completion-nuclear-norm.ipynb)
-17. **Robust PCA (Low-Rank + Sparse)** — [`python/robust-pca-lowrank-sparse/robust-pca-lowrank-sparse.ipynb`](python/robust-pca-lowrank-sparse/robust-pca-lowrank-sparse.ipynb)
-18. **Persistent Homology and Topological Signatures** — [`python/persistent-homology-topology/persistent-homology-topology.ipynb`](python/persistent-homology-topology/persistent-homology-topology.ipynb)
-19. **Spherical Harmonics and Signal Processing on the Sphere** — [`python/spherical-harmonics-signals/spherical-harmonics-signals.ipynb`](python/spherical-harmonics-signals/spherical-harmonics-signals.ipynb)
-20. **Finite Group Representations and FFT on Cyclic Groups** — [`python/finite-groups-fft-cyclic/finite-groups-fft-cyclic.ipynb`](python/finite-groups-fft-cyclic/finite-groups-fft-cyclic.ipynb)
-
-## Remaining Suggestions
-
-None.
+- done: removed redundant "Notebook: [`...`](...)" text link from column 3 of every gallery row (109 entries) — clicking the snippet image already opens the notebook on GitHub; only the Colab badge remains in that column

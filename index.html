@@ -251,12 +251,13 @@
         const ext = file.split(".").pop().toLowerCase();
         if (item.type === "notebook") {
           const snippet = file.replace(/[^/]+\.ipynb$/i, "snippet.png");
-          return `<a href="${esc(file)}" target="_blank" rel="noopener">
+          const ghFile = `https://github.com/gpeyre/mathematical-nexus/blob/main/${file}`;
+          return `<a href="${esc(ghFile)}" target="_blank" rel="noopener">
             <img src="${esc(snippet)}" loading="lazy" alt="${esc(
             item.title
           )}" onerror="this.onerror=null;this.closest('.media').innerHTML='<div class=&quot;notebook-media&quot;><div style=&quot;font-size:44px;&quot;>📓</div><div><a href=&quot;${esc(
-            file
-          )}&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;>Open notebook</a></div></div>';" />
+            ghFile
+          )}&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;>Open on GitHub</a></div></div>';" />
           </a>`;
         }
         if (["m4v", "mp4", "webm", "mov"].includes(ext)) {
@@ -270,11 +271,9 @@
       function notebookLinks(item) {
         if (item.type !== "notebook") return "";
         const file = item.filename || "";
-        const ghFile = `https://github.com/gpeyre/mathematical-nexus/blob/main/${file}`;
         const colab = `https://colab.research.google.com/github/gpeyre/mathematical-nexus/blob/main/${file}`;
         return `
           <div class="nb-links">
-            <a href="${esc(ghFile)}" target="_blank" rel="noopener">GitHub file</a>
             <a href="${esc(colab)}" target="_blank" rel="noopener">
               <img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab" />
             </a>
