@@ -151,7 +151,7 @@
   },
   {
     "title":"Diffusion Models on Three Dirac Atoms",
-    "content":"We start from a distribution with Dirac atoms: Under Gaussian forward noising, each atom becomes a Gaussian component, so which gives a closed-form score.",
+    "content":"Denoising Diffusion Probabilistic Models (DDPM) learn to reverse a Markov noising process. By choosing a distribution simple enough to admit a closed-form score, we can study both the forward and reverse dynamics exactly — without training a neural network.",
     "filename":"python\/diffusion-models-toy\/diffusion-models-toy.ipynb",
     "type":"notebook"
   },
@@ -180,8 +180,8 @@
     "type":"notebook"
   },
   {
-    "title":"Eikonal Distance and Fast-Marching Intuition",
-    "content":"For speed, the arrival time solves We design as a smooth mixture of two bumps so geodesics avoid the center, and visualize front propagation snapshots.",
+    "title":"Eikonal Equation and Fast Marching Method",
+    "content":"Given a spatially varyingg speed function, the eikonal equation models the arrival time of a wavefront emanating from a source: Equivalently, is the geodesic (weighted shortest path) distance from to.",
     "filename":"python\/eikonal-fast-marching\/eikonal-fast-marching.ipynb",
     "type":"notebook"
   },
@@ -204,8 +204,8 @@
     "type":"notebook"
   },
   {
-    "title":"Finite Element Method in 1D\/2D",
-    "content":"We solve on with homogeneous Dirichlet boundaries and compare six mesh resolutions to show convergence.",
+    "title":"Finite Element Method in 1D",
+    "content":"The Finite Element Method (FEM) is one of the most widely used numerical techniques for solving partial differential equations. It is the backbone of structural analysis, fluid dynamics, electromagnetics, and many other fields.",
     "filename":"python\/fem-1d-2d\/fem-1d-2d.ipynb",
     "type":"notebook"
   },
@@ -751,7 +751,7 @@
   },
   {
     "title":"Mean Curvature Flow of a Planar Curve",
-    "content":"For a planar curve parametrized by arc length, mean-curvature flow obeys where is scalar curvature and is the inward normal. Using a periodic polygonal discretization, we approximate and evolve for a longer horizon from a less regular initial curve.",
+    "content":"Mean curvature flow is a geometric evolution equation that moves a curve (or surface) in the direction of its curvature vector. For a smooth planar curve parametrized over, the flow reads where is the signed curvature and is the inward unit normal.",
     "filename":"python\/mean-curvature-flow\/mean-curvature-flow.ipynb",
     "type":"notebook"
   },
@@ -768,8 +768,8 @@
     "type":"notebook"
   },
   {
-    "title":"Orthogonal Matching Pursuit with Gaussian Bump Dictionary",
-    "content":"Given a dictionary and a signal, OMP iteratively selects atoms maximizing correlation with residuals: We use a Gaussian bump dictionary and reconstruct a sparse smooth signal.",
+    "title":"Orthogonal Matching Pursuit with a Gaussian Bump Dictionary",
+    "content":"Orthogonal Matching Pursuit (OMP) is a greedy algorithm for sparse signal approximation. Given a signal and an overcomplete dictionary (with ), OMP finds a sparse representation by iteratively selecting the atom most correlated with the current residual, th...",
     "filename":"python\/orthogonal-matching-pursuit\/orthogonal-matching-pursuit.ipynb",
     "type":"notebook"
   },
@@ -840,8 +840,8 @@
     "type":"notebook"
   },
   {
-    "title":"Sliced Wasserstein Gradient Descent to a Target",
-    "content":"The sliced Wasserstein distance between empirical measures is We optimize source particles by gradient descent to match a target distribution, and ensure good final alignment.",
+    "title":"Sliced Wasserstein Gradient Descent",
+    "content":"The Wasserstein distance between two probability measures quantifies the minimal transport cost to morph one distribution into the other. Computing in high dimension is expensive ( for discrete measures of size ). The sliced Wasserstein distance sidesteps t...",
     "filename":"python\/sliced-wasserstein\/sliced-wasserstein.ipynb",
     "type":"notebook"
   },

@@ -1,14 +1,14 @@
 # Notebook status
 
-
-# general update to be done
-
-
-# Notebook to be updated 
-
 When "ok" is written, it means the notebook is finalized."
 "done" keyword indicate a task that has been completed
 "todo" keyword indicate something to be done.
+
+# general update to be done
+
+When updating a notebook, ensure that its starts by a general pitch detailing what is at stake.
+
+# Notebook to be updated 
 
 - ada-boost
 - admm-first-principles
@@ -19,6 +19,7 @@ When "ok" is written, it means the notebook is finalized."
 - approximation
 - arithmetico-geometric
 - autoregressive
+  - done: run/check completed with `nbconvert --execute --inplace`; figures are embedded and snippet is present; method.md constraints re-checked
   - done: fixed relative savefig path `python/autoregressive/snippet.png` → `snippet.png` (notebooks run from their own directory)
 - backprojection-radon
 - bayesian
@@ -37,7 +38,8 @@ When "ok" is written, it means the notebook is finalized."
 - conjugate-gradient
 - de-casteljau
 - diffusion-models-toy
-  - todo: run/check the notebook 
+  - done: run/check completed with embedded figures
+  - done: snippet regenerated from updated forward/backward trajectory rendering
   - done: agent rewrote — backward trajectory now runs full T=150 steps; fwd and bwd shown in separate cells; point cloud evolution + per-particle trajectory curves displayed
 - dijkstra
   - done: agent rewrote — added simple hand-crafted graph example, geodesic extraction via gradient descent on T, maze example with recursive subdivision
@@ -45,32 +47,40 @@ When "ok" is written, it means the notebook is finalized."
 - dykstra
 - edge-detection
 - eikonal-fast-marching
+  - done: run/check completed with `nbconvert --execute --inplace`; figures embedded; method.md compliance checked
   - done: fixed wrong OUT path `Path("python/eikonal-fast-marching")` → `Path(".")` (caused snippet to be saved to wrong subdirectory); cleaned up stale `python/` subdir
 - error-diffusion
 - extreme-values
 - farthest-point
+  - done: run/check completed with embedded figures; method.md compliance checked
   - done: fixed wrong OUT path `Path("python/farthest-point")` → `Path(".")` ; cleaned up stale `python/` subdir
 - fem-1d-2d
+  - done: run/check completed with embedded figures; method.md compliance checked
   - done: agent rewrote — title changed from "1D/2D" to "1D only"; RHS changed to two-frequency $f(x)=\pi^2\sin(\pi x)+4\pi^2\sin(2\pi x)$ with known exact solution, sharper convergence study
 - finite-groups-fft-cyclic
 - fixed-point
 - flocking
 - floyd-warshall
-  - for the second part, create a planar graph by seeding random point and creating a graph with the edge of the delaunay triangulation. Show the shortest path tree as route along these edges. Use this as well for the "Interactive: trace a shortest path"
-  - remove the numerics of the section "Min-plus algebra and tropical semiring" and just put this mathematical remark in the main body as comment
+  - done: second part rebuilt on a planar Delaunay graph from random seeds, with shortest-path tree routing along graph edges, plus matching interactive path tracing
+  - done: removed the numerical min-plus subsection and kept the tropical/min-plus point as a mathematical remark in the notebook body
+  - done: run/check completed with embedded figures (interactive cell tagged and skipped in batch execution); method.md compliance checked
 - fluids
-  - the original vector field looks rectilinear, maybe it is too smoothed, use a gaussian smoothing with std of ~ 0.05 (for a square display on [0,1]^2) 
+  - done: vector field generation updated with Gaussian smoothing scale ~0.05 on [0,1]^2
+  - done: run/check completed with embedded figures; method.md compliance checked
 - fourier-atoms: ok
 - fourier-cristal
 - fourier-curves
 - fourier-matrix
 - fourier-signal
 - foveation
+  - done: run/check completed with embedded figures; method.md compliance checked
+  - done: replaced non-portable `scipy.datasets.face()` dependency with bundled Matplotlib sample image, and tagged widget cell as `interactive`
   - done: agent rewrote — replaced image with `scipy.datasets.face()` (raccoon); foveation centre marked with red `+` and dashed circle overlay; interactive slider for centre x/y and radius added
 - frac-der-gaussian: ok
 - fraction-continued
 - fractional-laplacian: ok 
 - frank-wolfe
+  - done: run/check completed with embedded figures; method.md compliance checked
   - done: fixed wrong OUT path `Path("python/frank-wolfe")` → `Path(".")` ; trajectory recoloured red with directional arrowheads (8 evenly-spaced arrows) so it is clearly visible over the blue polytope boundary; start/end points marked distinctly
 - game-theory: ok 
 - gauss-luca: ok 
@@ -89,12 +99,14 @@ When "ok" is written, it means the notebook is finalized."
 - grad-desc-ode
 - grad-desc-quad
 - gradflow-metric
-- graph-coloring
+  - done: removed the trailing section on "1D signal denoising with Lp prior"
+  - done: snippet regenerated from the updated metric-flow trajectory comparison figure
+- graph-coloring: ok
 - graph-laplacian
-  - done: installed scikit-learn 1.8.0 in p312 env so `sklearn.neighbors.kneighbors_graph` and `sklearn.cluster.KMeans` run correctly
-- graphical-lasso
-  - done: installed scikit-learn 1.8.0 in p312 env so `sklearn.covariance.GraphicalLasso` runs correctly
-- gravitation
+  - done: opening section rewritten as a general pitch on why graph Laplacians matter
+  - done: run/check completed with embedded figures; method.md compliance checked
+- graphical-lasso: ok
+- gravitation: ok
 - gromov-wasserstein
 - haar-walsh
 - hamiltonian-symplectic
@@ -105,6 +117,7 @@ When "ok" is written, it means the notebook is finalized."
 - heat-vs-tv
 - heavy-ball
 - hermite-function
+  - done: opening section rewritten with a general pitch on localization/Fourier significance
   - done: replaced deprecated `np.trapz` → `np.trapezoid` (removed in NumPy 2.x)
 - hilbert-curve
 - hist-eq
