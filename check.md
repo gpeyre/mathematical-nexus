@@ -5,6 +5,16 @@ It is a live snapshot and should be updated whenever notebooks are added or modi
 
 Validation rule used: execute with a 30-second max per code cell, skipping cells tagged `interactive`.
 
+Recent rechecks (2026-03-24):
+- `python/gears-non-circ/gears-non-circ.ipynb` rewritten and executed with embedded outputs.
+- `python/geodesic-heat/geodesic-heat.ipynb` rewritten and executed with embedded outputs.
+- `python/hump-algebra/hump-algebra.ipynb` rewritten and executed with embedded outputs.
+- `python/icp/icp.ipynb` rewritten and executed with embedded outputs.
+- `python/integral-lines/integral-lines.ipynb` rewritten and executed with embedded outputs.
+- `python/interior-points/interior-points.ipynb` rewritten and executed with embedded outputs.
+- `python/interpol-vizu/interpol-vizu.ipynb` rewritten and executed with embedded outputs.
+- `python/interpolation-natural/interpolation-natural.ipynb` rewritten and executed with embedded outputs.
+
 Current sync (2026-03-22): 149 notebooks tracked, 149 validated, 0 pending.
 
 | Notebook | Status | Last verification | Improvement TODO |

@@ -6,8 +6,8 @@
     "type":"notebook"
   },
   {
-    "title":"ADMM from First Principles (LASSO Example)",
-    "content":"For split and apply ADMM updates:.",
+    "title":"ADMM for Sparse Recovery from",
+    "content":"We solve the LASSO problem with ADMM splitting. For, the minimizer is. We use to recover a sparse ground-truth.",
     "filename":"python\/admm-first-principles\/admm-first-principles.ipynb",
     "type":"notebook"
   },
@@ -18,8 +18,8 @@
     "type":"notebook"
   },
   {
-    "title":"Allen–Cahn vs Cahn–Hilliard Dynamics",
-    "content":"Two classic phase-field PDEs use the same double-well potential but different conservation laws: Allen–Cahn is non-conservative; Cahn–Hilliard conserves mass.",
+    "title":"Allen-Cahn and Cahn-Hilliard in 2D",
+    "content":"We compare two phase-field evolutions from random initialization. Allen-Cahn: Cahn-Hilliard: Display range is fixed to vmin=-1, vmax=+1 (black\/white).",
     "filename":"python\/allen-cahn-cahn-hilliard\/allen-cahn-cahn-hilliard.ipynb",
     "type":"notebook"
   },
@@ -72,12 +72,6 @@
     "type":"notebook"
   },
   {
-    "title":"BFGS vs Gradient Descent",
-    "content":"BFGS builds curvature information through rank-two Hessian-inverse updates: This often accelerates convergence on ill-conditioned smooth objectives.",
-    "filename":"python\/bfgs-lbfgs\/bfgs-lbfgs.ipynb",
-    "type":"notebook"
-  },
-  {
     "title":"Bifurcation",
     "content":"Explores period-doubling and chaos in iterated logistic dynamics.",
     "filename":"python\/bifurcation\/bifurcation.ipynb",
@@ -126,14 +120,14 @@
     "type":"notebook"
   },
   {
-    "title":"Chebyshev Approximation and Minimax Polynomials",
-    "content":"Uniform approximation seeks minimizing Chebyshev interpolation is near-minimax in many practical settings and avoids Runge oscillations. We compare Taylor and Chebyshev polynomial approximations.",
+    "title":"Chebyshev Nodes vs Uniform Nodes for Interpolation",
+    "content":"Uniform interpolation can exhibit Runge oscillations for rational-like functions. We compare interpolation of using uniform nodes and Chebyshev nodes.",
     "filename":"python\/chebyshev-minimax\/chebyshev-minimax.ipynb",
     "type":"notebook"
   },
   {
-    "title":"Compressed Sensing and Basis Pursuit",
-    "content":"Recover sparse from underdetermined measurements by solving or its penalized version (LASSO):.",
+    "title":"Basis Pursuit \/ LASSO Regularization Path",
+    "content":"We track solutions as varies in.",
     "filename":"python\/compressed-sensing-basis-pursuit\/compressed-sensing-basis-pursuit.ipynb",
     "type":"notebook"
   },
@@ -150,8 +144,8 @@
     "type":"notebook"
   },
   {
-    "title":"Diffusion Models on Three Dirac Atoms",
-    "content":"Denoising Diffusion Probabilistic Models (DDPM) learn to reverse a Markov noising process. By choosing a distribution simple enough to admit a closed-form score, we can study both the forward and reverse dynamics exactly — without training a neural network.",
+    "title":"Diffusion Models on Three Atoms with Noise-Level Parameter",
+    "content":"Backward updates interpolate between deterministic ODE-like flow ( ) and stochastic DDPM-style flow ( ). We visualize both trajectories.",
     "filename":"python\/diffusion-models-toy\/diffusion-models-toy.ipynb",
     "type":"notebook"
   },
@@ -180,8 +174,8 @@
     "type":"notebook"
   },
   {
-    "title":"Eikonal Equation and Fast Marching Method",
-    "content":"Given a spatially varyingg speed function, the eikonal equation models the arrival time of a wavefront emanating from a source: Equivalently, is the geodesic (weighted shortest path) distance from to.",
+    "title":"Eikonal \/ Fast Marching Intuition",
+    "content":"We propagate on the full domain and extract multiple geodesics.",
     "filename":"python\/eikonal-fast-marching\/eikonal-fast-marching.ipynb",
     "type":"notebook"
   },
@@ -207,12 +201,6 @@
     "title":"Finite Element Method in 1D",
     "content":"The Finite Element Method (FEM) is one of the most widely used numerical techniques for solving partial differential equations. It is the backbone of structural analysis, fluid dynamics, electromagnetics, and many other fields.",
     "filename":"python\/fem-1d-2d\/fem-1d-2d.ipynb",
-    "type":"notebook"
-  },
-  {
-    "title":"Finite Group Representations and FFT on Cyclic Groups",
-    "content":"On the cyclic group, irreducible characters are The DFT diagonalizes circular convolution, which is the group algebra product.",
-    "filename":"python\/finite-groups-fft-cyclic\/finite-groups-fft-cyclic.ipynb",
     "type":"notebook"
   },
   {
@@ -318,12 +306,6 @@
     "type":"notebook"
   },
   {
-    "title":"Gaussian Processes in Higher Dimension",
-    "content":"A Gaussian process prior is Posterior mean and variance are computed with kernel matrices. We illustrate 2D regression with uncertainty maps.",
-    "filename":"python\/gaussian-processes-2d\/gaussian-processes-2d.ipynb",
-    "type":"notebook"
-  },
-  {
     "title":"Gaussian Product & Convolution",
     "content":"Visualizes how product (precision sum) and convolution (covariance sum) reshape Gaussian confidence ellipses.",
     "filename":"python\/gaussian-prod-convol\/gaussian-prod-convol.ipynb",
@@ -357,18 +339,6 @@
     "title":"Gibbs Sampling & Metropolis–Hastings",
     "content":"MCMC on a multiwell 2D energy: explores the effect of temperature ε on chain mixing, acceptance rate, and autocorrelation.",
     "filename":"python\/gibbs-sampling\/gibbs-sampling.ipynb",
-    "type":"notebook"
-  },
-  {
-    "title":"Graph Neural Networks: Message Passing Toy Model",
-    "content":"A basic message passing layer reads We run a small two-layer GCN-style propagation and inspect feature separation.",
-    "filename":"python\/gnn-message-passing-toy\/gnn-message-passing-toy.ipynb",
-    "type":"notebook"
-  },
-  {
-    "title":"Gradient Descent on Rosenbrock",
-    "content":"Visualises gradient descent trajectories on the banana function for multiple step sizes and starting points, with interactive step-size control.",
-    "filename":"python\/grad-desc\/grad-desc.ipynb",
     "type":"notebook"
   },
   {
@@ -447,12 +417,6 @@
     "title":"Harmonic Functions",
     "content":"Solves the 2D Laplace equation with various Dirichlet boundary conditions and illustrates the orthogonal families of harmonic conjugate level sets.",
     "filename":"python\/harmonic\/harmonic.ipynb",
-    "type":"notebook"
-  },
-  {
-    "title":"Harmonic Coordinates & Mesh Parameterisation",
-    "content":"Maps a square mesh to circle and square domains via harmonic (Dirichlet energy) parameterisation; transfers texture via the resulting coordinates.",
-    "filename":"python\/harmonic-coords\/harmonic-coords.ipynb",
     "type":"notebook"
   },
   {

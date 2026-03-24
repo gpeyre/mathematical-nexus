@@ -1,65 +1,117 @@
 # Notebook status
 
-When "ok" is written, it means the notebook is finalized."
-"done" keyword indicate a task that has been completed
-"todo" keyword indicate something to be done.
+Recommendation to be followed
+- When "ok" is written, it means the notebook is finalized."
+- "done" keyword indicate a task that has been completed
+- "todo" keyword indicate something to be done.
+- When updating a notebook, ensure that its starts by a general pitch detailing what is at stake.
+- I have the impression many interactive cell (which should tagged as such to avoid blocking the check of compilation you must do) are missing (only a single frame is displayed), you need to add interactive cells (ie with a slider).
+- always check that the database is in sync (in particular if you remove the notebook, or change the narative to update the description and title)
 
 # general update to be done
 
-When updating a notebook, ensure that its starts by a general pitch detailing what is at stake.
 
 # Notebook to be updated 
 
 - ada-boost
+  - done: added weight-concentration visualization at 4 optimization times (init/early/mid/final)
+  - done: added interactive round slider cell (tagged `interactive`)
 - admm-first-principles
-- advection
+  - done: rebuilt with synthetic sparse target `x0`, data `y=Ax0`, and iterate-evolution visualization of `x`
+  - use lambda=|A^T y|_inf/10, explain that lambda=|A^T y|_inf is the critical threshold where the optimal x is 0.
+  - done: implemented and explained `lambda_max = ||A^T y||_inf`, with `lambda=lambda_max/10`
+- advection:
+  - done: added interactive time slider cell (tagged `interactive`)
 - allen-cahn-cahn-hilliard
+  - done: rebuilt in 2D from random `{+1,-1}` initialization with smooth interface evolution
+  - done: fixed display range with `vmin=-1`, `vmax=+1` (pure black/white anchoring)
+  - done: added interactive PDE/frame viewer cell (tagged `interactive`)
+  - done: split notebook into two parts (Allen-Cahn and Cahn-Hilliard)
 - alpha-shapes
+  - done: added interactive alpha slider cell (tagged `interactive`)
 - apolonian
+  - done: increased rendering grid resolution and number of seeded disks
 - approximation
+  - done: added interactive rate slider comparing Fourier linear vs wavelet nonlinear approximation
 - arithmetico-geometric
+  - done: full rewrite with random initialization and convergence speed plot of `|a_k-g_k|`
+  - done: added surface rendering of `(x,y) -> AG(x,y)` on a square domain
+  - done: regenerated snippet from the new surface figure
 - autoregressive
   - done: run/check completed with `nbconvert --execute --inplace`; figures are embedded and snippet is present; method.md constraints re-checked
   - done: fixed relative savefig path `python/autoregressive/snippet.png` → `snippet.png` (notebooks run from their own directory)
-- backprojection-radon
+- backprojection-radon: ok 
 - bayesian
+  - done: rebuilt/recompiled without deprecation warnings in execution
+  - add an interactive cell where one can change with 2 slides the mean and the std of the prior 
+  - done: added interactive prior mean/std sliders (tagged `interactive`)
 - bernouilli-tcl
+  - done: histogram window fixed to `[-3σ, 3σ]`
+  - done: added interactive `n` slider with Gaussian limit overlay (tagged `interactive`)
+  - done: added fixed panel for small/medium/large/very large `n` with Gaussian overlay
 - bfgs-lbfgs
+  - done: removed notebook directory `python/bfgs-lbfgs/` from repository
 - bifurcation: ok
-- bilateral-filtering
+- bilateral-filtering: ok
 - boltzmann
 - brachistochrone
+  - done: added interactive particle-position slider (animation-style) cell (tagged `interactive`)
 - bregman-flow
-- brownian
-- burgers
+  - done: fixed simplex Bregman divergence plot so distance is zero at `y_ref` and level sets behave correctly
+  - done: corrected mirror-descent demo to a linear objective on simplex
+- brownian: ok 
+- burgers: ok 
 - cellular
+  - done: split long code blocks into shorter pedagogical subcells with markdown exposition before each
 - chebyshev-minimax
+  - done: added explicit Chebyshev polynomial display on `[-1,1]`
+  - done: clarified narrative: goal is uniform-node vs Chebyshev-node interpolation comparison
+  - done: added small/medium/large interpolation comparisons
+  - done: added interactive slider for number of points and node type comparison (tagged `interactive`)
+  - done: replaced `exp` test with rational function `1/(kappa^2+x^2)`
 - compressed-sensing-basis-pursuit
-- conjugate-gradient
-- de-casteljau
+  - done: added regularization-path figure showing coefficient evolution as `lambda` varies
+- conjugate-gradient: ok
+- de-casteljau: ok
 - diffusion-models-toy
+  - done: added backward-noise parameter `alpha in [0,1]` (`alpha=1` stochastic DDPM-like, `alpha=0` deterministic ODE-like) with interactive slider
   - done: run/check completed with embedded figures
   - done: snippet regenerated from updated forward/backward trajectory rendering
   - done: agent rewrote — backward trajectory now runs full T=150 steps; fwd and bwd shown in separate cells; point cloud evolution + per-particle trajectory curves displayed
 - dijkstra
   - done: agent rewrote — added simple hand-crafted graph example, geodesic extraction via gradient descent on T, maze example with recursive subdivision
 - dtw
+  - done: removed Sakoe–Chiba band constraint
+  - done: removed interactive custom-signal comparison section
+  - done: added front-propagation style progression visuals of cumulative DTW dynamic-programming updates
 - dykstra
-- edge-detection
+  - done: removed separate "Convergence comparison" section
+  - done: added 3 initial conditions for convex (two-discs) and non-convex (line/circle), showing first 5 iterates + limit point
+  - done: added interactive rotating-initialization slider with side-by-side Dykstra vs POCS (tagged `interactive`)
+- edge-detection: ok
 - eikonal-fast-marching
-  - done: run/check completed with `nbconvert --execute --inplace`; figures embedded; method.md compliance checked
-  - done: fixed wrong OUT path `Path("python/eikonal-fast-marching")` → `Path(".")` (caused snippet to be saved to wrong subdirectory); cleaned up stale `python/` subdir
-- error-diffusion
+  - done: propagation now runs on full domain (no single stopping endpoint)
+  - done: added multiple progressive displays (front snapshots and multiple geodesic extractions)
+  - done: added interactive front-progression viewer (tagged `interactive`)
+  - done: regenerated snippet from updated full-domain rendering
+- error-diffusion: ok
 - extreme-values
+  - done: removed unstable GEV-subfamily overflow block by reshaping notebook around stable maxima-limit simulations
+  - done: removed "Tail behavior and return levels"
+  - done: removed "Continuous sweep of xi"
+  - done: removed "Interactive: explore the GEV shape"
+  - done: added maxima-CLT extension statement with convergence histograms for three xi-sign regimes
 - farthest-point
-  - done: run/check completed with embedded figures; method.md compliance checked
-  - done: fixed wrong OUT path `Path("python/farthest-point")` → `Path(".")` ; cleaned up stale `python/` subdir
+  - done: ensured progressive displays across cells (not a single final block), re-executed with embedded outputs
 - fem-1d-2d
   - done: run/check completed with embedded figures; method.md compliance checked
   - done: agent rewrote — title changed from "1D/2D" to "1D only"; RHS changed to two-frequency $f(x)=\pi^2\sin(\pi x)+4\pi^2\sin(2\pi x)$ with known exact solution, sharper convergence study
 - finite-groups-fft-cyclic
+  - done: removed notebook directory `python/finite-groups-fft-cyclic/`
 - fixed-point
+  - done: fixed invalid escape-sequence warning by sanitizing offending markdown escapes
 - flocking
+  - done: added velocity vectors (quiver field) on particles in display panels
 - floyd-warshall
   - done: second part rebuilt on a planar Delaunay graph from random seeds, with shortest-path tree routing along graph edges, plus matching interactive path tracing
   - done: removed the numerical min-plus subsection and kept the tropical/min-plus point as a mathematical remark in the notebook body
@@ -69,36 +121,51 @@ When updating a notebook, ensure that its starts by a general pitch detailing wh
   - done: run/check completed with embedded figures; method.md compliance checked
 - fourier-atoms: ok
 - fourier-cristal
+  - done: adjusted radial-spectrum display to suppress the center Dirac peak for readability
 - fourier-curves
+  - done: removed "Power spectrum of curves" part
 - fourier-matrix
+  - done: removed "Computational complexity: DFT vs FFT" section
 - fourier-signal
+  - done: updated 2D Fourier approximation to use a natural cat image from repository assets
 - foveation
-  - done: run/check completed with embedded figures; method.md compliance checked
-  - done: replaced non-portable `scipy.datasets.face()` dependency with bundled Matplotlib sample image, and tagged widget cell as `interactive`
-  - done: agent rewrote — replaced image with `scipy.datasets.face()` (raccoon); foveation centre marked with red `+` and dashed circle overlay; interactive slider for centre x/y and radius added
+  - done: rebuilt notebook on cat image with fixed `256x256` resolution
+  - done: regenerated snippet from updated static foveation panel
 - frac-der-gaussian: ok
-- fraction-continued
+- fraction-continued: ok
 - fractional-laplacian: ok 
 - frank-wolfe
   - done: run/check completed with embedded figures; method.md compliance checked
   - done: fixed wrong OUT path `Path("python/frank-wolfe")` → `Path(".")` ; trajectory recoloured red with directional arrowheads (8 evenly-spaced arrows) so it is clearly visible over the blue polytope boundary; start/end points marked distinctly
 - game-theory: ok 
 - gauss-luca: ok 
-- gaussian-fisher
+- gaussian-fisher: ok
 - gaussian-processes-2d
+  - done: removed notebook directory `python/gaussian-processes-2d/`
 - gaussian-prod-convol
+  - done: bibliography revised for topic relevance
+  - done: bibliography now explicitly mentions Gaussian hump algebra context via Yves Meyer references
 - gears-non-circ
+  - done: rebuilt notebook around conjugate pitch-curve geometry with explicit contact equations and common tangent visualization; removed interpenetration artifacts from the displayed meshing construction
 - geodesic-heat
-- gershgorin
-- gibbs-oscillations
-- gibbs-sampling
+  - done: replaced unstable formulation by a stable spectral heat-method pipeline on a periodic grid; outputs are smooth and numerically consistent across heat-time values
+- gershgorin: ok 
+- gibbs-oscillations: ok 
+- gibbs-sampling: ok 
 - gnn-message-passing-toy
+  - done: removed notebook directory `python/gnn-message-passing-toy/`
 - grad-desc
+  - done: removed notebook directory `python/grad-desc/`
 - grad-desc-mirror
+  - done: replaced quadratic objective by linear objective (optimum at simplex vertex) in both low/high-dimensional examples
+  - done: added log-scale objective-gap plots toward known optimum
 - grad-desc-momentum
-- grad-desc-ode
-- grad-desc-quad
+  - done: reduced step-size in 2D trajectory experiment to stabilize path visualization
+- grad-desc-ode: ok
+- grad-desc-quad: ok
 - gradflow-metric
+  - done: reshaped notebook to implicit proximal flow in $\ell^p$ metric with updates solving $\arg\min_x \|x-x_k\|_p^2 + \tau\|x-y\|_2^2$ for multiple $p$
+  - done: snippet updated from new multi-$p$ trajectory comparison
   - done: removed the trailing section on "1D signal denoising with Lp prior"
   - done: snippet regenerated from the updated metric-flow trajectory comparison figure
 - graph-coloring: ok
@@ -107,14 +174,20 @@ When updating a notebook, ensure that its starts by a general pitch detailing wh
   - done: run/check completed with embedded figures; method.md compliance checked
 - graphical-lasso: ok
 - gravitation: ok
-- gromov-wasserstein
+- gromov-wasserstein: ok
 - haar-walsh
+  - done: removed additive noise and replaced with richer piecewise-smooth signal
 - hamiltonian-symplectic
-- harmonic
+  - done: notebook now showcases 2D periodic N-body Newtonian mechanics with explicit Euler vs velocity-Verlet dynamics
+  - done: added explicit symplectic explanation: Verlet preserves a nearby modified Hamiltonian (long-time near-conservation) rather than exact finite-step energy
+- harmonic: ok
 - harmonic-coords
+  - done: removed notebook directory `python/harmonic-coords/`
 - heat-1d
-- heat-polynomials
+- heat-polynomials: ok 
 - heat-vs-tv
+  - done: 1D overlays now plotted in reverse order with alpha blending for readability
+  - done: 2D flow run uses increased resolution and longer integration horizon
 - heavy-ball
 - hermite-function
   - done: opening section rewritten with a general pitch on localization/Fourier significance
@@ -125,12 +198,30 @@ When updating a notebook, ensure that its starts by a general pitch detailing wh
 - holder-inequality
 - hopfield-network
 - hump-algebra
-- ica
+  - done: title corrected to "Hump Algebra"
+  - done: bibliography updated to include Yves Meyer references tied to the hump-algebra context
+  - done: removed "Parametric bump patterns"
+  - done: replaced midpoint section by algebraic closure discussion (sum/product) and Fourier-convolution correspondence note
+  - done: notebook now uses signed two-Gaussian mixtures for f and g, includes smooth mean evolution visualization, plus an interactive cell
+- ica: ok
 - icp
+  - done: added explicit equations for assignment, centering, optimal rotation (SVD/Procrustes), and rigid update
+  - done: removed "Sensitivity to initialization" section
+  - done: interactive ICP visualization now uses damped interpolation $(1-\\tau)X_k+\\tau T(X_k)$ for smoother, slower motion (with explanation)
+  - done: snippet cell checked and kept method-compliant (writes locally in notebook folder)
 - integral-lines
+  - done: removed reference to geometric ODE integrators
+  - done: switched to smooth periodic field and shorter integration horizon to avoid boundary artifacts/spurious lines
+  - done: removed "LIC modulated by speed" and replaced by short/medium/long integration-time comparisons
 - interior-points
-- interpol-vizu
+  - done: first markdown cell rendering fixed (proper math/formatting)
+  - done: central-path computation refined with finer sampling and broader $\\mu$ range so trajectories are curved and land correctly near boundary regions
+  - done: barrier-level-set rendering corrected so contours/color spans the full feasible polyhedron
+- interpol-vizu: 
+  - done: title changed to "2D spline interpolation"
 - interpolation-natural
+  - done: notebook rewritten with fixed landmarks and natural-neighbor-style interpolation on a grid using distance/precomputation strategy for stability and clarity
+  - done: added visualization of selected weight fields $w_i(x)$ with all landmarks overlaid and highlighted associated site
 - interpolation-rkhs
 - interpolation-shepard
 - inverse-kinematics

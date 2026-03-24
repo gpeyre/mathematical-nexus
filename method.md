@@ -30,6 +30,10 @@ The notebook should teach the idea clearly, not merely reproduce code.
   - one substep = one conceptual action (data/model setup, solver step, diagnostics, plotting)
   - each substep cell must be preceded by a markdown cell explaining the math and intent
   - avoid large monolithic cells that mix model definition, optimization loop, and final visualization in one block
+- Spread figures throughout the notebook to support each numerical step:
+  - after a meaningful computation cell, include a nearby result/diagnostic visualization cell
+  - do not postpone most or all plots to a single final “all results” section
+  - prefer progressive visual checkpoints (intermediate + final) so readers can verify each stage of the method
 
 ## Notebook Content Requirements
 
@@ -197,6 +201,7 @@ The repository now exposes a **single searchable catalog** at root:
 - [ ] No mention of legacy/original source inside notebook.
 - [ ] Every code cell has preceding explanatory markdown with equations where relevant.
 - [ ] Long implementations are split into clear substep cells (no monolithic all-in-one code blocks).
+- [ ] Figures are distributed across the notebook as local checkpoints, not deferred to the end only.
 - [ ] No numbered section headings.
 - [ ] Notebook is standalone (no MATLAB/toolbox dependency).
 - [ ] Visualizations are clear and pedagogically useful.
