@@ -319,7 +319,7 @@
   },
   {
     "title":"Geodesic Heat",
-    "content":"Computes weighted geodesic distances via the Cole–Hopf transformation, handling obstacles and smooth terrain.",
+    "content":"Implements a stable spectral heat-method pipeline on a periodic grid to approximate geodesic distance fields and Voronoi partitions.",
     "filename":"python\/geodesic-heat\/geodesic-heat.ipynb",
     "type":"notebook"
   },
@@ -480,8 +480,8 @@
     "type":"notebook"
   },
   {
-    "title":"Gaussian Bump Algebra",
-    "content":"Explores the algebraic structure of Gaussian bump sums: products reveal midpoint geometry and alternating sign patterns on circle configurations.",
+    "title":"Hump Algebra",
+    "content":"Studies signed sums\/products of Gaussian humps and visualizes how the product profile evolves as component means move continuously.",
     "filename":"python\/hump-algebra\/hump-algebra.ipynb",
     "type":"notebook"
   },
@@ -493,7 +493,7 @@
   },
   {
     "title":"Iterative Closest Point",
-    "content":"Registers point clouds via SVD-based Procrustes alignment with KD-tree nearest-neighbor matching; visualizes convergence from different initializations.",
+    "content":"Registers point clouds with nearest-neighbor correspondences and SVD-Procrustes updates, with damped interactive motion for clear geometric convergence.",
     "filename":"python\/icp\/icp.ipynb",
     "type":"notebook"
   },
@@ -505,7 +505,7 @@
   },
   {
     "title":"Interior Point Method",
-    "content":"Solves linear programs via the log-barrier method; traces the central path as the barrier parameter decreases to zero on a random convex polytope.",
+    "content":"Visualizes barrier geometry and central-path trajectories over a polyhedral feasible set for a wide range of barrier parameters.",
     "filename":"python\/interior-points\/interior-points.ipynb",
     "type":"notebook"
   },
