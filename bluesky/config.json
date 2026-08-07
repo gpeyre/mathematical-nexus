@@ -1,0 +1,14 @@
+{
+  "timezone": "Europe/Paris",
+  "start_date": "2026-07-12",
+  "publication_time": "07:00",
+  "batch_size": 20,
+  "schedule_file": "bluesky_schedule.xlsx",
+  "source_database": "../database.json",
+  "media_root": "../",
+  "post_language": "en",
+  "max_graphemes": 300,
+  "image_max_bytes": 1900000,
+  "video_upload_mode": "video_service",
+  "video_processing_timeout_seconds": 600
+}

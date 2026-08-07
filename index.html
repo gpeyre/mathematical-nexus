@@ -4,7 +4,8 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Mathematical Nexus Collection</title>
-    <link rel="icon" type="image/png" href="assets/icon.png" />
+    <link rel="icon" type="image/svg+xml" href="assets/icon.svg" />
+    <link rel="alternate icon" type="image/png" href="assets/icon.png" />
     <style>
       :root {
         --bg: #f6f7fb;
@@ -219,8 +220,8 @@
         </select>
         <select id="perPage">
           <option value="20">20 per page</option>
-          <option value="50" selected>50 per page</option>
-          <option value="100">100 per page</option>
+          <option value="50">50 per page</option>
+          <option value="100" selected>100 per page</option>
           <option value="200">200 per page</option>
         </select>
         <button id="prev">Previous</button>
@@ -302,7 +303,7 @@
       });
       let query = "";
       let kind = "all";
-      let perPage = 50;
+      let perPage = 100;
       let page = 1;
 
       const searchEl = document.getElementById("search");
@@ -385,7 +386,7 @@
         render();
       });
       perEl.addEventListener("change", (e) => {
-        perPage = Number(e.target.value) || 50;
+        perPage = Number(e.target.value) || 100;
         page = 1;
         render();
       });

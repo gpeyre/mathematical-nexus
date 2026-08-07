@@ -122,7 +122,7 @@ The repository now exposes a **single searchable catalog** at root:
 - `index.html` must:
   - load catalog entries from generated database payload
   - provide a text search box across title/content/filename
-  - provide page-size selector (`20`, `50`, `100`; default `50`)
+  - provide page-size selector (`20`, `50`, `100`, `200`; default `100`)
   - provide a type filter toggle:
     - all types
     - notebook only

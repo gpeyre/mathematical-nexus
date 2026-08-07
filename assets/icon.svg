@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-labelledby="title">
+  <title id="title">Mathematical Nexus MN monogram</title>
+  <rect width="512" height="512" rx="72" fill="#fff"/>
+  <path
+    d="M76 392V120L166 306L256 120V392M256 392V120L436 392V120"
+    fill="none"
+    stroke="#000"
+    stroke-width="44"
+    stroke-linecap="round"
+    stroke-linejoin="round"
+  />
+</svg>

@@ -1,0 +1,6 @@
+.env
+__pycache__/
+logs/
+prepared_media/
+*.lock
+com.mathematical-nexus.bluesky.plist
