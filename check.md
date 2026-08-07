@@ -146,15 +146,10 @@ Fresh scan status (2026-07-14): 143 notebooks are currently present under `pytho
 | `python/compressed-sensing-basis-pursuit/compressed-sensing-basis-pursuit.ipynb` | Validated (fresh batch; 30s rule) | 2026-07-13 | Added local ISTA exposition and safe snippet path; optional next step: add phase-transition heatmaps over sparsity and sampling ratios. |
 | `python/orthogonal-matching-pursuit/orthogonal-matching-pursuit.ipynb` | Validated (fresh batch; 30s rule) | 2026-07-14 | Add support-recovery precision/recall diagnostics under noise. |
 | `python/pdhg-chambolle-pock/pdhg-chambolle-pock.ipynb` | Validated (fresh batch; 30s rule) | 2026-07-14 | Add step-size condition stress tests and objective-gap trajectories. |
-| `python/trust-region-methods/trust-region-methods.ipynb` | Validated (fresh batch; 30s rule) | 2026-07-14 | Add trust-radius adaptation diagnostics and acceptance-ratio histograms. |
 | `python/newton-fractals-complex/newton-fractals-complex.ipynb` | Validated (fresh batch; 30s rule) | 2026-07-14 | Add polynomial-family comparisons (root multiplicity, clustered roots) for basin sensitivity. |
 | `python/chebyshev-minimax/chebyshev-minimax.ipynb` | Validated (fresh batch; 30s rule) | 2026-07-13 | Add explicit equioscillation diagnostics and a lightweight Remez comparison. |
-| `python/runge-kutta-stability/runge-kutta-stability.ipynb` | Validated (fresh batch; 30s rule) | 2026-07-14 | Add stiff test-equation trajectories to connect regions with time-domain behavior. |
 | `python/markov-chains-mixing/markov-chains-mixing.ipynb` | Validated (fresh batch; 30s rule) | 2026-07-13 | Add spectral-gap vs empirical mixing-rate overlay for multiple chain families. |
 | `python/hmm-forward-backward/hmm-forward-backward.ipynb` | Validated (fresh batch; 30s rule) | 2026-07-13 | Add backward-smoothing curves to complement filtering and Viterbi paths. |
-| `python/particle-filters-smc/particle-filters-smc.ipynb` | Validated (fresh batch; 30s rule) | 2026-07-14 | Add particle-count sweep showing ESS and tracking RMSE tradeoffs. |
-| `python/variational-inference-gmm/variational-inference-gmm.ipynb` | Validated (fresh batch; 30s rule) | 2026-07-14 | Add uncertainty ellipses and EM-side baseline for tighter pedagogical contrast. |
-| `python/normalizing-flows-2d/normalizing-flows-2d.ipynb` | Validated (fresh batch; 30s rule) | 2026-07-14 | Add log-density contour reconstruction to accompany sample visualization. |
 | `python/diffusion-models-toy/diffusion-models-toy.ipynb` | Validated (fresh batch; 30s rule) | 2026-07-13 | Add multi-step reverse chain snapshots rather than single-step denoise proxy. |
 | `python/tsne-umap-comparison/tsne-umap-comparison.ipynb` | Validated (fresh batch; 30s rule) | 2026-07-14 | Add neighborhood-preservation metrics (trustworthiness/continuity) per embedding. |
 | `python/spectral-graph-wavelets/spectral-graph-wavelets.ipynb` | Validated (fresh batch; 30s rule) | 2026-07-14 | Add localization-width diagnostics across scales and graph topologies. |

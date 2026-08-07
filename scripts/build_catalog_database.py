@@ -28,6 +28,7 @@ class Row:
     content: str
     filename: str
     type: str
+    related_notebook: str = ""
 
 
 TITLE_STOP_WORDS = {
@@ -332,6 +333,97 @@ VIGNETTE_TOKEN_TITLES = {
 }
 
 
+# Only direct topic matches are listed here. Keeping the relation explicit avoids
+# attaching a notebook merely because it shares a broad word such as "flow".
+RELATED_NOTEBOOK_TITLES = {
+    "python/ada-boost/ada-boost.ipynb": ("Boosting Classification",),
+    "python/advection/advection.ipynb": ("Advection Equation",),
+    "python/alpha-shapes/alpha-shapes.ipynb": ("Alpha Shape", "Alpha Shapes"),
+    "python/apolonian/apolonian.ipynb": ("Apollonian Gasket", "Apollonian Gaskets"),
+    "python/arithmetico-geometric/arithmetico-geometric.ipynb": ("Arithmetic-Geometric Means",),
+    "python/backprojection-radon/backprojection-radon.ipynb": ("Tomography Theorem", "Tomography Transform"),
+    "python/bernouilli-tcl/bernouilli-tcl.ipynb": ("Bernoulli Distributions", "Central Limit Convolution"),
+    "python/bifurcation/bifurcation.ipynb": ("Logistic-Map Bifurcations",),
+    "python/bilateral-filtering/bilateral-filtering.ipynb": ("Bilateral Filter",),
+    "python/boltzmann/boltzmann.ipynb": ("Boltzmann Equation",),
+    "python/brachistochrone/brachistochrone.ipynb": ("Bernoulli Brachistochrone",),
+    "python/bregman-flow/bregman-flow.ipynb": ("Bregman Algorithm", "Bregman Divergence"),
+    "python/brownian/brownian.ipynb": ("Brownian Evolution", "Brownian Motion"),
+    "python/burgers/burgers.ipynb": ("Burgers Equation", "Burgers Shock Equation"),
+    "python/cellular/cellular.ipynb": ("Cellular Automata",),
+    "python/compressed-sensing-basis-pursuit/compressed-sensing-basis-pursuit.ipynb": ("Basis Pursuit",),
+    "python/conjugate-gradient/conjugate-gradient.ipynb": ("Conjugate Gradient",),
+    "python/de-casteljau/de-casteljau.ipynb": ("De Casteljau Algorithm",),
+    "python/dijkstra/dijkstra.ipynb": ("Dijkstra Algorithm", "Dijkstra Shortest Paths"),
+    "python/dtw/dtw.ipynb": ("Dynamic Time Warping",),
+    "python/dykstra/dykstra.ipynb": ("Dykstra Algorithm", "Dykstra Pocs"),
+    "python/edge-detection/edge-detection.ipynb": ("Canny Edge Detection", "Edge Detectors", "Marr-Hildreth Edge Detection"),
+    "python/eikonal-fast-marching/eikonal-fast-marching.ipynb": ("Eikonal Distance Equation", "Eikonal Equation", "Fast Marching", "Fast Marching Method", "Geodesics Fast Marching"),
+    "python/error-diffusion/error-diffusion.ipynb": ("Error Diffusion",),
+    "python/farthest-point/farthest-point.ipynb": ("Farthest Point", "Farthest-Point Sampling"),
+    "python/fixed-point/fixed-point.ipynb": ("Banach Fixed Point", "Fixed-Point Dynamics"),
+    "python/floyd-warshall/floyd-warshall.ipynb": ("Floyd Warshall", "Floyd-Warshall Shortest Paths"),
+    "python/fluids/fluids.ipynb": ("Stable Fluids",),
+    "python/fourier-curves/fourier-curves.ipynb": ("Fourier Curve", "Fourier Descriptors"),
+    "python/fourier-matrix/fourier-matrix.ipynb": ("Fourier 2D",),
+    "python/fourier-signal/fourier-signal.ipynb": ("Fourier Cat", "Fourier Low Approximation"),
+    "python/foveation/foveation.ipynb": ("Foveated Image Filtering",),
+    "python/frank-wolfe/frank-wolfe.ipynb": ("Frank-Wolfe Optimization",),
+    "python/gears-non-circ/gears-non-circ.ipynb": ("Non-Circular Gears",),
+    "python/gershgorin/gershgorin.ipynb": ("Gershgorin Disk", "Gershgorin Disk Theorem"),
+    "python/gibbs-sampling/gibbs-sampling.ipynb": ("Gibbs Sampling", "Hastings Sampling", "Metropolis Hastings", "Metropolis Sampling"),
+    "python/grad-desc-ode/grad-desc-ode.ipynb": ("Gradient Flow",),
+    "python/grad-desc-quad/grad-desc-quad.ipynb": ("Gradient Descent",),
+    "python/gradflow-metric/gradflow-metric.ipynb": ("Gradient Flows",),
+    "python/graph-coloring/graph-coloring.ipynb": ("Chromatic Number",),
+    "python/graphical-lasso/graphical-lasso.ipynb": ("Graphical Lasso",),
+    "python/haar-walsh/haar-walsh.ipynb": ("Walsh Haar",),
+    "python/harmonic/harmonic.ipynb": ("Harmonic Equation",),
+    "python/heat-1d/heat-1d.ipynb": ("Scale Space", "Scale Space Filtering"),
+    "python/heat-polynomials/heat-polynomials.ipynb": ("Heat Polynomial",),
+    "python/heavy-ball/heavy-ball.ipynb": ("Heavy Ball",),
+    "python/hist-eq/hist-eq.ipynb": ("Histogram Equalization",),
+    "python/hopfield-network/hopfield-network.ipynb": ("Hopfield Networks",),
+    "python/hump-algebra/hump-algebra.ipynb": ("Hump Algebra",),
+    "python/ica/ica.ipynb": ("Independent Component Analysis",),
+    "python/icp/icp.ipynb": ("Iterative Closest Point", "Iterative Closest Point Algorithm"),
+    "python/interior-points/interior-points.ipynb": ("Interior Points",),
+    "python/inverse-kinematics/inverse-kinematics.ipynb": ("Inverse Kinematics",),
+    "python/ising-model/ising-model.ipynb": ("Ising Networks",),
+    "python/ista/ista.ipynb": ("Iterative Soft Thresholding",),
+    "python/jko-flow/jko-flow.ipynb": ("JKO Wasserstein Flow", "Porous Medium"),
+    "python/joukowski/joukowski.ipynb": ("Joukowski Airfoil Transform",),
+    "python/julia-sets/julia-sets.ipynb": ("Julia Fractal Sets", "Julia Set", "Mandelbrot and Julia Sets"),
+    "python/k-nn/k-nn.ipynb": ("K-Nearest Neighbors",),
+    "python/kaczmarz/kaczmarz.ipynb": ("Kaczmarz Algorithm",),
+    "python/kalman/kalman.ipynb": ("Kalman Dynamics",),
+    "python/kernel-svm/kernel-svm.ipynb": ("Kernel SVM",),
+    "python/kmean++/kmeanpp.ipynb": ("K-Means++ Initialization",),
+    "python/kmeans/kmeans.ipynb": ("K-Means Algorithm", "Lloyd Algorithm"),
+    "python/kriging/kriging.ipynb": ("Kriging with Gaussian Processes", "Wiener-Kriging Interpolation"),
+    "python/kubo-matrix-mean/kubo-matrix-mean.ipynb": ("Kubo-Ando Matrix Means",),
+    "python/lagrange-hermite/lagrange-hermite.ipynb": ("Lagrange Hermite",),
+    "python/laplacian-eigenmaps/laplacian-eigenmaps.ipynb": ("Laplacian Eigenmap", "Laplacian Eigenmaps"),
+    "python/laplacian-pyramid/laplacian-pyramid.ipynb": ("Laplacian Pyramid",),
+    "python/laplacian-spectrum/laplacian-spectrum.ipynb": ("Laplacian Shape Spectrum",),
+    "python/mean-curvature-flow/mean-curvature-flow.ipynb": ("Mean Curvature",),
+    "python/grad-desc-mirror/grad-desc-mirror.ipynb": ("Mirror Descent",),
+    "python/pagerank-random-walks/pagerank-random-walks.ipynb": ("PageRank Random Walks",),
+    "python/reaction-diffusion-turing/reaction-diffusion-turing.ipynb": ("Reaction Diffusion", "Turing Morpho"),
+    "python/schrodinger-bridge/schrodinger-bridge.ipynb": ("Schrodinger Bridge Transport",),
+    "python/sinkhorn-distance/sinkhorn-distance.ipynb": ("Sinkhorn Algorithm",),
+    "python/spherical-harmonics-signals/spherical-harmonics-signals.ipynb": ("Harm Spherical Harmonics", "Sphere Harmonics"),
+    "python/tsne-umap-comparison/tsne-umap-comparison.ipynb": ("t-SNE Dimensionality Reduction",),
+    "python/wasserstein-barycenters/wasserstein-barycenters.ipynb": ("Optimal Transport Barycenters",),
+}
+
+RELATED_NOTEBOOK_BY_TITLE = {
+    title.casefold(): notebook
+    for notebook, titles in RELATED_NOTEBOOK_TITLES.items()
+    for title in titles
+}
+
+
 SINGLE_WORD_DESCRIPTORS = (
     (r"\binequalit", "Inequality"),
     (r"\btheorem\b", "Theorem"),
@@ -562,6 +654,9 @@ def parse_vignettes() -> List[Row]:
         desc = polish_description(" ".join(lines[2:])) if len(lines) > 2 else ""
         title = curate_vignette_title(name, desc)
         content = desc if desc else f"Vignette entry from {date}."
+        related_notebook = RELATED_NOTEBOOK_BY_TITLE.get(title.casefold(), "")
+        if related_notebook and not (ROOT / related_notebook).exists():
+            related_notebook = ""
         if len(content) > 320:
             content = content[:317].rstrip() + "..."
         out.append(
@@ -570,6 +665,7 @@ def parse_vignettes() -> List[Row]:
                 content=content,
                 filename=f"vignettes/{name}",
                 type="vignette",
+                related_notebook=related_notebook,
             )
         )
     return out
@@ -597,7 +693,10 @@ def main() -> None:
             dropped.append(r.filename)
 
     existing_rows.sort(key=catalog_sort_key)
-    df = pd.DataFrame([r.__dict__ for r in existing_rows], columns=["title", "content", "filename", "type"])
+    df = pd.DataFrame(
+        [r.__dict__ for r in existing_rows],
+        columns=["title", "content", "filename", "type", "related_notebook"],
+    )
     df.to_excel(DB_XLSX, index=False)
     DB_JSON.write_text(df.to_json(orient="records", force_ascii=False, indent=2), encoding="utf-8")
     DB_JS.write_text(

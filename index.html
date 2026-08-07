@@ -58,6 +58,36 @@
         gap: 8px;
         align-items: center;
       }
+      .search-field {
+        position: relative;
+        min-width: 0;
+      }
+      .search-field input {
+        width: 100%;
+        padding-right: 34px;
+      }
+      .clear-search {
+        position: absolute;
+        top: 50%;
+        right: 5px;
+        width: 28px;
+        height: 28px;
+        padding: 0;
+        border: 0;
+        border-radius: 50%;
+        background: transparent;
+        color: var(--muted);
+        font-size: 20px;
+        line-height: 1;
+        transform: translateY(-50%);
+      }
+      .clear-search:hover {
+        background: #eef2f7;
+        color: var(--text);
+      }
+      .clear-search[hidden] {
+        display: none;
+      }
       input,
       select,
       button {
@@ -146,6 +176,10 @@
         line-height: 1.36;
         font-size: 14px;
       }
+      .code-link {
+        font-weight: 650;
+        white-space: nowrap;
+      }
       .filename {
         font-size: 12px;
         color: var(--muted);
@@ -212,7 +246,10 @@
     </header>
     <div class="toolbar">
       <div class="controls">
-        <input id="search" type="text" placeholder="Search title, description, filename..." />
+        <div class="search-field">
+          <input id="search" type="text" placeholder="Search title, description, filename..." />
+          <button id="clearSearch" class="clear-search" type="button" aria-label="Clear search" title="Clear search" hidden>&times;</button>
+        </div>
         <select id="kind">
           <option value="all">All types</option>
           <option value="notebook">Notebook</option>
@@ -247,6 +284,14 @@
           /(https?:\/\/[^\s]+)/g,
           '<a href="$1" target="_blank" rel="noopener">link</a>'
         );
+      }
+      function descriptionFor(item) {
+        let description = linkify(esc(item.content || ""));
+        if (item.type === "vignette" && item.related_notebook) {
+          const codeUrl = `https://github.com/gpeyre/mathematical-nexus/blob/main/${item.related_notebook}`;
+          description += ` <a class="code-link" href="${esc(codeUrl)}" target="_blank" rel="noopener">code</a>`;
+        }
+        return description;
       }
       function mediaFor(item) {
         const file = item.filename || "";
@@ -307,6 +352,7 @@
       let page = 1;
 
       const searchEl = document.getElementById("search");
+      const clearSearchEl = document.getElementById("clearSearch");
       const kindEl = document.getElementById("kind");
       const perEl = document.getElementById("perPage");
       const prevEl = document.getElementById("prev");
@@ -321,7 +367,7 @@
         return allData.filter((d) => {
           if (kind !== "all" && d.type !== kind) return false;
           if (!q) return true;
-          const hay = `${d.title} ${d.content} ${d.filename} ${d.type}`.toLowerCase();
+          const hay = `${d.title} ${d.content} ${d.filename} ${d.type} ${d.related_notebook || ""}`.toLowerCase();
           return hay.includes(q);
         });
       }
@@ -348,8 +394,8 @@
               <div class="content">
                 <span class="chip">${esc(item.type)}</span>
                 <div class="title">${esc(item.title || "(untitled)")}</div>
-                <p class="desc">${linkify(esc(item.content || ""))}</p>
-                <div class="filename">${esc(item.filename || "")}</div>
+                <p class="desc">${descriptionFor(item)}</p>
+                ${item.type === "notebook" ? `<div class="filename">${esc(item.filename || "")}</div>` : ""}
                 ${notebookLinks(item)}
               </div>
             </article>`
@@ -377,7 +423,16 @@
 
       searchEl.addEventListener("input", (e) => {
         query = e.target.value.trim();
+        clearSearchEl.hidden = e.target.value.length === 0;
         page = 1;
+        render();
+      });
+      clearSearchEl.addEventListener("click", () => {
+        searchEl.value = "";
+        query = "";
+        clearSearchEl.hidden = true;
+        page = 1;
+        searchEl.focus();
         render();
       });
       kindEl.addEventListener("change", (e) => {

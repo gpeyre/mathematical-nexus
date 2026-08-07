@@ -8,6 +8,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
 PYTHON_DIR = ROOT / "python"
+RETIRED_SLUGS = {"trust-region-methods"}
 
 
 def md_cell(text: str) -> dict:
@@ -724,6 +725,8 @@ def write_topic(topic: dict) -> None:
 
 def main() -> None:
     for topic in TOPICS:
+        if topic["slug"] in RETIRED_SLUGS:
+            continue
         write_topic(topic)
 
 

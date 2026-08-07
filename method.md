@@ -99,6 +99,7 @@ The repository now exposes a **single searchable catalog** at root:
   - `content`
   - `filename`
   - `type`
+  - `related_notebook` (optional; blank unless a vignette has a direct match)
 - One row = one searchable entry.
 - Include both notebooks and vignettes in the same table.
 - Give every vignette a short, descriptive title rather than exposing a terse archival filename or unexplained acronym.
@@ -106,6 +107,9 @@ The repository now exposes a **single searchable catalog** at root:
 - `type` values must be normalized and constrained to:
   - `notebook`
   - `vignette`
+- Vignette rows may define an optional `related_notebook` path only when the
+  conceptual match is direct and unambiguous. The relation must be generated
+  from the catalog script and must point to an existing notebook.
 
 ### Generation Workflow
 
@@ -122,6 +126,7 @@ The repository now exposes a **single searchable catalog** at root:
 - `index.html` must:
   - load catalog entries from generated database payload
   - provide a text search box across title/content/filename
+  - provide a compact clear-search control at the right edge of the text input
   - provide page-size selector (`20`, `50`, `100`, `200`; default `100`)
   - provide a type filter toggle:
     - all types
@@ -129,6 +134,9 @@ The repository now exposes a **single searchable catalog** at root:
     - vignette only
   - paginate results with previous/next navigation
   - display media previews for vignettes and direct links for notebooks
+  - omit archival source filenames from vignette cards
+  - append a `code` link to a vignette's external links when its catalog row
+    contains a valid `related_notebook`
 - The UI must remain responsive for large catalogs (hundreds of entries).
 - If search/filter returns no result, display a clear empty-state message.
 

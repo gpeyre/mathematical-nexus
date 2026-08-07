@@ -6,6 +6,13 @@ from pathlib import Path
 
 
 ROOT = Path(__file__).resolve().parent.parent
+RETIRED_SLUGS = {
+    "normalizing-flows-2d",
+    "particle-filters-smc",
+    "runge-kutta-stability",
+    "trust-region-methods",
+    "variational-inference-gmm",
+}
 
 
 REFS = {
@@ -240,6 +247,8 @@ def main() -> None:
     updated = 0
     missing = []
     for slug, items in REFS.items():
+        if slug in RETIRED_SLUGS:
+            continue
         p = ROOT / "python" / slug / f"{slug}.ipynb"
         if not p.exists():
             missing.append(slug)
@@ -255,4 +264,3 @@ def main() -> None:
 
 if __name__ == "__main__":
     main()
-

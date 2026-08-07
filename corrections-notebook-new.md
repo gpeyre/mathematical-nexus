@@ -4,13 +4,13 @@ _Last updated: 7 August 2026_
 
 ## Scope and protocol
 
-All 143 notebooks under `python/` were reviewed against `method.md`, freshly executed in their own directories, and saved in place so that static outputs remain embedded. Batch execution used a 30-second per-cell timeout, `NBEXECUTE=1`, and skipped only cells tagged `interactive`; those tagged cells remain available when a reader opens the notebook.
+All 138 notebooks currently under `python/` were reviewed against `method.md`, freshly executed in their own directories, and saved in place so that static outputs remain embedded. Batch execution used a 30-second per-cell timeout, `NBEXECUTE=1`, and skipped only cells tagged `interactive`; those tagged cells remain available when a reader opens the notebook.
 
 The final saved-state audit records:
 
-- **143/143 valid notebooks**, with no schema or Python compilation failures.
-- **143/143 successful executions**, with no saved errors or warnings.
-- **397 embedded visual outputs**, with at least one in every notebook.
+- **138/138 valid notebooks**, with no schema or Python compilation failures.
+- **138/138 successful executions**, with no saved errors or warnings.
+- **392 embedded visual outputs**, with at least one in every notebook.
 - **12.954 seconds** for the slowest recorded cell, below the 30-second ceiling.
 - **50 interactive cells** correctly tagged for nonblocking batch execution.
 - **0 unexecuted noninteractive cells**, **0 code cells lacking preceding exposition**, and **0 code cells longer than 60 lines**.
@@ -154,25 +154,20 @@ The final saved-state audit records:
 | [python/matrix-completion-nuclear-norm/matrix-completion-nuclear-norm.ipynb](python/matrix-completion-nuclear-norm/matrix-completion-nuclear-norm.ipynb) | Pass | opening exposition strengthened. |
 | [python/mean-curvature-flow/mean-curvature-flow.ipynb](python/mean-curvature-flow/mean-curvature-flow.ipynb) | Pass | outputs made notebook-local. |
 | [python/newton-fractals-complex/newton-fractals-complex.ipynb](python/newton-fractals-complex/newton-fractals-complex.ipynb) | Pass | opening exposition strengthened. |
-| [python/normalizing-flows-2d/normalizing-flows-2d.ipynb](python/normalizing-flows-2d/normalizing-flows-2d.ipynb) | Pass | opening exposition strengthened. |
 | [python/orthogonal-matching-pursuit/orthogonal-matching-pursuit.ipynb](python/orthogonal-matching-pursuit/orthogonal-matching-pursuit.ipynb) | Pass | outputs made notebook-local. |
 | [python/pagerank-random-walks/pagerank-random-walks.ipynb](python/pagerank-random-walks/pagerank-random-walks.ipynb) | Pass | opening exposition strengthened. |
-| [python/particle-filters-smc/particle-filters-smc.ipynb](python/particle-filters-smc/particle-filters-smc.ipynb) | Pass | opening exposition strengthened. |
 | [python/pdhg-chambolle-pock/pdhg-chambolle-pock.ipynb](python/pdhg-chambolle-pock/pdhg-chambolle-pock.ipynb) | Pass | opening exposition strengthened. |
 | [python/persistent-homology-topology/persistent-homology-topology.ipynb](python/persistent-homology-topology/persistent-homology-topology.ipynb) | Pass | opening exposition strengthened. |
 | [python/poisson-meshes/poisson-meshes.ipynb](python/poisson-meshes/poisson-meshes.ipynb) | Pass | opening exposition strengthened. |
 | [python/reaction-diffusion-turing/reaction-diffusion-turing.ipynb](python/reaction-diffusion-turing/reaction-diffusion-turing.ipynb) | Pass | opening exposition strengthened; mathematical/warning correction; rendering/output placement improved. |
 | [python/riemannian-optimization-stiefel/riemannian-optimization-stiefel.ipynb](python/riemannian-optimization-stiefel/riemannian-optimization-stiefel.ipynb) | Pass | opening exposition strengthened. |
 | [python/robust-pca-lowrank-sparse/robust-pca-lowrank-sparse.ipynb](python/robust-pca-lowrank-sparse/robust-pca-lowrank-sparse.ipynb) | Pass | opening exposition strengthened. |
-| [python/runge-kutta-stability/runge-kutta-stability.ipynb](python/runge-kutta-stability/runge-kutta-stability.ipynb) | Pass | opening exposition strengthened. |
 | [python/schrodinger-bridge/schrodinger-bridge.ipynb](python/schrodinger-bridge/schrodinger-bridge.ipynb) | Pass | opening exposition strengthened. |
 | [python/sinkhorn-distance/sinkhorn-distance.ipynb](python/sinkhorn-distance/sinkhorn-distance.ipynb) | Pass | full execution and quality review; no targeted content edit required. |
 | [python/sliced-wasserstein/sliced-wasserstein.ipynb](python/sliced-wasserstein/sliced-wasserstein.ipynb) | Pass | mathematical/warning correction; outputs made notebook-local. |
 | [python/spectral-graph-wavelets/spectral-graph-wavelets.ipynb](python/spectral-graph-wavelets/spectral-graph-wavelets.ipynb) | Pass | opening exposition strengthened. |
 | [python/spherical-harmonics-signals/spherical-harmonics-signals.ipynb](python/spherical-harmonics-signals/spherical-harmonics-signals.ipynb) | Pass | opening exposition strengthened. |
-| [python/trust-region-methods/trust-region-methods.ipynb](python/trust-region-methods/trust-region-methods.ipynb) | Pass | opening exposition strengthened; long computation split pedagogically. |
 | [python/tsne-umap-comparison/tsne-umap-comparison.ipynb](python/tsne-umap-comparison/tsne-umap-comparison.ipynb) | Pass | opening exposition strengthened. |
 | [python/unbalanced-ot/unbalanced-ot.ipynb](python/unbalanced-ot/unbalanced-ot.ipynb) | Pass | opening exposition strengthened. |
-| [python/variational-inference-gmm/variational-inference-gmm.ipynb](python/variational-inference-gmm/variational-inference-gmm.ipynb) | Pass | opening exposition strengthened. |
 | [python/wasserstein-barycenters/wasserstein-barycenters.ipynb](python/wasserstein-barycenters/wasserstein-barycenters.ipynb) | Pass | opening exposition strengthened. |
 | [python/wave-equation-dispersion/wave-equation-dispersion.ipynb](python/wave-equation-dispersion/wave-equation-dispersion.ipynb) | Pass | opening exposition strengthened. |

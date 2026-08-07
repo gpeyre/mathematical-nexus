@@ -202,13 +202,9 @@ while reinitialization restores a signed-distance profile without intentionally 
 $$\min_X\frac12\|P_\Omega(X-M)\|_F^2+\lambda\|X\|_*.$$
 Singular-value thresholding then exposes how sampling density and regularization control rank and reconstruction error.""",
     "python/newton-fractals-complex/newton-fractals-complex.ipynb": r"""Newton's iteration $z_{k+1}=z_k-p(z_k)/p'(z_k)$ is locally attracted to simple roots, but its global basins have fractal boundaries. Coloring initial conditions by their limiting root and convergence time turns a root finder into a dynamical system and reveals sensitivity near basin boundaries.""",
-    "python/normalizing-flows-2d/normalizing-flows-2d.ipynb": r"""A normalizing flow transports a simple density through invertible maps. If $x=T(z)$, then
-$$\log p_X(x)=\log p_Z(z)-\log|\det DT(z)|.$$
-The two-dimensional construction lets us inspect deformation, samples, and density correction together, emphasizing why invertibility and Jacobian determinants are central.""",
     "python/pagerank-random-walks/pagerank-random-walks.ipynb": r"""PageRank is the stationary law of a random walk with teleportation,
 $$p=\alpha P^\top p+(1-\alpha)v.$$
 Teleportation guarantees a unique stable solution and controls how strongly graph links dominate the personalization vector. Iteration curves and graph views connect centrality to probability flow.""",
-    "python/particle-filters-smc/particle-filters-smc.ipynb": r"""Sequential Monte Carlo approximates a filtering distribution by weighted particles. Prediction propagates dynamics, likelihood weighting incorporates the observation, and resampling combats weight collapse. Effective sample size and tracking error diagnose the tradeoff between particle count, degeneracy, and uncertainty.""",
     "python/pdhg-chambolle-pock/pdhg-chambolle-pock.ipynb": r"""PDHG addresses saddle problems of the form
 $$\min_x\max_y\;G(x)+\langle Kx,y\rangle-F^*(y)$$
 with alternating proximal steps. Its stability condition $\tau\sigma\|K\|^2<1$ links step sizes to operator geometry. Objective and residual curves make convergence and instability distinguishable.""",
@@ -219,18 +215,11 @@ $$u_t=D_u\Delta u-uv^2+F(1-u),\qquad v_t=D_v\Delta v+uv^2-(F+k)v.$$
 Small perturbations can be amplified into spots or stripes. Temporal snapshots show that pattern selection is a dynamical instability, not a static texture filter.""",
     "python/riemannian-optimization-stiefel/riemannian-optimization-stiefel.ipynb": r"""The Stiefel constraint $X^\top X=I$ is nonlinear, so Euclidean steps leave the feasible set. Riemannian optimization projects gradients onto the tangent space and retracts trial points back to the manifold. Orthogonality error and objective decay verify both geometry and optimization.""",
     "python/robust-pca-lowrank-sparse/robust-pca-lowrank-sparse.ipynb": r"""Robust PCA models data as $M=L+S$, with coherent structure in a low-rank term and gross corruption in a sparse term. Principal component pursuit relaxes this decomposition using $\|L\|_*+\lambda\|S\|_1$. Singular spectra and component images show when the separation is identifiable.""",
-    "python/runge-kutta-stability/runge-kutta-stability.ipynb": r"""Applying a Runge--Kutta method to $y'=\lambda y$ gives $y_{n+1}=R(h\lambda)y_n$. The absolute-stability region $|R(z)|\leq1$ predicts whether numerical solutions decay or explode. Stability maps and time traces connect this complex-plane criterion to actual integration behavior.""",
     "python/schrodinger-bridge/schrodinger-bridge.ipynb": r"""A Schrodinger bridge finds the most likely stochastic evolution between two endpoint laws relative to a diffusion prior. Entropic regularization turns the problem into iterative scaling, interpolating between diffuse transport and nearly deterministic displacement as the noise level changes.""",
     "python/spectral-graph-wavelets/spectral-graph-wavelets.ipynb": r"""Spectral graph wavelets apply band-pass filters $g(sL)$ to localized impulses. The scale $s$ selects Laplacian frequencies and therefore controls spatial spread across the graph. Comparing scales makes the uncertainty tradeoff between spectral selectivity and vertex localization visible.""",
     "python/spherical-harmonics-signals/spherical-harmonics-signals.ipynb": r"""Spherical harmonics $Y_\ell^m$ diagonalize the Laplace--Beltrami operator on the sphere and provide a Fourier basis for directional data. Degree $\ell$ controls angular frequency. Reconstructions and energy spectra show how truncation smooths a signal and organizes multiscale content.""",
-    "python/trust-region-methods/trust-region-methods.ipynb": r"""A trust-region method minimizes a local quadratic model only inside $\|p\|\leq\Delta$. The ratio
-$$\rho=\frac{f(x)-f(x+p)}{m(0)-m(p)}$$
-tests model fidelity, controls acceptance, and adapts $\Delta$. The trajectory shows how this safeguard handles nonconvex curvature more reliably than an unrestricted Newton step.""",
     "python/tsne-umap-comparison/tsne-umap-comparison.ipynb": r"""Both t-SNE and UMAP-style embeddings prioritize neighborhood structure rather than global Euclidean accuracy. Their objectives encode local affinities differently, so apparent clusters must be read alongside trustworthiness and continuity diagnostics. The comparison emphasizes stability across parameters rather than one attractive layout.""",
     "python/unbalanced-ot/unbalanced-ot.ipynb": r"""Unbalanced optimal transport relaxes exact marginal constraints by penalizing mass creation and destruction, often with a Kullback--Leibler divergence. Varying the mass penalty interpolates between local deletion and nearly balanced displacement, revealing when transport is cheaper than changing mass.""",
-    "python/variational-inference-gmm/variational-inference-gmm.ipynb": r"""Variational inference approximates an intractable posterior by maximizing the evidence lower bound
-$$\mathcal L(q)=\mathbb E_q[\log p(x,z)]-\mathbb E_q[\log q(z)].$$
-For a Gaussian mixture, coordinate updates alternate responsibilities and parameter uncertainty. ELBO growth and component ellipses expose both convergence and ambiguity.""",
     "python/wasserstein-barycenters/wasserstein-barycenters.ipynb": r"""A Wasserstein barycenter minimizes $\sum_k\lambda_k W_2^2(\mu,\mu_k)$. In one dimension, quantile functions linearize this geometry, so the barycenter quantile is a weighted average of input quantiles. Weight sweeps reveal displacement interpolation rather than pointwise density blending.""",
     "python/wave-equation-dispersion/wave-equation-dispersion.ipynb": r"""A spatial discretization changes the wave relation from $\omega=c|k|$ to a numerical dispersion law. Consequently, different Fourier modes travel at different phase and group velocities. Comparing dispersion curves with propagated packets explains phase lag and shape distortion before they appear in a simulation.""",
 }
@@ -268,7 +257,6 @@ SECOND_INTRO_EXPANSIONS = {
     "python/interpol-vizu/interpol-vizu.ipynb": "All methods are evaluated on identical samples and plotting scales. This common frame makes local smoothness and extrapolation artifacts comparable instead of allowing each method to choose a favorable view.",
     "python/markov-chains-mixing/markov-chains-mixing.ipynb": "The numerical experiment also separates asymptotic rate from short-time behavior. This matters because two chains with similar spectral gaps can still exhibit visibly different transients from a particular initial state.",
     "python/pagerank-random-walks/pagerank-random-walks.ipynb": "We check the fixed-point residual as well as the visual ranking. This ensures that apparent centrality differences reflect the stationary equation rather than insufficient power iterations.",
-    "python/particle-filters-smc/particle-filters-smc.ipynb": "The plots align latent state, observations, particle cloud, and effective sample size in time. This makes resampling events interpretable rather than presenting only a final tracking curve.",
     "python/persistent-homology-topology/persistent-homology-topology.ipynb": "Scale is treated as a model parameter rather than a cosmetic slider. Stable intervals identify geometry that persists across a range of neighborhoods, whereas short bars signal noise or discretization.",
     "python/poisson-meshes/poisson-meshes.ipynb": "The same triangulation is used to display geometry, forcing, and solution. This alignment makes boundary conditions and local approximation error easier to diagnose.",
     "python/spectral-graph-wavelets/spectral-graph-wavelets.ipynb": "A shared color scale is used across wavelet scales so that apparent localization is quantitative rather than an artifact of independent normalization. The energy distribution complements the vertex-domain view.",
@@ -893,18 +881,6 @@ The leading generalized eigenvectors maximize between-class variance relative to
         ("fig, axes", "## Interpret the discriminant projection\n\nThe original-space arrows and the projected class histograms show geometry and separation in complementary coordinates."),
     ],
 )
-split_code_cell(
-    "python/trust-region-methods/trust-region-methods.ipynb",
-    "def f(x)",
-    [
-        ("x = np.array", r"""## Adaptive trust-region iterations
-
-Each trial step is clipped to the current radius, accepted according to $\rho$, and used to expand or contract the next region."""),
-        ("traj = np.array", "## Plot the accepted trajectory\n\nContours expose the nonconvex landscape while markers show only accepted iterates, making rejected model proposals implicit in the path spacing."),
-    ],
-)
-
-
 # The long static render is cohesive, but isolate its invocation from its definition.
 lag_path = "python/lagrangian-vs-eulerian/lagrangian-vs-eulerian.ipynb"
 nb = read(lag_path)

@@ -8,6 +8,12 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
 PYTHON_DIR = ROOT / "python"
+RETIRED_SLUGS = {
+    "normalizing-flows-2d",
+    "particle-filters-smc",
+    "runge-kutta-stability",
+    "variational-inference-gmm",
+}
 
 
 def md_cell(text: str) -> dict:
@@ -1325,6 +1331,8 @@ We now implement the main ideas for **{title}**, with equations and plots design
 
 def main() -> None:
     for spec in TOPICS:
+        if spec["slug"] in RETIRED_SLUGS:
+            continue
         create_notebook(spec)
 
 
