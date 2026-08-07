@@ -101,6 +101,8 @@ The repository now exposes a **single searchable catalog** at root:
   - `type`
 - One row = one searchable entry.
 - Include both notebooks and vignettes in the same table.
+- Give every vignette a short, descriptive title rather than exposing a terse archival filename or unexplained acronym.
+- Order notebook and vignette rows together by the first non-trivial word of the title (ignoring articles and short linking words such as `the`, `a`, `of`, and `for`).
 - `type` values must be normalized and constrained to:
   - `notebook`
   - `vignette`

@@ -283,6 +283,23 @@
       }
 
       const allData = Array.isArray(window.CATALOG_DATA) ? window.CATALOG_DATA : [];
+      const titleStopWords = new Set(["a", "an", "and", "by", "for", "from", "in", "of", "on", "the", "to", "via", "vs", "with"]);
+
+      function titleSortKey(item) {
+        const words = String(item.title || "").match(/[A-Za-z0-9]+/g) || [];
+        const first = words.find((word) => !titleStopWords.has(word.toLowerCase())) || "";
+        return [first, item.title || "", item.type || "", item.filename || ""];
+      }
+
+      allData.sort((left, right) => {
+        const a = titleSortKey(left);
+        const b = titleSortKey(right);
+        for (let i = 0; i < a.length; i += 1) {
+          const order = a[i].localeCompare(b[i], undefined, { sensitivity: "base", numeric: true });
+          if (order !== 0) return order;
+        }
+        return 0;
+      });
       let query = "";
       let kind = "all";
       let perPage = 50;

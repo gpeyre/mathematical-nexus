@@ -3,6 +3,7 @@ from __future__ import annotations
 
 import json
 import re
+import unicodedata
 from dataclasses import dataclass
 from pathlib import Path
 from typing import Dict, List
@@ -27,6 +28,336 @@ class Row:
     content: str
     filename: str
     type: str
+
+
+TITLE_STOP_WORDS = {
+    "a",
+    "an",
+    "and",
+    "by",
+    "for",
+    "from",
+    "in",
+    "of",
+    "on",
+    "the",
+    "to",
+    "via",
+    "vs",
+    "with",
+}
+
+
+# Filename stems are terse archival identifiers. These overrides expand the
+# most opaque or ambiguous ones while keeping card titles compact.
+VIGNETTE_TITLE_OVERRIDES = {
+    "1d-dicrepancies": "One-Dimensional Probability Discrepancies",
+    "a-trou": "A-Trous Wavelet Transform",
+    "alex-net": "AlexNet Convolutional Network",
+    "aniso-diffusion": "Anisotropic Diffusion",
+    "approx-quantiz": "Approximation by Quantization",
+    "arith-geom": "Arithmetic-Geometric Means",
+    "assignement-pbm": "Assignment Problem",
+    "astar": "A-Star Shortest-Path Search",
+    "backprop": "Reverse-Mode Backpropagation",
+    "barron": "Barron Approximation Rates",
+    "barycoord": "Generalized Barycentric Coordinates",
+    "bb-steps": "Barzilai-Borwein Step Sizes",
+    "beckmann": "Beckmann Transport Formulation",
+    "brenier": "Brenier Optimal Transport Theorem",
+    "brownian": "Brownian Motion",
+    "burger": "Burgers Shock Equation",
+    "cas": "Hartley CAS Transform",
+    "cfl": "CFL Stability Condition",
+    "cizar": "Csiszar Divergences",
+    "conformal": "Conformal Maps",
+    "dikstra": "Dijkstra Shortest Paths",
+    "dct": "Discrete Cosine Transform",
+    "diffeo": "Flow-Generated Diffeomorphisms",
+    "dublin": "Dubins Car Paths",
+    "eikonale": "Eikonal Distance Equation",
+    "eigenfaces": "Eigenfaces and PCA",
+    "ellastic-net": "Elastic Net Regularization",
+    "fields": "Electric and Magnetic Fields",
+    "filtering": "Iterated Convolution Filtering",
+    "fastmarching": "Fast Marching Method",
+    "fineup": "Fienup Phase Retrieval",
+    "fisher-rao": "Fisher-Rao Geometry",
+    "fixedpoints": "Fixed-Point Dynamics",
+    "foveation": "Foveated Image Filtering",
+    "gabor": "Gabor Time-Frequency Atoms",
+    "gasket": "Apollonian Gasket",
+    "focuss": "FOCUSS Sparse Recovery",
+    "fp-sampling": "Farthest-Point Sampling",
+    "fw": "Frank-Wolfe Optimization",
+    "gsm": "Gaussian Scale Mixtures",
+    "hamming": "Hamming Error-Correcting Codes",
+    "harris": "Harris Corner Detection",
+    "huber": "Huber Robust Estimation",
+    "hypercube": "High-Dimensional Hypercube",
+    "implicitexplicit": "Explicit vs Implicit Descent",
+    "isomap": "Isomap Manifold Embedding",
+    "jko": "JKO Wasserstein Flow",
+    "jpeg2k": "JPEG 2000 Wavelet Coding",
+    "joukowski": "Joukowski Airfoil Transform",
+    "julia": "Julia Fractal Sets",
+    "kanitza": "Kanizsa Illusory Contours",
+    "kerner": "Durand-Kerner Root Finding",
+    "kubo-ando": "Kubo-Ando Matrix Means",
+    "kuboando": "Kubo-Ando Matrix Means",
+    "krigging": "Kriging with Gaussian Processes",
+    "kringing": "Kriging with Gaussian Processes",
+    "kmeans-plusplus": "K-Means++ Initialization",
+    "kmeans-pp": "K-Means++ Initialization",
+    "lattice": "Lattice Order Geometry",
+    "lasso": "Lasso Sparse Regression",
+    "leapfrog": "Leapfrog Symplectic Integration",
+    "linsystems": "Linear Systems and Least Squares",
+    "lotka": "Lotka-Volterra Dynamics",
+    "lic": "Line Integral Convolution",
+    "lll": "LLL Lattice Reduction",
+    "lojasiewicz": "Kurdyka-Lojasiewicz Geometry",
+    "lyapounov": "Lyapunov Stability Functions",
+    "mar-pastur": "Marchenko-Pastur Law",
+    "marr": "Marr-Hildreth Edge Detection",
+    "maxcut": "MAX-CUT Semidefinite Relaxation",
+    "mccann": "McCann Displacement Interpolation",
+    "mle": "Maximum Likelihood Estimation",
+    "metaballs": "Metaball Level Sets",
+    "monge": "Monge Optimal Assignment",
+    "monotone": "Monotone Operators",
+    "moreau": "Moreau Envelope",
+    "motzkin": "Motzkin Positive Polynomial",
+    "multigrid": "Multigrid PDE Solver",
+    "multipole": "Fast Multipole Interactions",
+    "nlmeans": "Non-Local Means Denoising",
+    "nl-means": "Non-Local Means Denoising",
+    "nphard": "NP-Hardness and Completeness",
+    "pagerank": "PageRank Random Walks",
+    "parzen": "Parzen Kernel Density Estimation",
+    "pendulum": "Nonlinear Pendulum Dynamics",
+    "qr": "QR Matrix Factorization",
+    "randommatrices": "Classical Random Matrix Laws",
+    "rbf": "Radial Basis Functions",
+    "rbf-nn": "RBF Neural Networks",
+    "rkhs": "Reproducing Kernel Hilbert Spaces",
+    "rosenbrok": "Rosenbrock Optimization Landscape",
+    "schrodinger": "Schrodinger Bridge Transport",
+    "sgd": "Stochastic Gradient Descent",
+    "shannon": "Shannon Sampling Theorem",
+    "shapeley": "Shapley-Folkman Convexification",
+    "smacoff": "SMACOF Multidimensional Scaling",
+    "sketching": "Random-Feature Kernel Sketching",
+    "sobol": "Sobol Quasi-Monte Carlo",
+    "softmax": "Softmax and Log-Sum-Exp",
+    "som": "Self-Organizing Maps",
+    "spirals": "String-Art Logarithmic Spirals",
+    "ssim": "Structural Similarity Index",
+    "stft": "Short-Time Fourier Transform",
+    "sunflower": "Golden-Angle Sunflower Spirals",
+    "sunflowers": "Golden-Angle Sunflower Spirals",
+    "svd": "Singular Value Decomposition",
+    "svm": "Support Vector Machines",
+    "tcl": "Central Limit Theorem",
+    "tarski": "Tarski Projection Theorem",
+    "tsne": "t-SNE Dimensionality Reduction",
+    "tsp": "Traveling Salesman Problem",
+    "tv-denoise": "Total Variation Denoising",
+    "verlet": "Verlet Symplectic Integration",
+    "washall": "Floyd-Warshall Shortest Paths",
+    "wienner": "Wiener-Kriging Interpolation",
+    "wigner-ville": "Wigner-Ville Time-Frequency Analysis",
+    "wirtinger": "Wirtinger Complex Derivatives",
+    "zeta": "Riemann Zeta Zeros",
+    "zonohedra": "Zonohedra and Linear Images",
+    "cauchy-binnet": "Cauchy-Binet Formula",
+    "convnets": "Convolutional Neural Networks",
+    "de-casterljau": "De Casteljau Algorithm",
+    "divergences": "Statistical Divergences",
+    "gale-shapeley": "Gale-Shapley Stable Matching",
+    "gerschgorin-paper": "Gershgorin Disk Theorem",
+    "interpolations": "Interpolation Methods",
+    "lorentz-attractor": "Lorenz Attractor",
+    "mac-adam": "MacAdam Color Ellipses",
+    "mcadam": "MacAdam Color Ellipses",
+    "nestero-polyak": "Nesterov-Polyak Acceleration",
+    "perron-frob": "Perron-Frobenius Theorem",
+    "shatten-norms": "Schatten Norms",
+    "voltera-lotka": "Lotka-Volterra Dynamics",
+}
+
+
+VIGNETTE_FILE_TITLE_OVERRIDES = {
+    "074-bifurcation": "Logistic-Map Bifurcations",
+    "184-gears": "Non-Circular Gears",
+    "234-delaunay": "Delaunay Triangulation",
+    "249-conformal": "Conformal Maps",
+    "268-bcr-algo": "Beylkin-Coifman-Rokhlin Fast Operator",
+    "294-zeta": "Riemann Zeta Zeros",
+    "443-conformal": "Conformal Maps",
+    "461-covariance": "Covariance Ellipsoids",
+    "472-bernoulli": "Bernoulli Brachistochrone",
+    "514-danzig": "Dantzig Simplex Method",
+    "526-laplace": "Laplace Bayesian Inference",
+    "548-lasso": "Lasso Sparse Regression",
+    "556a-modelization-1": "Mathematical Modeling, Part 1",
+    "578-mipmapping": "Mipmapping and Antialiasing",
+    "590-verlet": "Verlet Symplectic Integration",
+    "619-collisions": "Elastic Particle Collisions",
+    "624-bernstein": "Bernstein Approximation Theorem",
+    "628-noether": "Noether and Betti Numbers",
+    "646-mandelbrot": "Mandelbrot and Julia Sets",
+    "654-coarea": "Coarea Formula",
+    "674-penrose": "Penrose Aperiodic Tilings",
+    "712-canny": "Canny Edge Detection",
+    "733-bernoulli": "Bernoulli Brachistochrone",
+    "738-inpainting": "Exemplar-Based Image Inpainting",
+    "751-pendulum": "Huygens Pendulum Dynamics",
+    "773-bertrand": "Bertrand Central-Force Theorem",
+    "787-optim": "Optimization Problem Taxonomy",
+    "398-cannot-hear": "Isospectral Drums",
+    "508-fourier-memoire": "Foundations of Fourier Analysis",
+    "512-monge-memoire": "Foundations of Optimal Transport",
+    "603-hear-shape-cat": "Laplacian Shape Spectrum",
+    "770-fench-rock": "Fenchel-Rockafellar Duality",
+}
+
+
+VIGNETTE_TOKEN_TITLES = {
+    "1d": "1D",
+    "2d": "2D",
+    "3d": "3D",
+    "admm": "ADMM",
+    "algo": "Algorithm",
+    "aniso": "Anisotropic",
+    "approx": "Approximation",
+    "arith": "Arithmetic",
+    "autom": "Automata",
+    "bcr": "BCR",
+    "bm3d": "BM3D",
+    "cfl": "CFL",
+    "clt": "CLT",
+    "conj": "Conjugate",
+    "cont": "Continuous",
+    "contrac": "Contraction",
+    "conv": "Convex",
+    "convol": "Convolution",
+    "coords": "Coordinates",
+    "cov": "Covariance",
+    "cpx": "Complex",
+    "curv": "Curvature",
+    "dct": "DCT",
+    "desc": "Descent",
+    "descr": "Descriptors",
+    "dft": "DFT",
+    "displ": "Displacement",
+    "dist": "Distance",
+    "dtw": "Dynamic Time Warping",
+    "em": "Expectation-Maximization",
+    "eq": "Equation",
+    "equaliz": "Equalization",
+    "evol": "Evolution",
+    "fft": "Fast Fourier Transform",
+    "fisher": "Fisher-Rao",
+    "fmm": "Fast Marching",
+    "frob": "Frobenius",
+    "frobenus": "Frobenius",
+    "func": "Function",
+    "fwd": "Forward",
+    "gauss": "Gaussian",
+    "geom": "Geometric",
+    "grad": "Gradient",
+    "histo": "Histogram",
+    "highdim": "High-Dimensional",
+    "ica": "Independent Component Analysis",
+    "icp": "Iterative Closest Point",
+    "interp": "Interpolation",
+    "ineq": "Inequality",
+    "incompress": "Incompressible",
+    "iter": "Iteration",
+    "ista": "Iterative Soft Thresholding",
+    "jl": "Johnson-Lindenstrauss",
+    "kl": "Kullback-Leibler",
+    "kanto": "Kantorovich",
+    "kin": "Kinematics",
+    "kmeans": "K-Means",
+    "knn": "K-Nearest Neighbors",
+    "lda": "Linear Discriminant Analysis",
+    "lin": "Linear",
+    "lapl": "Laplacian",
+    "leastsquare": "Least Squares",
+    "lp": "Lp",
+    "meanval": "Mean-Value",
+    "maxent": "Maximum Entropy",
+    "mlp": "Multilayer Perceptrons",
+    "nmf": "Nonnegative Matrix Factorization",
+    "nonlin": "Nonlinear",
+    "nurbs": "NURBS",
+    "optim": "Optimization",
+    "ortho": "Orthogonal",
+    "ot": "Optimal Transport",
+    "pbm": "Problem",
+    "pca": "Principal Component Analysis",
+    "pde": "PDE",
+    "pdes": "PDEs",
+    "poly": "Polynomial",
+    "pp": "Plus Plus",
+    "proj": "Projected",
+    "proba": "Probability",
+    "qda": "Quadratic Discriminant Analysis",
+    "quantiz": "Quantization",
+    "randmat": "Random Matrices",
+    "reconstr": "Reconstruction",
+    "regul": "Regularization",
+    "relu": "ReLU",
+    "schro": "Schrodinger",
+    "sdp": "Semidefinite",
+    "sift": "SIFT",
+    "sir": "SIR",
+    "sbm": "Stochastic Block Model",
+    "sne": "Stochastic Neighbor Embedding",
+    "sobol": "Sobol",
+    "svm": "SVM",
+    "spher": "Spherical Harmonics",
+    "subdiv": "Subdivision",
+    "surf": "Surface",
+    "thm": "Theorem",
+    "transf": "Transform",
+    "tv": "Total Variation",
+    "psd": "Positive Semidefinite",
+    "nn": "Neural Network",
+    "val": "Value",
+    "vec": "Vector",
+    "wass": "Wasserstein",
+}
+
+
+SINGLE_WORD_DESCRIPTORS = (
+    (r"\binequalit", "Inequality"),
+    (r"\btheorem\b", "Theorem"),
+    (r"\balgorithm\b", "Algorithm"),
+    (r"\bequation\b", "Equation"),
+    (r"\binterpolat", "Interpolation"),
+    (r"\bdenois", "Denoising"),
+    (r"\bclassif", "Classification"),
+    (r"\bsampl", "Sampling"),
+    (r"\bwavelet", "Wavelets"),
+    (r"\btransform\b", "Transform"),
+    (r"\bdivergence", "Divergence"),
+    (r"\bdistance\b|\bmetric\b", "Geometry"),
+    (r"\bgradient\b|\boptimization\b", "Optimization"),
+    (r"\bnetwork", "Networks"),
+    (r"\bmatrix|\bmatrices", "Matrices"),
+    (r"\bdistribution", "Distributions"),
+    (r"\bprobability", "Probability"),
+    (r"\bcurve", "Curves"),
+    (r"\bsurface", "Surfaces"),
+    (r"\bgraph", "Graphs"),
+    (r"\bdynamical|\bdynamics|\btrajectory", "Dynamics"),
+    (r"\bpartial differential|\bpde\b", "PDE"),
+    (r"\bfilter", "Filtering"),
+    (r"\bmodel\b", "Model"),
+)
 
 
 def clean_text(s: str) -> str:
@@ -106,6 +437,59 @@ def title_from_path(path: str) -> str:
     return clean_text(stem.replace("-", " ").replace("_", " ").title())
 
 
+def vignette_stem(path: str) -> str:
+    stem = re.sub(r"^\d+[a-z]?[-_]*", "", Path(path).stem.lower())
+    stem = re.sub(r"\.\d+$", "", stem)
+    typo_fixes = {
+        "dicrepancies": "discrepancies",
+        "helmoltz": "helmholtz",
+        "netwon": "newton",
+        "poisso": "poisson",
+        "vornoi": "voronoi",
+        "woronoi": "voronoi",
+    }
+    for bad, good in typo_fixes.items():
+        stem = re.sub(rf"(?<![a-z]){re.escape(bad)}(?![a-z])", good, stem)
+    return stem
+
+
+def curate_vignette_title(path: str, description: str) -> str:
+    """Turn archival filename shorthand into a compact explanatory card title."""
+    file_stem = Path(path).stem.lower()
+    if file_stem in VIGNETTE_FILE_TITLE_OVERRIDES:
+        return VIGNETTE_FILE_TITLE_OVERRIDES[file_stem]
+    stem = vignette_stem(path)
+    if stem in VIGNETTE_TITLE_OVERRIDES:
+        return VIGNETTE_TITLE_OVERRIDES[stem]
+
+    parts: List[str] = []
+    for token in re.split(r"[-_]+", stem):
+        if not token or token.isdigit():
+            continue
+        parts.extend(VIGNETTE_TOKEN_TITLES.get(token, token.title()).split())
+
+    title = clean_text(" ".join(parts))
+    if len(title.split()) == 1:
+        lower_description = description.lower()
+        for pattern, suffix in SINGLE_WORD_DESCRIPTORS:
+            if re.search(pattern, lower_description) and suffix.lower() != title.lower():
+                title = f"{title} {suffix}"
+                break
+    return title or f"Vignette {Path(path).name}"
+
+
+def catalog_sort_key(row: Row) -> tuple[str, str, str, str]:
+    words = re.findall(r"[A-Za-z0-9]+", row.title)
+    first = next((word for word in words if word.lower() not in TITLE_STOP_WORDS), "")
+
+    def normalize(value: str) -> str:
+        value = unicodedata.normalize("NFKD", value)
+        value = "".join(ch for ch in value if not unicodedata.combining(ch))
+        return value.casefold()
+
+    return normalize(first), normalize(row.title), row.type, normalize(row.filename)
+
+
 def parse_readme_notebook_blurbs() -> Dict[str, Row]:
     text = README.read_text(encoding="utf-8")
     rows: Dict[str, Row] = {}
@@ -176,11 +560,7 @@ def parse_vignettes() -> List[Row]:
         date = lines[0]
         name = lines[1]
         desc = polish_description(" ".join(lines[2:])) if len(lines) > 2 else ""
-        stem = re.sub(r"^\d+[-_]*", "", Path(name).stem)
-        stem = stem.replace(".", " ")
-        title = clean_text(stem.replace("-", " ").replace("_", " ").title())
-        if not title:
-            title = f"Vignette {name}"
+        title = curate_vignette_title(name, desc)
         content = desc if desc else f"Vignette entry from {date}."
         if len(content) > 320:
             content = content[:317].rstrip() + "..."
@@ -216,6 +596,7 @@ def main() -> None:
         else:
             dropped.append(r.filename)
 
+    existing_rows.sort(key=catalog_sort_key)
     df = pd.DataFrame([r.__dict__ for r in existing_rows], columns=["title", "content", "filename", "type"])
     df.to_excel(DB_XLSX, index=False)
     DB_JSON.write_text(df.to_json(orient="records", force_ascii=False, indent=2), encoding="utf-8")
