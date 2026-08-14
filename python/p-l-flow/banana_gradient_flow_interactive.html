@@ -1,10 +1,10 @@
 <!doctype html>
-<html lang="fr">
+<html lang="en">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="color-scheme" content="light">
-  <title>Flot de gradient — potentiel banane</title>
+  <title>Gradient flow — banana potential</title>
   <style>
     :root {
       --ink: #112a33;
@@ -508,70 +508,70 @@
   <main class="shell">
     <header class="masthead">
       <div>
-        <p class="eyebrow">Laboratoire interactif</p>
-        <h1>Le flot épouse la banane.</h1>
-        <p class="dek">Une grille de particules descend le potentiel coloré jusqu’à sa vallée courbe. Modifiez la courbure, comparez les deux dynamiques et cliquez dans la figure pour lancer vos propres points.</p>
+        <p class="eyebrow">Interactive lab</p>
+        <h1>The flow follows the banana.</h1>
+        <p class="dek">A grid of particles descends the colored potential into its curved valley. Adjust the bend, compare the two dynamics, and click the plot to release your own points.</p>
       </div>
       <div class="engine" id="engineStatus" data-state="loading" role="status" aria-live="polite">
-        <div class="engine-line"><span class="engine-dot"></span><span id="engineTitle">Chargement du moteur Python…</span></div>
-        <p class="engine-detail" id="engineDetail">Le premier chargement de Pyodide nécessite une connexion. Le rendu JS est déjà actif.</p>
+        <div class="engine-line"><span class="engine-dot"></span><span id="engineTitle">Loading the Python engine…</span></div>
+        <p class="engine-detail" id="engineDetail">Pyodide needs an internet connection on first load. The JavaScript rendering engine is already active.</p>
       </div>
     </header>
 
     <section class="workspace">
-      <aside class="controls" aria-label="Paramètres du flot">
+      <aside class="controls" aria-label="Flow controls">
         <div class="section">
           <label class="control-label" for="bendInput">
-            <span>Courbure de la banane</span>
+            <span>Banana bend</span>
             <output class="value-pill" id="bendValue" for="bendInput">1.00</output>
           </label>
-          <input id="bendInput" type="range" min="0" max="3" step="0.05" value="1" aria-label="Courbure">
-          <div class="range-ends"><span>plate · 0</span><span>très courbe · 3</span></div>
+          <input id="bendInput" type="range" min="0" max="3" step="0.05" value="1" aria-label="Banana bend">
+          <div class="range-ends"><span>flat · 0</span><span>strongly curved · 3</span></div>
         </div>
 
         <div class="section">
-          <p class="section-title">Dynamique</p>
-          <div class="segmented" role="group" aria-label="Mode du flot">
-            <button id="normalizedMode" type="button" aria-pressed="true">Normalisé</button>
-            <button id="trueMode" type="button" aria-pressed="false">Gradient réel</button>
+          <p class="section-title">Dynamics</p>
+          <div class="segmented" role="group" aria-label="Flow mode">
+            <button id="normalizedMode" type="button" aria-pressed="true">Normalized</button>
+            <button id="trueMode" type="button" aria-pressed="false">True gradient</button>
           </div>
-          <p class="mode-note" id="modeNote">Vitesse constante le long de −∇F/‖∇F‖, comme dans le script MATLAB.</p>
+          <p class="mode-note" id="modeNote">Constant speed along the steepest-descent direction −∇F/‖∇F‖.</p>
         </div>
 
         <div class="section">
           <p class="section-title">Animation</p>
           <div class="transport">
             <button class="button primary" id="playButton" type="button">Pause</button>
-            <button class="button" id="resetButton" type="button">Début</button>
-            <button class="button" id="replayButton" type="button">Rejouer</button>
+            <button class="button" id="resetButton" type="button">Reset</button>
+            <button class="button" id="replayButton" type="button">Replay</button>
           </div>
           <div class="timeline-row">
-            <input id="timelineInput" type="range" min="0" max="130" step="1" value="0" aria-label="Étape de l’animation">
+            <input id="timelineInput" type="range" min="0" max="130" step="1" value="0" aria-label="Animation frame">
             <output class="frame-readout" id="frameReadout" for="timelineInput">0 / 130</output>
           </div>
           <div class="speed-row">
-            <label for="speedInput">Vitesse</label>
-            <input id="speedInput" type="range" min="0.25" max="3" step="0.25" value="1" aria-label="Vitesse de lecture">
+            <label for="speedInput">Speed</label>
+            <input id="speedInput" type="range" min="0.25" max="3" step="0.25" value="1" aria-label="Playback speed">
             <output id="speedValue" for="speedInput">1×</output>
           </div>
         </div>
 
         <div class="section">
           <div class="particle-count">
-            <span>Particules actives</span>
+            <span>Active particles</span>
             <strong id="particleCount">81</strong>
           </div>
-          <button class="button full" id="gridButton" type="button">Restaurer la grille 9 × 9</button>
+          <button class="button full" id="gridButton" type="button">Restore the 9 × 9 grid</button>
         </div>
       </aside>
 
       <article class="visual-card">
         <div class="visual-topbar">
           <div class="formula"><em>F</em><sub>b</sub>(x,y) = d(x,[0,1])² + [y + b(x − ½)²]²</div>
-          <div class="legend" aria-label="Échelle colorée de racine de F"><span>0</span><span class="legend-gradient"></span><span>√F max</span></div>
+          <div class="legend" aria-label="Color scale for the square root of F"><span>0</span><span class="legend-gradient"></span><span>max √F</span></div>
         </div>
 
-        <div class="plot-wrap" id="plotWrap" aria-label="Animation du flot de gradient sur le potentiel banane">
+        <div class="plot-wrap" id="plotWrap" aria-label="Gradient-flow animation over the banana potential">
           <canvas id="fieldCanvas"></canvas>
           <canvas id="trailCanvas"></canvas>
           <canvas id="particleCanvas"></canvas>
@@ -588,13 +588,13 @@
         </div>
 
         <div class="visual-footer">
-          <span>Cliquer dans la figure ajoute une particule et recalcule sa trajectoire.</span>
-          <span class="footer-key">vallée F = 0</span>
+          <span>Click the plot to add a particle and compute its trajectory.</span>
+          <span class="footer-key">valley F = 0</span>
         </div>
       </article>
     </section>
 
-    <p class="page-note">Cette page reste utilisable sans réseau grâce au moteur JavaScript de secours. Pour exécuter réellement le noyau Python dans le navigateur, le premier chargement de Pyodide v314.0.2 doit pouvoir joindre son CDN officiel ; servez de préférence ce fichier par HTTP local.</p>
+    <p class="page-note">This page remains fully usable offline thanks to its JavaScript fallback engine. To run the Python kernel in the browser, Pyodide v314.0.2 must reach its official CDN on first load; serving this file over local HTTP is recommended.</p>
   </main>
 
   <script>
@@ -1130,8 +1130,8 @@ async function runCompute(message) {
     }
 
     function updatePlayButton() {
-      elements.play.textContent = playing ? 'Pause' : 'Lire';
-      elements.play.setAttribute('aria-label', playing ? 'Mettre en pause' : 'Lire l’animation');
+      elements.play.textContent = playing ? 'Pause' : 'Play';
+      elements.play.setAttribute('aria-label', playing ? 'Pause the animation' : 'Play the animation');
     }
 
     function setEngineStatus(state, title, detail) {
@@ -1152,7 +1152,7 @@ async function runCompute(message) {
       renderAll();
 
       if (pythonReady && worker) {
-        setEngineStatus('python', 'Python · calcul en cours', 'Pyodide v314.0.2 travaille dans un worker isolé.');
+        setEngineStatus('python', 'Python · computing', 'Pyodide v314.0.2 is running in an isolated worker.');
         worker.postMessage({
           type: 'compute',
           generation: requestedGeneration,
@@ -1174,7 +1174,7 @@ async function runCompute(message) {
       if (message.generation !== generation) return;
       trajectory = message.positions;
       trajectoryCount = message.count;
-      setEngineStatus('python', 'Moteur Python actif', `Pyodide v314.0.2 · ${Math.round(message.elapsed)} ms · worker isolé`);
+      setEngineStatus('python', 'Python engine active', `Pyodide v314.0.2 · ${Math.round(message.elapsed)} ms · isolated worker`);
       renderDynamic();
     }
 
@@ -1190,7 +1190,7 @@ async function runCompute(message) {
           if (message.type === 'ready') {
             pythonReady = true;
             pythonFailed = false;
-            setEngineStatus('python', 'Moteur Python prêt', `Pyodide v${message.version} · calcul dans un worker isolé`);
+            setEngineStatus('python', 'Python engine ready', `Pyodide v${message.version} · running in an isolated worker`);
             const wasPlaying = playing;
             const savedProgress = playbackPosition;
             requestFlow({ resetFrame: false });
@@ -1206,7 +1206,7 @@ async function runCompute(message) {
           if (message.type === 'load-error') {
             pythonFailed = true;
             pythonReady = false;
-            setEngineStatus('fallback', 'Mode autonome JavaScript', 'Pyodide est inaccessible ; la même équation reste entièrement interactive.');
+            setEngineStatus('fallback', 'Standalone JavaScript mode', 'Pyodide is unavailable; the same equation remains fully interactive.');
             return;
           }
           if (message.type === 'compute-error') {
@@ -1214,7 +1214,7 @@ async function runCompute(message) {
             pythonReady = false;
             trajectory = computeFlowJS(bend, mode, seeds);
             trajectoryCount = seeds.length;
-            setEngineStatus('fallback', 'Relais JavaScript activé', 'Le calcul Python a échoué ; la trajectoire a été recalculée localement.');
+            setEngineStatus('fallback', 'JavaScript fallback active', 'The Python computation failed; the trajectory was recomputed locally.');
             renderDynamic();
           }
         };
@@ -1222,17 +1222,17 @@ async function runCompute(message) {
         worker.onerror = () => {
           pythonFailed = true;
           pythonReady = false;
-          setEngineStatus('fallback', 'Mode autonome JavaScript', 'Le worker Python est bloqué ; la visualisation reste fonctionnelle hors ligne.');
+          setEngineStatus('fallback', 'Standalone JavaScript mode', 'The Python worker is blocked; the visualization remains fully functional offline.');
         };
 
         window.setTimeout(() => {
           if (!pythonReady && !pythonFailed) {
-            setEngineStatus('loading', 'Python se charge en arrière-plan…', 'Réseau lent ou cache froid ; le moteur JavaScript assure déjà l’animation.');
+            setEngineStatus('loading', 'Python is loading in the background…', 'The network may be slow or the cache may be cold; the JavaScript engine is already running the animation.');
           }
         }, 12000);
       } catch (error) {
         pythonFailed = true;
-        setEngineStatus('fallback', 'Mode autonome JavaScript', 'Ce navigateur bloque le worker Python ; le calcul de secours est actif.');
+        setEngineStatus('fallback', 'Standalone JavaScript mode', 'This browser blocks the Python worker; the fallback computation is active.');
       }
     }
 
@@ -1242,8 +1242,8 @@ async function runCompute(message) {
       elements.normalizedMode.setAttribute('aria-pressed', String(mode === 'normalized'));
       elements.trueMode.setAttribute('aria-pressed', String(mode === 'true'));
       elements.modeNote.textContent = mode === 'normalized'
-        ? 'Vitesse constante le long de −∇F/‖∇F‖, comme dans le script MATLAB.'
-        : 'Flot physique dX/dt = −∇F : rapide sur les pentes fortes, lent près de la vallée.';
+        ? 'Constant speed along the steepest-descent direction −∇F/‖∇F‖.'
+        : 'Physical flow dX/dt = −∇F: fast on steep slopes, slow near the valley.';
       requestFlow();
     }
 
@@ -1341,7 +1341,7 @@ async function runCompute(message) {
 
     elements.particleCanvas.addEventListener('click', (event) => {
       if (seeds.length >= MAX_PARTICLES) {
-        setEngineStatus(pythonReady ? 'python' : 'fallback', 'Limite de particules atteinte', `Maximum : ${MAX_PARTICLES} points pour préserver la fluidité.`);
+        setEngineStatus(pythonReady ? 'python' : 'fallback', 'Particle limit reached', `Maximum: ${MAX_PARTICLES} points to keep the animation smooth.`);
         return;
       }
       const local = pointerCoordinates(event);
