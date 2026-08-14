@@ -1,0 +1,1388 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light">
+  <title>Flot de gradient — potentiel banane</title>
+  <style>
+    :root {
+      --ink: #112a33;
+      --muted: #63757a;
+      --paper: #f6f4ed;
+      --panel: rgba(255, 255, 255, .80);
+      --line: rgba(17, 42, 51, .13);
+      --accent: #2c5cff;
+      --accent-dark: #163aa7;
+      --teal: #087f79;
+      --shadow: 0 28px 70px rgba(27, 42, 46, .13);
+      --radius: 24px;
+    }
+
+    * { box-sizing: border-box; }
+
+    html, body { min-height: 100%; }
+
+    body {
+      margin: 0;
+      color: var(--ink);
+      background:
+        radial-gradient(circle at 7% 0%, rgba(255, 216, 121, .33), transparent 27rem),
+        radial-gradient(circle at 100% 100%, rgba(39, 151, 145, .18), transparent 34rem),
+        var(--paper);
+      font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      font-variant-numeric: tabular-nums;
+    }
+
+    button, input { font: inherit; }
+
+    button:focus-visible,
+    input:focus-visible {
+      outline: 3px solid rgba(44, 92, 255, .26);
+      outline-offset: 2px;
+    }
+
+    .shell {
+      width: min(1440px, 100%);
+      margin: 0 auto;
+      padding: clamp(18px, 3vw, 44px);
+    }
+
+    .masthead {
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      gap: 24px;
+      margin: 0 0 24px;
+    }
+
+    .eyebrow {
+      margin: 0 0 8px;
+      color: var(--teal);
+      font-size: .75rem;
+      font-weight: 800;
+      letter-spacing: .13em;
+      text-transform: uppercase;
+    }
+
+    h1 {
+      margin: 0;
+      max-width: 820px;
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: clamp(2.1rem, 5vw, 4.6rem);
+      font-weight: 500;
+      letter-spacing: -.045em;
+      line-height: .96;
+    }
+
+    .dek {
+      max-width: 560px;
+      margin: 14px 0 0;
+      color: var(--muted);
+      font-size: clamp(.94rem, 1.5vw, 1.08rem);
+      line-height: 1.55;
+    }
+
+    .engine {
+      flex: 0 0 auto;
+      max-width: 310px;
+      padding: 12px 15px;
+      border: 1px solid var(--line);
+      border-radius: 15px;
+      background: rgba(255, 255, 255, .62);
+      box-shadow: 0 8px 30px rgba(27, 42, 46, .06);
+    }
+
+    .engine-line {
+      display: flex;
+      align-items: center;
+      gap: 9px;
+      font-size: .82rem;
+      font-weight: 800;
+    }
+
+    .engine-dot {
+      width: 9px;
+      height: 9px;
+      border-radius: 50%;
+      background: #dca628;
+      box-shadow: 0 0 0 4px rgba(220, 166, 40, .14);
+    }
+
+    .engine[data-state="python"] .engine-dot {
+      background: #10a573;
+      box-shadow: 0 0 0 4px rgba(16, 165, 115, .14);
+    }
+
+    .engine[data-state="fallback"] .engine-dot {
+      background: #69787b;
+      box-shadow: 0 0 0 4px rgba(105, 120, 123, .14);
+    }
+
+    .engine-detail {
+      margin: 5px 0 0 18px;
+      color: var(--muted);
+      font-size: .71rem;
+      line-height: 1.35;
+    }
+
+    .workspace {
+      display: grid;
+      grid-template-columns: minmax(260px, 332px) minmax(0, 1fr);
+      gap: clamp(16px, 2.5vw, 30px);
+      align-items: start;
+    }
+
+    .controls,
+    .visual-card {
+      border: 1px solid rgba(255, 255, 255, .92);
+      background: var(--panel);
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(17px);
+      -webkit-backdrop-filter: blur(17px);
+    }
+
+    .controls {
+      position: sticky;
+      top: 20px;
+      padding: 20px;
+      border-radius: var(--radius);
+    }
+
+    .section + .section {
+      margin-top: 19px;
+      padding-top: 19px;
+      border-top: 1px solid var(--line);
+    }
+
+    .section-title,
+    .control-label {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: 12px;
+      margin: 0 0 10px;
+      font-size: .78rem;
+      font-weight: 800;
+      letter-spacing: .03em;
+    }
+
+    .value-pill {
+      min-width: 54px;
+      padding: 4px 8px;
+      border: 1px solid rgba(44, 92, 255, .17);
+      border-radius: 999px;
+      color: var(--accent-dark);
+      background: rgba(44, 92, 255, .08);
+      text-align: center;
+      font-size: .78rem;
+    }
+
+    input[type="range"] {
+      width: 100%;
+      height: 22px;
+      margin: 0;
+      accent-color: var(--accent);
+      cursor: pointer;
+    }
+
+    .range-ends {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 1px;
+      color: #819095;
+      font-size: .65rem;
+    }
+
+    .segmented {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4px;
+      padding: 4px;
+      border-radius: 13px;
+      background: rgba(17, 42, 51, .07);
+    }
+
+    .segmented button {
+      min-height: 37px;
+      padding: 7px 8px;
+      border: 0;
+      border-radius: 10px;
+      color: #5e7075;
+      background: transparent;
+      cursor: pointer;
+      font-size: .74rem;
+      font-weight: 800;
+    }
+
+    .segmented button[aria-pressed="true"] {
+      color: var(--ink);
+      background: #fff;
+      box-shadow: 0 3px 12px rgba(17, 42, 51, .10);
+    }
+
+    .mode-note {
+      min-height: 33px;
+      margin: 8px 2px 0;
+      color: var(--muted);
+      font-size: .69rem;
+      line-height: 1.45;
+    }
+
+    .transport {
+      display: grid;
+      grid-template-columns: 1.55fr 1fr 1fr;
+      gap: 7px;
+    }
+
+    .button {
+      min-height: 42px;
+      padding: 9px 11px;
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      color: var(--ink);
+      background: rgba(255, 255, 255, .83);
+      cursor: pointer;
+      font-size: .76rem;
+      font-weight: 800;
+      transition: transform .15s ease, box-shadow .15s ease, background .15s ease;
+    }
+
+    .button:hover {
+      transform: translateY(-1px);
+      background: #fff;
+      box-shadow: 0 7px 16px rgba(17, 42, 51, .09);
+    }
+
+    .button.primary {
+      border-color: #244dd6;
+      color: #fff;
+      background: var(--accent);
+    }
+
+    .button.primary:hover { background: #214fdc; }
+
+    .button.full {
+      width: 100%;
+      margin-top: 9px;
+    }
+
+    .timeline-row {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      align-items: center;
+      gap: 9px;
+      margin-top: 13px;
+    }
+
+    .frame-readout {
+      min-width: 54px;
+      color: var(--muted);
+      font-size: .68rem;
+      text-align: right;
+    }
+
+    .speed-row {
+      display: grid;
+      grid-template-columns: auto 1fr 42px;
+      align-items: center;
+      gap: 9px;
+      margin-top: 9px;
+      color: var(--muted);
+      font-size: .68rem;
+      font-weight: 700;
+    }
+
+    .particle-count {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      color: var(--muted);
+      font-size: .72rem;
+    }
+
+    .particle-count strong {
+      color: var(--ink);
+      font-size: .82rem;
+    }
+
+    .visual-card {
+      min-width: 0;
+      padding: clamp(12px, 2vw, 20px);
+      border-radius: clamp(21px, 3vw, 32px);
+    }
+
+    .visual-topbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 18px;
+      margin: 2px 3px 14px;
+    }
+
+    .formula {
+      color: #334c53;
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: clamp(.78rem, 1.5vw, 1rem);
+      white-space: nowrap;
+    }
+
+    .formula em { color: var(--accent-dark); }
+
+    .legend {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--muted);
+      font-size: .66rem;
+      font-weight: 800;
+    }
+
+    .legend-gradient {
+      width: min(150px, 18vw);
+      height: 9px;
+      border: 1px solid rgba(17, 42, 51, .15);
+      border-radius: 999px;
+      background: linear-gradient(90deg, #352b84, #1d62b2, #13a6b4, #61be74, #d6cf36, #fae941);
+    }
+
+    .plot-wrap {
+      position: relative;
+      width: 100%;
+      max-width: 880px;
+      margin: 0 auto;
+      aspect-ratio: 1;
+      overflow: hidden;
+      border: 1px solid rgba(17, 42, 51, .21);
+      border-radius: clamp(15px, 2vw, 23px);
+      background: #29307a;
+      box-shadow: inset 0 0 0 1px rgba(255, 255, 255, .22);
+      touch-action: none;
+      cursor: crosshair;
+    }
+
+    .plot-wrap canvas {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      display: block;
+    }
+
+    #fieldCanvas { z-index: 1; }
+    #trailCanvas { z-index: 2; pointer-events: none; }
+    #particleCanvas { z-index: 3; }
+
+    .axis-tag {
+      position: absolute;
+      z-index: 4;
+      padding: 4px 7px;
+      border-radius: 8px;
+      color: rgba(255, 255, 255, .88);
+      background: rgba(9, 27, 36, .39);
+      box-shadow: 0 2px 9px rgba(0, 0, 0, .08);
+      pointer-events: none;
+      font-size: .61rem;
+      font-weight: 800;
+      backdrop-filter: blur(5px);
+    }
+
+    .axis-x { right: 10px; bottom: 9px; }
+    .axis-y { top: 10px; left: 10px; }
+
+    .hover-card {
+      position: absolute;
+      z-index: 5;
+      left: 0;
+      top: 0;
+      min-width: 158px;
+      padding: 9px 11px;
+      border: 1px solid rgba(255, 255, 255, .45);
+      border-radius: 12px;
+      color: #fff;
+      background: rgba(8, 27, 36, .80);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, .18);
+      opacity: 0;
+      pointer-events: none;
+      transform: translate(12px, 12px);
+      transition: opacity .1s ease;
+      backdrop-filter: blur(8px);
+      font-size: .67rem;
+      line-height: 1.5;
+    }
+
+    .hover-card.visible { opacity: 1; }
+
+    .hover-grid {
+      display: grid;
+      grid-template-columns: auto auto;
+      gap: 1px 13px;
+    }
+
+    .hover-grid span:nth-child(odd) { color: rgba(255,255,255,.62); }
+    .hover-grid span:nth-child(even) { text-align: right; font-weight: 800; }
+
+    .visual-footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 18px;
+      margin: 13px 4px 1px;
+      color: var(--muted);
+      font-size: .68rem;
+      line-height: 1.4;
+    }
+
+    .footer-key {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      white-space: nowrap;
+    }
+
+    .footer-key::before {
+      width: 17px;
+      height: 3px;
+      border-radius: 4px;
+      background: #fff;
+      box-shadow: 0 0 0 1px #0b635f;
+      content: "";
+    }
+
+    .page-note {
+      max-width: 960px;
+      margin: 18px auto 0;
+      color: #7a898c;
+      font-size: .67rem;
+      line-height: 1.5;
+      text-align: center;
+    }
+
+    @media (max-width: 900px) {
+      .masthead { align-items: flex-start; }
+      .workspace { grid-template-columns: 1fr; }
+      .controls {
+        position: static;
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 0 22px;
+      }
+      .section + .section {
+        margin-top: 0;
+        padding-top: 0;
+        border-top: 0;
+      }
+      .section:nth-child(n+3) {
+        margin-top: 17px;
+        padding-top: 17px;
+        border-top: 1px solid var(--line);
+      }
+    }
+
+    @media (max-width: 620px) {
+      .shell { padding: 16px; }
+      .masthead { display: block; }
+      .engine { max-width: none; margin-top: 17px; }
+      .controls { display: block; }
+      .section + .section {
+        margin-top: 18px;
+        padding-top: 18px;
+        border-top: 1px solid var(--line);
+      }
+      .visual-topbar { align-items: flex-start; }
+      .formula { white-space: normal; }
+      .legend { display: none; }
+      .visual-footer { align-items: flex-start; flex-direction: column; gap: 5px; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        scroll-behavior: auto !important;
+        transition-duration: .001ms !important;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main class="shell">
+    <header class="masthead">
+      <div>
+        <p class="eyebrow">Laboratoire interactif</p>
+        <h1>Le flot épouse la banane.</h1>
+        <p class="dek">Une grille de particules descend le potentiel coloré jusqu’à sa vallée courbe. Modifiez la courbure, comparez les deux dynamiques et cliquez dans la figure pour lancer vos propres points.</p>
+      </div>
+      <div class="engine" id="engineStatus" data-state="loading" role="status" aria-live="polite">
+        <div class="engine-line"><span class="engine-dot"></span><span id="engineTitle">Chargement du moteur Python…</span></div>
+        <p class="engine-detail" id="engineDetail">Le premier chargement de Pyodide nécessite une connexion. Le rendu JS est déjà actif.</p>
+      </div>
+    </header>
+
+    <section class="workspace">
+      <aside class="controls" aria-label="Paramètres du flot">
+        <div class="section">
+          <label class="control-label" for="bendInput">
+            <span>Courbure de la banane</span>
+            <output class="value-pill" id="bendValue" for="bendInput">1.00</output>
+          </label>
+          <input id="bendInput" type="range" min="0" max="3" step="0.05" value="1" aria-label="Courbure">
+          <div class="range-ends"><span>plate · 0</span><span>très courbe · 3</span></div>
+        </div>
+
+        <div class="section">
+          <p class="section-title">Dynamique</p>
+          <div class="segmented" role="group" aria-label="Mode du flot">
+            <button id="normalizedMode" type="button" aria-pressed="true">Normalisé</button>
+            <button id="trueMode" type="button" aria-pressed="false">Gradient réel</button>
+          </div>
+          <p class="mode-note" id="modeNote">Vitesse constante le long de −∇F/‖∇F‖, comme dans le script MATLAB.</p>
+        </div>
+
+        <div class="section">
+          <p class="section-title">Animation</p>
+          <div class="transport">
+            <button class="button primary" id="playButton" type="button">Pause</button>
+            <button class="button" id="resetButton" type="button">Début</button>
+            <button class="button" id="replayButton" type="button">Rejouer</button>
+          </div>
+          <div class="timeline-row">
+            <input id="timelineInput" type="range" min="0" max="130" step="1" value="0" aria-label="Étape de l’animation">
+            <output class="frame-readout" id="frameReadout" for="timelineInput">0 / 130</output>
+          </div>
+          <div class="speed-row">
+            <label for="speedInput">Vitesse</label>
+            <input id="speedInput" type="range" min="0.25" max="3" step="0.25" value="1" aria-label="Vitesse de lecture">
+            <output id="speedValue" for="speedInput">1×</output>
+          </div>
+        </div>
+
+        <div class="section">
+          <div class="particle-count">
+            <span>Particules actives</span>
+            <strong id="particleCount">81</strong>
+          </div>
+          <button class="button full" id="gridButton" type="button">Restaurer la grille 9 × 9</button>
+        </div>
+      </aside>
+
+      <article class="visual-card">
+        <div class="visual-topbar">
+          <div class="formula"><em>F</em><sub>b</sub>(x,y) = d(x,[0,1])² + [y + b(x − ½)²]²</div>
+          <div class="legend" aria-label="Échelle colorée de racine de F"><span>0</span><span class="legend-gradient"></span><span>√F max</span></div>
+        </div>
+
+        <div class="plot-wrap" id="plotWrap" aria-label="Animation du flot de gradient sur le potentiel banane">
+          <canvas id="fieldCanvas"></canvas>
+          <canvas id="trailCanvas"></canvas>
+          <canvas id="particleCanvas"></canvas>
+          <span class="axis-tag axis-y">y : 2 → −2</span>
+          <span class="axis-tag axis-x">x : −1 → 2</span>
+          <div class="hover-card" id="hoverCard" aria-hidden="true">
+            <div class="hover-grid">
+              <span>x</span><span id="hoverX">0</span>
+              <span>y</span><span id="hoverY">0</span>
+              <span>F</span><span id="hoverF">0</span>
+              <span>‖∇F‖</span><span id="hoverG">0</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="visual-footer">
+          <span>Cliquer dans la figure ajoute une particule et recalcule sa trajectoire.</span>
+          <span class="footer-key">vallée F = 0</span>
+        </div>
+      </article>
+    </section>
+
+    <p class="page-note">Cette page reste utilisable sans réseau grâce au moteur JavaScript de secours. Pour exécuter réellement le noyau Python dans le navigateur, le premier chargement de Pyodide v314.0.2 doit pouvoir joindre son CDN officiel ; servez de préférence ce fichier par HTTP local.</p>
+  </main>
+
+  <script>
+    'use strict';
+
+    const DOMAIN = Object.freeze({ xmin: -1, xmax: 2, ymin: -2, ymax: 2 });
+    const TOTAL_FRAMES = 130;
+    const FRAME_COUNT = TOTAL_FRAMES + 1;
+    const SUBSTEPS = 20;
+    const TAU = 0.025;
+    const FIELD_N = 301;
+    const CONTOUR_COUNT = 25;
+    const MAX_PARTICLES = 180;
+    const PYODIDE_BASE = 'https://cdn.jsdelivr.net/pyodide/v314.0.2/full/';
+
+    const PYTHON_KERNEL = String.raw`
+from math import hypot
+
+def _gradient(x, y, bend):
+    if x < 0.0:
+        u = x
+    elif x > 1.0:
+        u = x - 1.0
+    else:
+        u = 0.0
+    z = y + bend * (x - 0.5) ** 2
+    return 2.0 * u + 4.0 * bend * (x - 0.5) * z, 2.0 * z
+
+def compute_flow(bend, mode, seed_values, frames=130, substeps=20, tau=0.025):
+    flat = [float(v) for v in seed_values]
+    xs = flat[0::2]
+    ys = flat[1::2]
+    count = len(xs)
+    positions = []
+    for i in range(count):
+        positions.extend((xs[i], ys[i]))
+
+    h = tau / substeps
+    normalized = str(mode) == 'normalized'
+    for _ in range(frames):
+        for _ in range(substeps):
+            for i in range(count):
+                gx, gy = _gradient(xs[i], ys[i], bend)
+                if normalized:
+                    length = hypot(gx, gy)
+                    if length > 1e-10:
+                        gx /= length
+                        gy /= length
+                    else:
+                        gx = gy = 0.0
+                xs[i] -= h * gx
+                ys[i] -= h * gy
+        for i in range(count):
+            positions.extend((xs[i], ys[i]))
+    return {'positions': positions, 'count': count, 'frames': frames}
+`;
+
+    const workerSource = `
+const PYODIDE_BASE = '${PYODIDE_BASE}';
+const PYTHON_KERNEL = ${JSON.stringify(PYTHON_KERNEL)};
+let computeFlow = null;
+let queuedRequest = null;
+
+self.onmessage = (event) => {
+  if (!event.data || event.data.type !== 'compute') return;
+  if (!computeFlow) {
+    queuedRequest = event.data;
+    return;
+  }
+  runCompute(event.data);
+};
+
+async function runCompute(message) {
+  const started = performance.now();
+  let proxy = null;
+  try {
+    proxy = computeFlow(
+      message.bend,
+      message.mode,
+      message.seeds,
+      message.frames,
+      message.substeps,
+      message.tau
+    );
+    const result = proxy.toJs({
+      create_proxies: false,
+      dict_converter: (entries) => Object.fromEntries(entries)
+    });
+    const positions = Float32Array.from(result.positions);
+    self.postMessage({
+      type: 'result',
+      generation: message.generation,
+      positions,
+      count: result.count,
+      frames: result.frames,
+      elapsed: performance.now() - started
+    }, [positions.buffer]);
+  } catch (error) {
+    self.postMessage({
+      type: 'compute-error',
+      generation: message.generation,
+      error: String(error && (error.stack || error.message) || error)
+    });
+  } finally {
+    if (proxy) proxy.destroy();
+  }
+}
+
+(async () => {
+  try {
+    const pyodideModule = await import(PYODIDE_BASE + 'pyodide.mjs');
+    const pyodide = await pyodideModule.loadPyodide({ indexURL: PYODIDE_BASE });
+    pyodide.runPython(PYTHON_KERNEL);
+    computeFlow = pyodide.globals.get('compute_flow');
+    self.postMessage({ type: 'ready', version: '314.0.2' });
+    if (queuedRequest) {
+      const request = queuedRequest;
+      queuedRequest = null;
+      runCompute(request);
+    }
+  } catch (error) {
+    self.postMessage({
+      type: 'load-error',
+      error: String(error && (error.stack || error.message) || error)
+    });
+  }
+})();
+`;
+
+    const $ = (selector) => document.querySelector(selector);
+    const elements = {
+      bend: $('#bendInput'),
+      bendValue: $('#bendValue'),
+      normalizedMode: $('#normalizedMode'),
+      trueMode: $('#trueMode'),
+      modeNote: $('#modeNote'),
+      play: $('#playButton'),
+      reset: $('#resetButton'),
+      replay: $('#replayButton'),
+      timeline: $('#timelineInput'),
+      frameReadout: $('#frameReadout'),
+      speed: $('#speedInput'),
+      speedValue: $('#speedValue'),
+      grid: $('#gridButton'),
+      particleCount: $('#particleCount'),
+      plot: $('#plotWrap'),
+      fieldCanvas: $('#fieldCanvas'),
+      trailCanvas: $('#trailCanvas'),
+      particleCanvas: $('#particleCanvas'),
+      hoverCard: $('#hoverCard'),
+      hoverX: $('#hoverX'),
+      hoverY: $('#hoverY'),
+      hoverF: $('#hoverF'),
+      hoverG: $('#hoverG'),
+      engine: $('#engineStatus'),
+      engineTitle: $('#engineTitle'),
+      engineDetail: $('#engineDetail')
+    };
+
+    const fieldContext = elements.fieldCanvas.getContext('2d', { alpha: false });
+    const trailContext = elements.trailCanvas.getContext('2d');
+    const particleContext = elements.particleCanvas.getContext('2d');
+
+    let bend = 1;
+    let mode = 'normalized';
+    let speed = 1;
+    let seeds = createGridSeeds();
+    let trajectory = null;
+    let trajectoryCount = seeds.length;
+    let fieldGrid = null;
+    let fieldMaximum = 1;
+    let plotSize = 640;
+    let pixelRatio = Math.min(window.devicePixelRatio || 1, 2.5);
+    let currentFrame = 0;
+    let playbackPosition = 0;
+    let playing = !window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    let lastAnimationTime = performance.now();
+    let generation = 0;
+    let pythonReady = false;
+    let pythonFailed = false;
+    let worker = null;
+    let bendTimer = null;
+    let resizeToken = 0;
+    let hoverPoint = null;
+    let fieldImageCanvas = null;
+
+    const parulaStops = [
+      [0.00, [53, 43, 132]],
+      [0.13, [39, 67, 157]],
+      [0.26, [26, 111, 181]],
+      [0.39, [18, 157, 184]],
+      [0.52, [47, 184, 143]],
+      [0.66, [117, 196, 91]],
+      [0.80, [197, 203, 52]],
+      [0.91, [238, 211, 48]],
+      [1.00, [250, 233, 65]]
+    ];
+
+    function createGridSeeds() {
+      const points = [];
+      for (let j = 1; j <= 9; j += 1) {
+        const y = DOMAIN.ymin + j * (DOMAIN.ymax - DOMAIN.ymin) / 10;
+        for (let i = 1; i <= 9; i += 1) {
+          const x = DOMAIN.xmin + i * (DOMAIN.xmax - DOMAIN.xmin) / 10;
+          points.push({ x, y, custom: false });
+        }
+      }
+      return points;
+    }
+
+    function potentialAndGradient(x, y, curvature = bend) {
+      const projected = Math.min(1, Math.max(0, x));
+      const u = x - projected;
+      const z = y + curvature * (x - 0.5) ** 2;
+      const gx = 2 * u + 4 * curvature * (x - 0.5) * z;
+      const gy = 2 * z;
+      return { f: u * u + z * z, gx, gy, norm: Math.hypot(gx, gy) };
+    }
+
+    function computeFlowJS(curvature, flowMode, seedPoints) {
+      const count = seedPoints.length;
+      const values = new Float32Array(FRAME_COUNT * count * 2);
+      const xs = new Float64Array(count);
+      const ys = new Float64Array(count);
+      for (let i = 0; i < count; i += 1) {
+        xs[i] = seedPoints[i].x;
+        ys[i] = seedPoints[i].y;
+        values[i * 2] = xs[i];
+        values[i * 2 + 1] = ys[i];
+      }
+      const h = TAU / SUBSTEPS;
+      for (let frame = 1; frame <= TOTAL_FRAMES; frame += 1) {
+        for (let substep = 0; substep < SUBSTEPS; substep += 1) {
+          for (let i = 0; i < count; i += 1) {
+            const gradient = potentialAndGradient(xs[i], ys[i], curvature);
+            let gx = gradient.gx;
+            let gy = gradient.gy;
+            if (flowMode === 'normalized') {
+              if (gradient.norm > 1e-10) {
+                gx /= gradient.norm;
+                gy /= gradient.norm;
+              } else {
+                gx = 0;
+                gy = 0;
+              }
+            }
+            xs[i] -= h * gx;
+            ys[i] -= h * gy;
+          }
+        }
+        const frameOffset = frame * count * 2;
+        for (let i = 0; i < count; i += 1) {
+          values[frameOffset + i * 2] = xs[i];
+          values[frameOffset + i * 2 + 1] = ys[i];
+        }
+      }
+      return values;
+    }
+
+    function flattenSeeds() {
+      const flat = new Float64Array(seeds.length * 2);
+      seeds.forEach((point, index) => {
+        flat[index * 2] = point.x;
+        flat[index * 2 + 1] = point.y;
+      });
+      return Array.from(flat);
+    }
+
+    function computeField() {
+      const values = new Float32Array(FIELD_N * FIELD_N);
+      let maximum = 0;
+      for (let row = 0; row < FIELD_N; row += 1) {
+        const y = DOMAIN.ymax - row * (DOMAIN.ymax - DOMAIN.ymin) / (FIELD_N - 1);
+        for (let column = 0; column < FIELD_N; column += 1) {
+          const x = DOMAIN.xmin + column * (DOMAIN.xmax - DOMAIN.xmin) / (FIELD_N - 1);
+          const r = Math.sqrt(potentialAndGradient(x, y, bend).f);
+          values[row * FIELD_N + column] = r;
+          if (r > maximum) maximum = r;
+        }
+      }
+      fieldGrid = values;
+      fieldMaximum = maximum || 1;
+      buildFieldImage();
+    }
+
+    function sampleParula(t) {
+      const clamped = Math.max(0, Math.min(1, t));
+      let stop = 1;
+      while (stop < parulaStops.length && clamped > parulaStops[stop][0]) stop += 1;
+      const upper = parulaStops[Math.min(stop, parulaStops.length - 1)];
+      const lower = parulaStops[Math.max(0, stop - 1)];
+      const span = upper[0] - lower[0] || 1;
+      const mix = (clamped - lower[0]) / span;
+      return lower[1].map((channel, index) => Math.round(channel + (upper[1][index] - channel) * mix));
+    }
+
+    function buildFieldImage() {
+      fieldImageCanvas = document.createElement('canvas');
+      fieldImageCanvas.width = FIELD_N;
+      fieldImageCanvas.height = FIELD_N;
+      const context = fieldImageCanvas.getContext('2d', { alpha: false });
+      const image = context.createImageData(FIELD_N, FIELD_N);
+      for (let index = 0; index < fieldGrid.length; index += 1) {
+        const color = sampleParula(fieldGrid[index] / fieldMaximum);
+        image.data[index * 4] = color[0];
+        image.data[index * 4 + 1] = color[1];
+        image.data[index * 4 + 2] = color[2];
+        image.data[index * 4 + 3] = 255;
+      }
+      context.putImageData(image, 0, 0);
+    }
+
+    function configureCanvas(canvas, context) {
+      const width = Math.max(2, Math.round(plotSize * pixelRatio));
+      if (canvas.width !== width || canvas.height !== width) {
+        canvas.width = width;
+        canvas.height = width;
+      }
+      context.setTransform(pixelRatio, 0, 0, pixelRatio, 0, 0);
+      context.lineCap = 'round';
+      context.lineJoin = 'round';
+    }
+
+    function resizeCanvases() {
+      const bounds = elements.plot.getBoundingClientRect();
+      plotSize = Math.max(2, Math.round(bounds.width));
+      pixelRatio = Math.min(window.devicePixelRatio || 1, 2.5);
+      configureCanvas(elements.fieldCanvas, fieldContext);
+      configureCanvas(elements.trailCanvas, trailContext);
+      configureCanvas(elements.particleCanvas, particleContext);
+      renderAll();
+    }
+
+    function worldToCanvas(x, y) {
+      return {
+        x: (x - DOMAIN.xmin) / (DOMAIN.xmax - DOMAIN.xmin) * plotSize,
+        y: (DOMAIN.ymax - y) / (DOMAIN.ymax - DOMAIN.ymin) * plotSize
+      };
+    }
+
+    function canvasToWorld(x, y) {
+      return {
+        x: DOMAIN.xmin + x / plotSize * (DOMAIN.xmax - DOMAIN.xmin),
+        y: DOMAIN.ymax - y / plotSize * (DOMAIN.ymax - DOMAIN.ymin)
+      };
+    }
+
+    function contourPoint(edge, column, row, level, v00, v10, v11, v01) {
+      let x = column;
+      let y = row;
+      let a = 0;
+      let b = 1;
+      if (edge === 0) { a = v00; b = v10; x += ratio(level, a, b); }
+      if (edge === 1) { a = v10; b = v11; x += 1; y += ratio(level, a, b); }
+      if (edge === 2) { a = v01; b = v11; x += ratio(level, a, b); y += 1; }
+      if (edge === 3) { a = v00; b = v01; y += ratio(level, a, b); }
+      return { x: x / (FIELD_N - 1) * plotSize, y: y / (FIELD_N - 1) * plotSize };
+    }
+
+    function ratio(level, a, b) {
+      const denominator = b - a;
+      return Math.abs(denominator) < 1e-12 ? 0.5 : Math.max(0, Math.min(1, (level - a) / denominator));
+    }
+
+    const contourCases = [
+      [], [[3, 2]], [[2, 1]], [[3, 1]], [[0, 1]],
+      [[0, 3], [2, 1]], [[0, 2]], [[0, 3]], [[3, 0]],
+      [[0, 2]], [[0, 1], [3, 2]], [[0, 1]], [[3, 1]],
+      [[2, 1]], [[3, 2]], []
+    ];
+
+    function drawContours() {
+      fieldContext.save();
+      fieldContext.beginPath();
+      for (let levelIndex = 1; levelIndex <= CONTOUR_COUNT; levelIndex += 1) {
+        const level = fieldMaximum * levelIndex / (CONTOUR_COUNT + 1);
+        for (let row = 0; row < FIELD_N - 1; row += 1) {
+          const rowOffset = row * FIELD_N;
+          const nextOffset = rowOffset + FIELD_N;
+          for (let column = 0; column < FIELD_N - 1; column += 1) {
+            const v00 = fieldGrid[rowOffset + column];
+            const v10 = fieldGrid[rowOffset + column + 1];
+            const v11 = fieldGrid[nextOffset + column + 1];
+            const v01 = fieldGrid[nextOffset + column];
+            const mask = (v00 >= level ? 8 : 0) | (v10 >= level ? 4 : 0) |
+              (v11 >= level ? 2 : 0) | (v01 >= level ? 1 : 0);
+            for (const segment of contourCases[mask]) {
+              const start = contourPoint(segment[0], column, row, level, v00, v10, v11, v01);
+              const end = contourPoint(segment[1], column, row, level, v00, v10, v11, v01);
+              fieldContext.moveTo(start.x, start.y);
+              fieldContext.lineTo(end.x, end.y);
+            }
+          }
+        }
+      }
+      fieldContext.strokeStyle = 'rgba(7, 20, 31, .60)';
+      fieldContext.lineWidth = Math.max(.55, plotSize / 1000);
+      fieldContext.stroke();
+      fieldContext.restore();
+    }
+
+    function drawZeroSet() {
+      fieldContext.save();
+      fieldContext.beginPath();
+      for (let sample = 0; sample <= 160; sample += 1) {
+        const x = sample / 160;
+        const y = -bend * (x - 0.5) ** 2;
+        const point = worldToCanvas(x, y);
+        if (sample === 0) fieldContext.moveTo(point.x, point.y);
+        else fieldContext.lineTo(point.x, point.y);
+      }
+      fieldContext.strokeStyle = 'rgba(255, 255, 255, .92)';
+      fieldContext.lineWidth = Math.max(3.4, plotSize / 170);
+      fieldContext.stroke();
+      fieldContext.strokeStyle = 'rgba(4, 83, 81, .96)';
+      fieldContext.lineWidth = Math.max(1.25, plotSize / 480);
+      fieldContext.stroke();
+      fieldContext.restore();
+    }
+
+    function drawField() {
+      if (!fieldGrid || !fieldImageCanvas) return;
+      fieldContext.clearRect(0, 0, plotSize, plotSize);
+      fieldContext.imageSmoothingEnabled = true;
+      fieldContext.drawImage(fieldImageCanvas, 0, 0, plotSize, plotSize);
+      drawContours();
+      drawZeroSet();
+    }
+
+    function trajectoryPosition(frame, index) {
+      const offset = (frame * trajectoryCount + index) * 2;
+      return { x: trajectory[offset], y: trajectory[offset + 1] };
+    }
+
+    function mixColor(t) {
+      const a = [23, 61, 246];
+      const b = [239, 55, 129];
+      const eased = Math.max(0, Math.min(1, t));
+      return a.map((channel, index) => Math.round(channel + (b[index] - channel) * eased));
+    }
+
+    function drawTrails() {
+      trailContext.clearRect(0, 0, plotSize, plotSize);
+      if (!trajectory || currentFrame < 1) return;
+      const chunks = Math.min(9, currentFrame);
+      trailContext.save();
+      trailContext.globalCompositeOperation = 'source-over';
+      for (let chunk = 0; chunk < chunks; chunk += 1) {
+        const startFrame = Math.floor(chunk * currentFrame / chunks);
+        const endFrame = Math.max(startFrame + 1, Math.floor((chunk + 1) * currentFrame / chunks));
+        const color = mixColor((startFrame + endFrame) / (2 * TOTAL_FRAMES));
+        trailContext.beginPath();
+        for (let particle = 0; particle < trajectoryCount; particle += 1) {
+          let previous = worldToCanvas(
+            trajectoryPosition(startFrame, particle).x,
+            trajectoryPosition(startFrame, particle).y
+          );
+          trailContext.moveTo(previous.x, previous.y);
+          for (let frame = startFrame + 1; frame <= endFrame; frame += 1) {
+            const position = trajectoryPosition(frame, particle);
+            const mapped = worldToCanvas(position.x, position.y);
+            trailContext.lineTo(mapped.x, mapped.y);
+            previous = mapped;
+          }
+        }
+        trailContext.strokeStyle = `rgba(${color[0]}, ${color[1]}, ${color[2]}, .48)`;
+        trailContext.lineWidth = Math.max(1.15, plotSize / 510);
+        trailContext.stroke();
+      }
+      trailContext.restore();
+    }
+
+    function drawParticles() {
+      particleContext.clearRect(0, 0, plotSize, plotSize);
+      if (!trajectory) return;
+      const progress = currentFrame / TOTAL_FRAMES;
+      const color = mixColor(progress);
+      const radius = Math.max(3.8, Math.min(7, plotSize / 105));
+      particleContext.save();
+      particleContext.shadowColor = 'rgba(4, 20, 74, .22)';
+      particleContext.shadowBlur = radius * 1.35;
+      particleContext.shadowOffsetY = 1.5;
+      particleContext.fillStyle = `rgb(${color[0]}, ${color[1]}, ${color[2]})`;
+      for (let particle = 0; particle < trajectoryCount; particle += 1) {
+        const position = trajectoryPosition(currentFrame, particle);
+        const mapped = worldToCanvas(position.x, position.y);
+        if (mapped.x < -radius || mapped.x > plotSize + radius || mapped.y < -radius || mapped.y > plotSize + radius) continue;
+        particleContext.beginPath();
+        particleContext.arc(mapped.x, mapped.y, radius, 0, Math.PI * 2);
+        particleContext.fill();
+        if (seeds[particle] && seeds[particle].custom) {
+          particleContext.shadowColor = 'transparent';
+          particleContext.strokeStyle = 'rgba(255, 255, 255, .9)';
+          particleContext.lineWidth = 1.4;
+          particleContext.stroke();
+          particleContext.shadowColor = 'rgba(4, 20, 74, .22)';
+        }
+      }
+      particleContext.restore();
+      if (hoverPoint) drawCrosshair();
+    }
+
+    function drawCrosshair() {
+      const point = worldToCanvas(hoverPoint.x, hoverPoint.y);
+      particleContext.save();
+      particleContext.setLineDash([3, 5]);
+      particleContext.strokeStyle = 'rgba(255,255,255,.45)';
+      particleContext.lineWidth = 1;
+      particleContext.beginPath();
+      particleContext.moveTo(point.x, 0);
+      particleContext.lineTo(point.x, plotSize);
+      particleContext.moveTo(0, point.y);
+      particleContext.lineTo(plotSize, point.y);
+      particleContext.stroke();
+      particleContext.restore();
+    }
+
+    function renderDynamic() {
+      drawTrails();
+      drawParticles();
+      updateFrameReadout();
+    }
+
+    function renderAll() {
+      drawField();
+      renderDynamic();
+    }
+
+    function updateFrameReadout() {
+      elements.timeline.value = String(currentFrame);
+      elements.frameReadout.value = `${currentFrame} / ${TOTAL_FRAMES}`;
+      elements.frameReadout.textContent = `${currentFrame} / ${TOTAL_FRAMES}`;
+    }
+
+    function updatePlayButton() {
+      elements.play.textContent = playing ? 'Pause' : 'Lire';
+      elements.play.setAttribute('aria-label', playing ? 'Mettre en pause' : 'Lire l’animation');
+    }
+
+    function setEngineStatus(state, title, detail) {
+      elements.engine.dataset.state = state;
+      elements.engineTitle.textContent = title;
+      elements.engineDetail.textContent = detail;
+    }
+
+    function requestFlow({ resetFrame = true } = {}) {
+      generation += 1;
+      const requestedGeneration = generation;
+      computeField();
+      if (resetFrame) {
+        currentFrame = 0;
+        playbackPosition = 0;
+      }
+      elements.particleCount.textContent = String(seeds.length);
+      renderAll();
+
+      if (pythonReady && worker) {
+        setEngineStatus('python', 'Python · calcul en cours', 'Pyodide v314.0.2 travaille dans un worker isolé.');
+        worker.postMessage({
+          type: 'compute',
+          generation: requestedGeneration,
+          bend,
+          mode,
+          seeds: flattenSeeds(),
+          frames: TOTAL_FRAMES,
+          substeps: SUBSTEPS,
+          tau: TAU
+        });
+      } else {
+        trajectory = computeFlowJS(bend, mode, seeds);
+        trajectoryCount = seeds.length;
+        renderDynamic();
+      }
+    }
+
+    function applyPythonTrajectory(message) {
+      if (message.generation !== generation) return;
+      trajectory = message.positions;
+      trajectoryCount = message.count;
+      setEngineStatus('python', 'Moteur Python actif', `Pyodide v314.0.2 · ${Math.round(message.elapsed)} ms · worker isolé`);
+      renderDynamic();
+    }
+
+    function startPythonWorker() {
+      try {
+        const blob = new Blob([workerSource], { type: 'text/javascript' });
+        const url = URL.createObjectURL(blob);
+        worker = new Worker(url, { type: 'module', name: 'banana-python-kernel' });
+        URL.revokeObjectURL(url);
+
+        worker.onmessage = (event) => {
+          const message = event.data || {};
+          if (message.type === 'ready') {
+            pythonReady = true;
+            pythonFailed = false;
+            setEngineStatus('python', 'Moteur Python prêt', `Pyodide v${message.version} · calcul dans un worker isolé`);
+            const wasPlaying = playing;
+            const savedProgress = playbackPosition;
+            requestFlow({ resetFrame: false });
+            playbackPosition = savedProgress;
+            currentFrame = Math.floor(savedProgress);
+            playing = wasPlaying;
+            return;
+          }
+          if (message.type === 'result') {
+            applyPythonTrajectory(message);
+            return;
+          }
+          if (message.type === 'load-error') {
+            pythonFailed = true;
+            pythonReady = false;
+            setEngineStatus('fallback', 'Mode autonome JavaScript', 'Pyodide est inaccessible ; la même équation reste entièrement interactive.');
+            return;
+          }
+          if (message.type === 'compute-error') {
+            pythonFailed = true;
+            pythonReady = false;
+            trajectory = computeFlowJS(bend, mode, seeds);
+            trajectoryCount = seeds.length;
+            setEngineStatus('fallback', 'Relais JavaScript activé', 'Le calcul Python a échoué ; la trajectoire a été recalculée localement.');
+            renderDynamic();
+          }
+        };
+
+        worker.onerror = () => {
+          pythonFailed = true;
+          pythonReady = false;
+          setEngineStatus('fallback', 'Mode autonome JavaScript', 'Le worker Python est bloqué ; la visualisation reste fonctionnelle hors ligne.');
+        };
+
+        window.setTimeout(() => {
+          if (!pythonReady && !pythonFailed) {
+            setEngineStatus('loading', 'Python se charge en arrière-plan…', 'Réseau lent ou cache froid ; le moteur JavaScript assure déjà l’animation.');
+          }
+        }, 12000);
+      } catch (error) {
+        pythonFailed = true;
+        setEngineStatus('fallback', 'Mode autonome JavaScript', 'Ce navigateur bloque le worker Python ; le calcul de secours est actif.');
+      }
+    }
+
+    function setMode(nextMode) {
+      if (mode === nextMode) return;
+      mode = nextMode;
+      elements.normalizedMode.setAttribute('aria-pressed', String(mode === 'normalized'));
+      elements.trueMode.setAttribute('aria-pressed', String(mode === 'true'));
+      elements.modeNote.textContent = mode === 'normalized'
+        ? 'Vitesse constante le long de −∇F/‖∇F‖, comme dans le script MATLAB.'
+        : 'Flot physique dX/dt = −∇F : rapide sur les pentes fortes, lent près de la vallée.';
+      requestFlow();
+    }
+
+    elements.bend.addEventListener('input', () => {
+      bend = Number(elements.bend.value);
+      elements.bendValue.value = bend.toFixed(2);
+      elements.bendValue.textContent = bend.toFixed(2);
+      window.clearTimeout(bendTimer);
+      bendTimer = window.setTimeout(() => requestFlow(), 85);
+    });
+
+    elements.normalizedMode.addEventListener('click', () => setMode('normalized'));
+    elements.trueMode.addEventListener('click', () => setMode('true'));
+
+    elements.play.addEventListener('click', () => {
+      if (currentFrame >= TOTAL_FRAMES) {
+        currentFrame = 0;
+        playbackPosition = 0;
+      }
+      playing = !playing;
+      lastAnimationTime = performance.now();
+      updatePlayButton();
+      renderDynamic();
+    });
+
+    elements.reset.addEventListener('click', () => {
+      playing = false;
+      currentFrame = 0;
+      playbackPosition = 0;
+      updatePlayButton();
+      renderDynamic();
+    });
+
+    elements.replay.addEventListener('click', () => {
+      currentFrame = 0;
+      playbackPosition = 0;
+      playing = true;
+      lastAnimationTime = performance.now();
+      updatePlayButton();
+      renderDynamic();
+    });
+
+    elements.timeline.addEventListener('input', () => {
+      playing = false;
+      currentFrame = Number(elements.timeline.value);
+      playbackPosition = currentFrame;
+      updatePlayButton();
+      renderDynamic();
+    });
+
+    elements.speed.addEventListener('input', () => {
+      speed = Number(elements.speed.value);
+      const label = Number.isInteger(speed) ? `${speed}×` : `${speed.toFixed(2).replace(/0$/, '')}×`;
+      elements.speedValue.value = label;
+      elements.speedValue.textContent = label;
+    });
+
+    elements.grid.addEventListener('click', () => {
+      seeds = createGridSeeds();
+      requestFlow();
+    });
+
+    function pointerCoordinates(event) {
+      const rect = elements.plot.getBoundingClientRect();
+      return {
+        x: Math.max(0, Math.min(plotSize, event.clientX - rect.left)),
+        y: Math.max(0, Math.min(plotSize, event.clientY - rect.top))
+      };
+    }
+
+    elements.particleCanvas.addEventListener('pointermove', (event) => {
+      const local = pointerCoordinates(event);
+      hoverPoint = canvasToWorld(local.x, local.y);
+      const sample = potentialAndGradient(hoverPoint.x, hoverPoint.y);
+      elements.hoverX.textContent = hoverPoint.x.toFixed(3);
+      elements.hoverY.textContent = hoverPoint.y.toFixed(3);
+      elements.hoverF.textContent = sample.f.toFixed(4);
+      elements.hoverG.textContent = sample.norm.toFixed(4);
+      const cardWidth = 170;
+      const cardHeight = 92;
+      const tx = local.x > plotSize - cardWidth - 22 ? local.x - cardWidth - 12 : local.x + 12;
+      const ty = local.y > plotSize - cardHeight - 22 ? local.y - cardHeight - 12 : local.y + 12;
+      elements.hoverCard.style.transform = `translate(${tx}px, ${ty}px)`;
+      elements.hoverCard.classList.add('visible');
+      elements.hoverCard.setAttribute('aria-hidden', 'false');
+      drawParticles();
+    });
+
+    elements.particleCanvas.addEventListener('pointerleave', () => {
+      hoverPoint = null;
+      elements.hoverCard.classList.remove('visible');
+      elements.hoverCard.setAttribute('aria-hidden', 'true');
+      drawParticles();
+    });
+
+    elements.particleCanvas.addEventListener('click', (event) => {
+      if (seeds.length >= MAX_PARTICLES) {
+        setEngineStatus(pythonReady ? 'python' : 'fallback', 'Limite de particules atteinte', `Maximum : ${MAX_PARTICLES} points pour préserver la fluidité.`);
+        return;
+      }
+      const local = pointerCoordinates(event);
+      const point = canvasToWorld(local.x, local.y);
+      seeds = seeds.concat({ x: point.x, y: point.y, custom: true });
+      requestFlow();
+    });
+
+    const resizeObserver = new ResizeObserver(() => {
+      window.cancelAnimationFrame(resizeToken);
+      resizeToken = window.requestAnimationFrame(resizeCanvases);
+    });
+    resizeObserver.observe(elements.plot);
+
+    function animationLoop(now) {
+      const elapsed = Math.min(100, now - lastAnimationTime);
+      lastAnimationTime = now;
+      if (playing && trajectory) {
+        const advance = elapsed / (1000 / 30) * speed;
+        playbackPosition = Math.min(TOTAL_FRAMES, playbackPosition + advance);
+        const rounded = Math.floor(playbackPosition);
+        if (rounded !== currentFrame) {
+          currentFrame = rounded;
+          renderDynamic();
+        }
+        if (playbackPosition >= TOTAL_FRAMES) {
+          currentFrame = TOTAL_FRAMES;
+          playing = false;
+          updatePlayButton();
+          renderDynamic();
+        }
+      }
+      window.requestAnimationFrame(animationLoop);
+    }
+
+    computeField();
+    trajectory = computeFlowJS(bend, mode, seeds);
+    updatePlayButton();
+    resizeCanvases();
+    startPythonWorker();
+    window.requestAnimationFrame(animationLoop);
+  </script>
+</body>
+</html>
